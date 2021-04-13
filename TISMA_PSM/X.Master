@@ -1,0 +1,115 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="X.master.cs" Inherits="TISMA_PSM.X" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TISMA</title>
+
+    <!--CSS Bootstrap-->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <!--CSS Fontawesome-->
+    <link rel="stylesheet" href="fontawesome/css/all.css" />
+    <!--CSS DataTables-->
+    <link href="datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+    <!--CSS Custom-->
+    <link href="custom/css/x.css" rel="stylesheet" />
+
+    <!--JS bootstrap-->
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!--jQuery-->
+    <script src="bootstrap/js/jquery-3.4.1.min.js"></script>
+    <!--JS DataTables-->
+    <script src="datatables/js/jquery.dataTables.min.js"></script>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand" href="#">E-Library
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle Navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="Dashboard.aspx">TISMA</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="X-Modal-Test.aspx">Modal Test</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="X-Home.aspx">Home</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">About Us</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Terms</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <asp:LinkButton runat="server" CssClass="nav-link" ID="LinkButton4">View Books</asp:LinkButton>
+                        </li>
+                        <li class="nav-item active">
+                            <asp:LinkButton runat="server" CssClass="nav-link" ID="LinkButton1">User Login</asp:LinkButton>
+                        </li>
+                        <li class="nav-item active">
+                            <asp:LinkButton runat="server" CssClass="nav-link" ID="LinkButton2">Sign Up</asp:LinkButton>
+                        </li>
+                        <li class="nav-item active">
+                            <asp:LinkButton runat="server" CssClass="nav-link" ID="LinkButton3">Logout</asp:LinkButton>
+                        </li>
+                        <li class="nav-item active">
+                            <asp:LinkButton runat="server" CssClass="nav-link" ID="LinkButton7">Hello User</asp:LinkButton>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+        <footer>
+            <div id="footer1" class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                        <p>
+                            <asp:LinkButton runat="server" CssClass="footerlinks" ID="LinkButton6">Admin Login</asp:LinkButton>
+                            &nbsp;
+                            <asp:LinkButton runat="server" CssClass="footerlinks" ID="LinkButton11">Author Management</asp:LinkButton>
+                            &nbsp;
+                            <asp:LinkButton runat="server" CssClass="footerlinks" ID="LinkButton12">Publisher Management</asp:LinkButton>
+                            &nbsp;
+                            <asp:LinkButton runat="server" CssClass="footerlinks" ID="LinkButton8">Book Inventory</asp:LinkButton>
+                            &nbsp;
+                            <asp:LinkButton runat="server" CssClass="footerlinks" ID="LinkButton9">Book Issuing</asp:LinkButton>
+                            &nbsp;
+                            <asp:LinkButton runat="server" CssClass="footerlinks" ID="LinkButton10">Member Management</asp:LinkButton>
+                            &nbsp;
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id="footer2" class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                        <p style="color: whitesmoke">
+                            &copy All rights reserved. <a class="footerlinks" href="#" target="_blank">Simple Snippets</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </form>
+</body>
+</html>

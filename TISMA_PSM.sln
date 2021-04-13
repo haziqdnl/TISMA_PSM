@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TISMA_PSM", "TISMA_PSM\TISMA_PSM.csproj", "{05D12A7B-4459-4AE6-8DC1-BD7D9A55546F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05D12A7B-4459-4AE6-8DC1-BD7D9A55546F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05D12A7B-4459-4AE6-8DC1-BD7D9A55546F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05D12A7B-4459-4AE6-8DC1-BD7D9A55546F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05D12A7B-4459-4AE6-8DC1-BD7D9A55546F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D8E421EA-794D-45F2-8C66-F39DB8821B39}
+	EndGlobalSection
+EndGlobal

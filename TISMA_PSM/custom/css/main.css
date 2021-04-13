@@ -1,0 +1,341 @@
+﻿/*
+    NOTE:
+    1. If CSS not refreshed: 'ctrl + F5'
+*/
+
+/*###################################################################################   MASTER CSS  */
+/****************************************/
+/*                COMMON                */
+/****************************************/
+body {
+    background:  #cadddd; /*Light Blue*/
+}
+
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+}
+
+table {
+    text-align: center;
+}
+
+th {
+    border: 1px solid #fff; /*White*/
+    border-collapse: collapse;
+}
+
+.Background {
+    background-color: Black;
+    filter: opacity(70);
+    opacity: 0.8;
+}
+
+.Popup  {
+    background-color: #FFFFFF;
+    width: auto;
+    height: auto;
+}
+
+
+/****************************************/
+/*             MAIN CONTENT             */
+/****************************************/
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+/****************************************/
+/*                SIDEBAR               */
+/****************************************/
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -12rem;
+    -webkit-transition: margin 0.25s ease-out;
+    -moz-transition: margin 0.25s ease-out;
+    -o-transition: margin 0.25s ease-out;
+    transition: margin 0.25s ease-out;
+    background: #272c33; /*Dark Grey*/
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.735rem 1.5rem;
+    font-size: 1.264rem;
+    font-weight: 700;
+    color: #fff; /*White*/
+    background: #5c001f; /*Maroon*/
+}
+
+#sidebar-wrapper .list-group {
+    width: 12rem;
+}
+
+#sidebar-wrapper .sidebar-icon {
+    margin-right: 10px;
+    color: #fff; /*White*/
+}
+
+#sidebar-wrapper .list-group-item {
+    background: #272c33; /*Dark Grey*/
+    color: #fff; /*White*/
+}
+
+#sidebar-wrapper .list-group-item-action:hover {
+    background: #000000; /*Black*/
+    color: #fff; /*White*/
+}
+
+/****************************************/
+/*                TOPBAR                */
+/****************************************/
+#topbar-custom {
+    background: #5c001f; /*Maroon*/
+    padding-right: 20px;
+    padding-left: 15px;
+}
+
+.topbar-profile {
+    color: #fff; /*White*/
+}
+
+.topbar-profile:hover {
+    color: #808080; /*Grey*/
+    transition: all 0.8s;
+}
+
+.topbar-profile i {
+    margin-right: 2px;
+    vertical-align: middle;
+}
+
+/****************************************/
+/*                FOOTER                */
+/****************************************/
+#footer-custom {
+    position: fixed;
+    bottom: 0;
+    font-size: 11px;
+}
+
+#footer-custom p {
+    padding-left: 0.5rem;
+    padding-top: 1rem;
+}
+
+/****************************************/
+/*             @MEDIA CSS               */
+/****************************************/
+@media(min-width: 768px) {
+
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -12rem;
+    }
+}
+
+
+/*###################################################################################   DASHBOARD CSS */
+/****************************************/
+/*                 CARD                 */
+/****************************************/
+#dashboard .card {
+    color: #fff; /*White*/
+    border: none;
+    font-weight: 100;
+}
+
+#dashboard .card h5 {
+    font-size: 14px;
+}
+
+#dashboard .card-body {
+    padding: 1rem 0.5rem 1rem 0.5rem;
+}
+
+/****************************************/
+/*            GOOGLE CALENDAR           */
+/****************************************/
+#g-calendar {
+    border-top: 5px solid;
+    border-top-color: #0068b4; /*Blue*/
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background: #fff; /*White*/
+}
+
+
+/*###################################################################################   QUEUE LIST CSS */
+/****************************************/
+/*          QUEUE LIST CONTENT          */
+/****************************************/
+#q-list-content {
+    border-top: 5px solid;
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff;
+}
+
+#q-list-content .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+#q-list-content .card-body {
+    background: #eaeaea; /*Grey*/
+}
+
+#q-list-table thead {
+    background: #5c001f; /*Maroon*/
+    color: #fff;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+
+#q-list-table tbody {
+    font-size: 14px;
+}
+
+
+/*###################################################################################   QMS CSS */
+/****************************************/
+/*              QMS CONTENT             */
+/****************************************/
+#qms-content-1 {
+    border-top: 5px solid;
+    border-top-color: #808080; /*Grey*/
+    background: #fff;
+}
+
+#qms-content-1 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+#qms-content-1 .card-body {
+    color: #0072c6;
+    padding: 0.4rem 0 0.4rem 0;
+}
+
+#qms-content-2 {
+    background: #fff; /*White*/
+}
+
+#qms-content-2 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 0;
+    background: #bf3a3a; /*Light Red*/
+}
+
+#qms-content-2 span {
+    font-size: 13px;
+    color: #fff; /*White*/
+}
+
+#qms-content-2 .card-body {
+    background: #eaeaea; /*Grey*/
+}
+
+#qms-content-2 .card-body input {
+    font-size: 15px;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    text-align: center;
+}
+
+#qms-content-2 .card-body button {
+    font-size: 15px;
+    padding: 0.3rem 1rem 0.3rem 1rem ;
+    color: #fff; /*White*/
+    background: #0068b4; /*Blue*/
+    border: none;
+}
+
+#qms-table thead {
+    background: #5c001f; /*Maroon*/
+    color: #fff;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+#qms-table tbody {
+    font-size: 14px;
+}
+
+
+/*###################################################################################   REGISTRATION CSS */
+/****************************************/
+/*         REGISTRATION CONTENT         */
+/****************************************/
+#registration-content {
+    border-top: 5px solid;
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff;
+}
+
+#registration-content .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    background: #0072c6; /*Blue*/
+    color: #fff; /*White*/
+}
+
+#registration-content .card span {
+    font-weight: 500;
+}
+
+#registration-content .Popup .card {
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    color: #000;
+    background: #fff;
+}
+
+#registration-content .Popup .card-body {
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+#display-table thead {
+    background: #5c001f; /*Maroon*/
+    color: #fff;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+#display-table tbody {
+    font-size: 14px;
+}
+
+#registration-table thead {
+    background: #5c001f; /*Maroon*/
+    color: #fff;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+#registration-table tbody {
+    font-size: 14px;
+}
