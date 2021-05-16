@@ -2,18 +2,12 @@
     NOTE:
     1. If CSS not refreshed: 'ctrl + F5'
 */
-
-/*###################################################################################   MASTER CSS  */
-/****************************************/
-/*                COMMON                */
-/****************************************/
+/*###################################################################################   GLOBAL CSS  */
 body {
-    background:  #cadddd; /*Light Blue*/
+    background: #cadddd; /*Light Blue*/
 }
 
-a,
-a:hover,
-a:focus {
+a, a:hover, a:focus {
     color: inherit;
     text-decoration: none;
 }
@@ -27,19 +21,99 @@ th {
     border-collapse: collapse;
 }
 
+thead {
+    background: #5c001f; /*Maroon*/
+    color: #fff; /*White*/
+    font-size: 14px;
+    font-weight: 300;
+}
+
+tbody {
+    font-size: 14px;
+}
+
 .Background {
-    background-color: Black;
+    background-color: #000; /*Black*/
     filter: opacity(70);
     opacity: 0.8;
 }
 
-.Popup  {
-    background-color: #FFFFFF;
+.Popup {
+    background-color: #fff; /*White*/
     width: auto;
     height: auto;
 }
 
+.content-p-custom {
+    padding: 1.5rem 1rem 1.5rem 1rem;
+}
 
+.header-p-custom {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.subheader-custom {
+    font-size: 12px;
+    padding-bottom: 0.5rem;
+}
+
+.dropdown-custom {
+    padding: 0 0.6rem 0 0.6rem;
+    border: 1px solid lightgrey;
+    height: 30px;
+    width: auto;
+    color: #000; /**Black*/
+    background: lightgray;
+}
+
+.textbox-custom {
+    padding: 0 0.6rem 0 0.6rem;
+    border: 1px solid lightgrey;
+    height: 30px;
+}
+
+.disabled-textbox {
+    color: #000; /**Black*/
+    background: lightgray;
+    font-weight: 400;
+}
+
+.btn-custom {
+    height: 32px;
+    width: auto;
+    border: none;
+    padding: 0 1rem 0 1rem;
+    border-radius: 4px 5px;
+}
+
+.btn-custom:hover{
+    opacity: 0.65;
+    transition: 0.4s;
+}
+
+.note {
+    border-left: 5px solid;
+    border-left-color: #ff0000; /*Maroon*/
+    background: #ff9346; /*Orange*/
+    color: #fff; /*White*/
+}
+
+.dataTables_wrapper .dataTables_filter {
+    float: left;
+}
+
+.dataTables_wrapper .dataTables_length {
+    float: right;
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+    width: 500px;
+    padding: 0 0.6rem 0 0.6rem;
+}
+
+
+/*###################################################################################   MASTER CSS  */
 /****************************************/
 /*             MAIN CONTENT             */
 /****************************************/
@@ -150,7 +224,7 @@ th {
 
 /*###################################################################################   DASHBOARD CSS */
 /****************************************/
-/*                 CARD                 */
+/*           DASHBOARD CONTENT          */
 /****************************************/
 #dashboard .card {
     color: #fff; /*White*/
@@ -180,7 +254,7 @@ th {
 
 /*###################################################################################   QUEUE LIST CSS */
 /****************************************/
-/*          QUEUE LIST CONTENT          */
+/*           QUEUE LIST CONTENT         */
 /****************************************/
 #q-list-content {
     border-top: 5px solid;
@@ -197,18 +271,6 @@ th {
 
 #q-list-content .card-body {
     background: #eaeaea; /*Grey*/
-}
-
-#q-list-table thead {
-    background: #5c001f; /*Maroon*/
-    color: #fff;
-    font-size: 14px;
-    font-weight: 300;
-}
-
-
-#q-list-table tbody {
-    font-size: 14px;
 }
 
 
@@ -271,15 +333,40 @@ th {
     border: none;
 }
 
-#qms-table thead {
-    background: #5c001f; /*Maroon*/
-    color: #fff;
-    font-size: 14px;
-    font-weight: 300;
+
+/*###################################################################################   STAFF CSS */
+/****************************************/
+/*         REGISTRATION CONTENT         */
+/****************************************/
+#staff-content {
+    border-top: 5px solid;
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff; /*White*/
 }
 
-#qms-table tbody {
-    font-size: 14px;
+#staff-content .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    background: #0072c6; /*Blue*/
+    color: #fff; /*White*/
+}
+
+#staff-content .card span {
+    font-weight: 500;
+}
+
+#staff-content .Popup .card {
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    color: #000;
+    background: #fff;
+}
+
+#staff-content .Popup .card-body {
+    padding: 1rem 1rem 1rem 1rem;
 }
 
 
@@ -290,7 +377,7 @@ th {
 #registration-content {
     border-top: 5px solid;
     border-top-color: #5c001f; /*Maroon*/
-    background: #fff;
+    background: #fff; /*White*/
 }
 
 #registration-content .card {
@@ -318,24 +405,54 @@ th {
     padding: 1rem 1rem 1rem 1rem;
 }
 
-#display-table thead {
-    background: #5c001f; /*Maroon*/
-    color: #fff;
-    font-size: 14px;
-    font-weight: 300;
+
+/*###################################################################################   REGISTRATION-NEW CSS */
+/****************************************/
+/*       REGISTRATION NEW CONTENT       */
+/****************************************/
+#registration-new-content-1 {
+    border-top: 5px solid;
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff; /*White*/
 }
 
-#display-table tbody {
+#registration-new-content-1 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    background: #0072c6; /*Blue*/
+    color: #fff; /*White*/
+}
+
+#registration-new-content-1 .card span {
+    font-weight: 500;
+}
+
+#registration-new-content-2 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+}
+
+#registration-new-content-2 .col-2 .card {
+    border-top: 5px solid;
+    border-top-color: #0072c6; /*Blue*/
+}
+
+#registration-new-content-2 img {
+    max-height: 170px;
+    max-width: 170px;
+}
+
+#registration-new-content-2 h6 {
     font-size: 14px;
 }
 
-#registration-table thead {
-    background: #5c001f; /*Maroon*/
-    color: #fff;
-    font-size: 14px;
-    font-weight: 300;
+#registration-new-content-2 h5 {
+    font-size: 16px;
 }
 
-#registration-table tbody {
-    font-size: 14px;
+#registration-new-content-2 .card span {
+    font-weight: 500;
 }
+

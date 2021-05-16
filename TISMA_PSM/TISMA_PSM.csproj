@@ -1752,9 +1752,12 @@
     <Content Include="fontawesome\webfonts\fa-solid-900.svg" />
     <Content Include="Logout.aspx" />
     <Content Include="OPD.aspx" />
+    <Content Include="Patient-Info.aspx" />
     <Content Include="Profile.aspx" />
     <Content Include="QMS.aspx" />
     <Content Include="Queue.aspx" />
+    <Content Include="Registration-New-Public.aspx" />
+    <Content Include="Registration-New.aspx" />
     <Content Include="Registration.aspx" />
     <Content Include="Staff.aspx" />
     <Content Include="Web.config" />
@@ -1789,6 +1792,13 @@
     <Compile Include="OPD.aspx.designer.cs">
       <DependentUpon>OPD.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Patient-Info.aspx.cs">
+      <DependentUpon>Patient-Info.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Patient-Info.aspx.designer.cs">
+      <DependentUpon>Patient-Info.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1810,6 +1820,20 @@
     </Compile>
     <Compile Include="Queue.aspx.designer.cs">
       <DependentUpon>Queue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Registration-New-Public.aspx.cs">
+      <DependentUpon>Registration-New-Public.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Registration-New-Public.aspx.designer.cs">
+      <DependentUpon>Registration-New-Public.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Registration-New.aspx.cs">
+      <DependentUpon>Registration-New.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Registration-New.aspx.designer.cs">
+      <DependentUpon>Registration-New.aspx</DependentUpon>
     </Compile>
     <Compile Include="Registration.aspx.cs">
       <DependentUpon>Registration.aspx</DependentUpon>

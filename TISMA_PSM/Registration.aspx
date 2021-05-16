@@ -3,15 +3,15 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxRegister" %>
 
 <asp:Content ID="Registration" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="container-fluid" style="padding: 1.5rem 1rem 1.5rem 1rem" id="registration">
+    <div class="container-fluid content-p-custom" id="registration">
         <!--TITLE SECTION-->
         <div class="row justify-content-center">
-            <div class="row" style="padding-left: 0; padding-right: 0;">
+            <div class="row header-p-custom">
                 <div class="col align-self-start">
                     <h5>Module Registration</h5>
                 </div>
                 <div class="col align-self-end">
-                    <div class="float-end " style="font-size: 12px; padding-bottom: 0.5rem;">
+                    <div class="float-end subheader-custom">
                         <i class="fas fa-home me-1"></i>
                         <span><b>Dashboard&nbsp;&nbsp;>&nbsp;&nbsp;Modules&nbsp;&nbsp;></b>&nbsp;&nbsp;Registration</span>
                     </div>
@@ -32,23 +32,44 @@
             <!--SEARCH PATIENT FORM-->
             <div class="card-body">
                 <!--SELECT/DROPDOWN INPUT: Patient Type-->
-                <asp:DropDownList runat="server" ID="DropdownPatientType" Width="200px" Height="30px" ForeColor="Black" BackColor="LightGray" Style="padding: 0 10px 0 10px; border: 1px solid lightgrey;">
-                    <asp:ListItem Text="--Select patient type--" Value="" />
-                    <asp:ListItem Text="UTM-ACAD (Student)" Value="utm_acad" />
-                    <asp:ListItem Text="UTM-HR (Staff)" Value="utm_acad" />
-                    <asp:ListItem Text="Public" Value="utm_acad" />
+                Filter patient category:
+                <asp:DropDownList ID="DdlPatientType" runat="server" CssClass="dropdown-custom" OnSelectedIndexChanged="CategoryChanged"
+                    AutoPostBack="true" AppendDataBoundItems="true">
+                    <asp:ListItem Text="All" Value="All" Selected="True"></asp:ListItem>
+                    <asp:ListItem Text="UTM-ACAD (Student)" Value="student"></asp:ListItem>
+                    <asp:ListItem Text="UTM-HR (Staff)" Value="staff"></asp:ListItem>
+                    <asp:ListItem Text="Public" Value="public"></asp:ListItem>
                 </asp:DropDownList>
-                <!--SEARCH TEXTBOX-->
-                <asp:TextBox runat="server" Width="500px" Height="30px" TextMode="Search" placeholder="Search" Style="padding: 0 10px 0 10px; border: 1px solid lightgrey;"></asp:TextBox>
-                <!--SEARCH BTN-->
-                <asp:Button runat="server" ID="BtnSearch1" Text="Search" ForeColor="White" BackColor="#00bfbf" BorderStyle="None" Height="32px" Width="70px" />
+
                 <!--NEW REGISTRATION BTN-->
-                <asp:ScriptManager runat="server" ID="ToolkitScriptManager1">
-                </asp:ScriptManager>
-                <asp:Button runat="server" ID="BtnRegister" Text="New Registration" ForeColor="White" BackColor="#ff0000" BorderStyle="None" Height="32px" Width="150px" />
-                <ajaxRegister:ModalPopupExtender runat="server" ID="ModalPopupRegister" PopupControlID="PanelRegister" TargetControlID="BtnRegister" CancelControlID="BtnCancelReg" BackgroundCssClass="Background">
+                <asp:Button runat="server" ID="BtnRegister" Text="Register New Patient" CssClass="btn-custom" ForeColor="White" BackColor="#0A9E00" />
+                <ajaxRegister:ModalPopupExtender runat="server" ID="ModalPopupRegister" PopupControlID="PanelRegister" TargetControlID="BtnRegister"
+                    CancelControlID="BtnCancelReg" BackgroundCssClass="Background">
                 </ajaxRegister:ModalPopupExtender>
                 <br />
+                <br />
+                <p style="font-size:11px">&nbsp <b>*</b> Click the <b>Account No.</b> to view the full details of the patient</p>
+
+                <!--SEARCH PATIENT TABLE-->
+                <div class="mt-4">
+                    <asp:GridView runat="server" ID="DisplayRegisteredData" CssClass="display compact cell-border" AutoGenerateColumns="False" AllowPaging="true"
+                        OnPageIndexChanging="OnPaging" Width="100%">
+                        <Columns>
+                            <asp:TemplateField>
+                                <HeaderTemplate>No.</HeaderTemplate>
+                                <ItemTemplate><%#Container.DataItemIndex + 1 %></ItemTemplate>
+                            </asp:TemplateField>
+                            <%--<asp:BoundField DataField="p_account_no" HeaderText="Account No." SortExpression="p_account_no" />--%>
+                            <asp:HyperLinkField DataTextField="p_account_no" HeaderText="Account No." SortExpression="p_account_no"
+                                DataNavigateUrlFields="p_account_no" DataNavigateUrlFormatString="Patient-Info.aspx?accno={0}" 
+                                ItemStyle-Font-Bold="true" ItemStyle-Width="60px" ItemStyle-ForeColor="#0066ff" />
+                            <asp:BoundField DataField="p_name" HeaderText="Name" SortExpression="p_name" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="p_ic_no" HeaderText="IC No." ReadOnly="True" SortExpression="p_ic_no" />
+                            <asp:BoundField DataField="p_passport_no" HeaderText="Passport No." SortExpression="p_passport_no" />
+                            <asp:BoundField DataField="p_category" HeaderText="Category" SortExpression="p_category" />
+                        </Columns>
+                    </asp:GridView>
+                </div>
 
                 <!--MODUL POPUP: NEW REGISTRATION-->
                 <asp:Panel runat="server" ID="PanelRegister" CssClass="Popup" Style="display: none">
@@ -58,80 +79,147 @@
                     <br />
                     <div class="card-body">
                         <!--SELECT/DROPDOWN INPUT: Patient Type-->
-                        <asp:DropDownList runat="server" ID="DropDownList1" Width="200px" Height="30px" ForeColor="Black" BackColor="LightGray" Style="padding: 0 10px 0 10px; border: 1px solid lightgrey;">
-                            <asp:ListItem Text="--Select patient type--" Value="" />
-                            <asp:ListItem Text="UTM-ACAD (Student)" Value="utm_acad" />
-                            <asp:ListItem Text="UTM-HR (Staff)" Value="utm_acad" />
-                            <asp:ListItem Text="Public" Value="utm_acad" />
+                        <asp:DropDownList runat="server" ID="DdlUTMType" CssClass="dropdown-custom" onchange="ShowHideDiv()">
+                            <asp:ListItem Text="-Select patient type-" Value="0" />
+                            <asp:ListItem Text="UTM-ACAD (Student)" Value="1" />
+                            <asp:ListItem Text="UTM-HR (Staff)" Value="2" />
                         </asp:DropDownList>
-                        <!--SELECT/DROPDOWN INPUT: Filter By-->
-                        <asp:DropDownList runat="server" ID="DropDownList2" Width="125px" Height="30px" ForeColor="Black" BackColor="LightGray" Style="padding: 0 10px 0 10px; border: 1px solid lightgrey;">
-                            <asp:ListItem Text="--Filter by--" Value="" />
-                            <asp:ListItem Text="Matric No." Value="matric_no" />
-                            <asp:ListItem Text="IC No." Value="ic_no" />
-                            <asp:ListItem Text="Name" Value="name" />
-                        </asp:DropDownList>
-                        <!--SEARCH TEXTBOX-->
-                        <asp:TextBox runat="server" Width="500px" Height="30px" TextMode="Search" placeholder="Search" Style="padding: 0 10px 0 10px; border: 1px solid lightgrey;"></asp:TextBox>
-                        <!--SEARCH BTN-->
-                        <asp:Button runat="server" ID="BtnSearch2" Text="Search" ForeColor="White" BackColor="#00bfbf" BorderStyle="None" Height="32px" Width="70px" />
+
+                        <!--PUBLIC PATIENT REGISTER BTN-->
+                        <asp:Button runat="server" ID="BtnPublicRegister" Text="Register New as Public" PostBackUrl="Registration-New-Public.aspx"
+                            CssClass="btn-custom" ForeColor="White" BackColor="#0000FF" />
+
                         <!--CANCEL BTN-->
-                        <asp:Button runat="server" ID="BtnCancelReg" Text="Cancel Register" ForeColor="Black" BackColor="#e5e5e5" BorderStyle="None" Height="32px" Width="130px" />
+                        <asp:Button runat="server" ID="BtnCancelReg" Text="Cancel Register" CssClass="btn-custom" ForeColor="White" BackColor="#ff0000" />
                         <br />
-                        <!--SEARCHED PATIENT TABLE-->
-                        <div class="mt-3" id="register-form">
-                            <table id="registration-table" class="cell-border hover order-column mt-2" style="width: 100%;">
+                        <br />
+                        <p style="font-size:11px">&nbsp <b>*</b> Click the <b>IC No.</b> to view the full details of the patient</p>
+
+                        <!--DUMMY TABLE-->
+                        <div id="ShowHideDummyTable" class="mt-3"">
+                            <table id="DummyTable" class="cell-border hover order-column mt-2" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Matric No.</th>
-                                        <th>IC No.</th>
                                         <th>Name</th>
-                                        <th>Desgination</th>
+                                        <th>IC No.</th>
+                                        <th>Matric No.</th>
+                                        <th>Designation</th>
                                         <th>Faculty</th>
-                                        <th>DOB</th>
                                         <th>Branch</th>
-                                        <th>Status</th>
                                         <th>Session</th>
-                                        <th>Remark</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                </tbody>
                             </table>
+                            <br />
+                        </div>
+
+                        <!--UTMACAD TABLE-->
+                        <div id="ShowHideUTMACAD" class="mt-3" style="display: none;">
+                            <asp:GridView runat="server" ID="DisplayUTMACADData" CssClass="display compact cell-border" AutoGenerateColumns="False" DataKeyNames="ic_no" Width="100%">
+                                <Columns>
+                                    <asp:TemplateField>
+                                        <HeaderTemplate>No.</HeaderTemplate>
+                                        <ItemTemplate><%#Container.DataItemIndex + 1 %></ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="name" HeaderText="Name" SortExpression="name" ItemStyle-HorizontalAlign="Left" />
+                                    <%--<asp:BoundField DataField="ic_no" HeaderText="IC No." ReadOnly="True" SortExpression="ic_no" />--%>
+                                    <asp:HyperLinkField DataTextField="ic_no" HeaderText="IC No." SortExpression="ic_no"
+                                        DataNavigateUrlFields="ic_no" DataNavigateUrlFormatString="Registration-New.aspx?pid={0}&stat=utmacad" 
+                                        ItemStyle-Font-Bold="true" ItemStyle-Width="60px" ItemStyle-ForeColor="#0066ff" />
+                                    <asp:BoundField DataField="matric_no" HeaderText="Matric No." SortExpression="matric_no" />
+                                    <asp:BoundField DataField="faculty" HeaderText="Faculty" SortExpression="faculty" />
+                                    <asp:BoundField DataField="branch" HeaderText="Branch" SortExpression="branch" />
+                                    <asp:BoundField DataField="session_no" HeaderText="Session" SortExpression="session_no" />
+                                </Columns>
+                            </asp:GridView>
+                            <br />
+                        </div>
+
+                        <!--UTMHR TABLE-->
+                        <div id="ShowHideUTMHR" class="mt-3" style="display: none;">
+                            <asp:GridView runat="server" ID="DisplayUTMHRData" CssClass="display compact cell-border" AutoGenerateColumns="False" DataKeyNames="ic_no" Width="100%">
+                                <Columns>
+                                    <asp:TemplateField>
+                                        <HeaderTemplate>No.</HeaderTemplate>
+                                        <ItemTemplate><%#Container.DataItemIndex + 1 %></ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="name" HeaderText="Name" SortExpression="name" ItemStyle-HorizontalAlign="Left" />
+                                    <%--<asp:BoundField DataField="ic_no" HeaderText="IC No." ReadOnly="True" SortExpression="ic_no" />--%>
+                                    <asp:HyperLinkField DataTextField="ic_no" HeaderText="IC No." SortExpression="ic_no"
+                                        DataNavigateUrlFields="ic_no" DataNavigateUrlFormatString="Registration-New.aspx?pid={0}&stat=utmhr"
+                                        ItemStyle-Font-Bold="true" ItemStyle-Width="60px" ItemStyle-ForeColor="#0066ff" />
+                                    <asp:BoundField DataField="staff_id" HeaderText="Staff ID" SortExpression="staff_id" />
+                                    <asp:BoundField DataField="designation" HeaderText="Designation" SortExpression="designation" />
+                                    <asp:BoundField DataField="department" HeaderText="Department" SortExpression="department" />
+                                    <asp:BoundField DataField="branch" HeaderText="Branch" SortExpression="branch" />
+                                    <asp:BoundField DataField="session_no" HeaderText="Session" SortExpression="session_no" />
+                                </Columns>
+                            </asp:GridView>
                         </div>
                         <br />
-                        <!--PUBLIC PATIENT REGISTER BTN-->
-                        <asp:Button runat="server" ID="BtnPublicRegister" Text="Register New as Public" ForeColor="White" BackColor="#ff0000" BorderStyle="None" Height="32px" Width="180px" />
                     </div>
                 </asp:Panel>
-
-                <!--SEARCH PATIENT TABLE-->
-                <div class="mt-3" id="display-form">
-                    <table id="display-table" class="cell-border hover order-column mt-2" style="width: 100%;">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Account No.</th>
-                                <th>Matric No.</th>
-                                <th>Name</th>
-                                <th>Passport No.</th>
-                                <th>IC No.</th>
-                                <th>DOB</th>
-                                <th>Category</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
-    </div>
-    <script>
-        $(document).ready(function () {
-            $('#registration-table').DataTable();
-            $('#display-table').DataTable();
+    </div> 
+    <script type="text/javascript">
+        $(function () {
+            $("[id*=DisplayRegisteredData]").DataTable({
+                lengthMenu: [[5, 10, -1], [5, 10, "All"]],
+                language: {
+                    searchPlaceholder: "Search",
+                    search: "",
+                },
+            });
+
+            $("#DummyTable").DataTable({
+                lengthMenu: [[5, 10], [5, 10]],
+                language: {
+                    searchPlaceholder: "Search",
+                    search: "",
+                },
+            });
+
+            $("[id*=DisplayUTMACADData]").DataTable({
+                lengthMenu: [[5, 10], [5, 10]],
+                language: {
+                    searchPlaceholder: "Search",
+                    search: "",
+                },
+            });
+
+            $("[id*=DisplayUTMHRData]").DataTable({
+                lengthMenu: [[5, 10], [5, 10]],
+                language: {
+                    searchPlaceholder: "Search",
+                    search: "",
+                },
+            });
+
         });
+
+        function ShowHideDiv() {
+            //Get dropdown selected value
+            var SelectedValue = $('#<%= DdlUTMType.ClientID %> option:selected').val();
+
+            // check selected value.
+            if (SelectedValue == 0) {
+                $('#ShowHideUTMHR').css("display", "none");
+                $('#ShowHideUTMACAD').css("display", "none");
+                $('#ShowHideDummyTable').css("display", "block");
+            }
+            else if (SelectedValue == 1) {
+                $('#ShowHideUTMHR').css("display", "none");
+                $('#ShowHideUTMACAD').css("display", "block");
+                $('#ShowHideDummyTable').css("display", "none");
+
+            }
+            else {
+                $('#ShowHideUTMHR').css("display", "block");
+                $('#ShowHideUTMACAD').css("display", "none");
+                $('#ShowHideDummyTable').css("display", "none");
+            }
+        }
     </script>
 </asp:Content>

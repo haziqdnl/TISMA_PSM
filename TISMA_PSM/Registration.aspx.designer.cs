@@ -15,31 +15,13 @@ namespace TISMA_PSM
     {
 
         /// <summary>
-        /// DropdownPatientType control.
+        /// DdlPatientType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropdownPatientType;
-
-        /// <summary>
-        /// BtnSearch1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSearch1;
-
-        /// <summary>
-        /// ToolkitScriptManager1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.ScriptManager ToolkitScriptManager1;
+        protected global::System.Web.UI.WebControls.DropDownList DdlPatientType;
 
         /// <summary>
         /// BtnRegister control.
@@ -60,6 +42,15 @@ namespace TISMA_PSM
         protected global::AjaxControlToolkit.ModalPopupExtender ModalPopupRegister;
 
         /// <summary>
+        /// DisplayRegisteredData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView DisplayRegisteredData;
+
+        /// <summary>
         /// PanelRegister control.
         /// </summary>
         /// <remarks>
@@ -69,31 +60,22 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.Panel PanelRegister;
 
         /// <summary>
-        /// DropDownList1 control.
+        /// DdlUTMType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList DdlUTMType;
 
         /// <summary>
-        /// DropDownList2 control.
+        /// BtnPublicRegister control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
-
-        /// <summary>
-        /// BtnSearch2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSearch2;
+        protected global::System.Web.UI.WebControls.Button BtnPublicRegister;
 
         /// <summary>
         /// BtnCancelReg control.
@@ -105,12 +87,21 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.Button BtnCancelReg;
 
         /// <summary>
-        /// BtnPublicRegister control.
+        /// DisplayUTMACADData control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnPublicRegister;
+        protected global::System.Web.UI.WebControls.GridView DisplayUTMACADData;
+
+        /// <summary>
+        /// DisplayUTMHRData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView DisplayUTMHRData;
     }
 }
