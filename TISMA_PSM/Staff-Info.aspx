@@ -1,33 +1,34 @@
-﻿<%@ Page Title="Patient Info :: TISMA" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Patient-Info.aspx.cs" Inherits="TISMA_PSM.Patient_Info" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Staff-Info.aspx.cs" Inherits="TISMA_PSM.Staff_Info" %>
 
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxPatientInfo" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxStaffInfo" %>
 
-<asp:Content ID="PatientInfo" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="container-fluid content-p-custom" id="patient-info">
+<asp:Content ID="StaffInfo" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="container-fluid content-p-custom" id="staff-info">
         <!--TITLE SECTION-->
         <div class="row justify-content-center">
             <div class="row header-p-custom">
                 <div class="col ">
-                    <h5>Module Registration</h5>
+                    <h5>Module Staff</h5>
                 </div>
                 <div class="col align-self-end">
                     <div class="float-end subheader-custom">
                         <i class="fas fa-home me-1"></i>
-                        <span><b>Dashboard&nbsp;&nbsp;>&nbsp;&nbsp;Modules&nbsp;&nbsp;></b>&nbsp;&nbsp;Registration</span>
+                        <span><b>Dashboard&nbsp;&nbsp;>&nbsp;&nbsp;Modules&nbsp;&nbsp;></b>&nbsp;&nbsp;Staff</span>
                     </div>
                 </div>
             </div>
         </div>
+        
         <!--CONTENT 1-->
-        <div class="row justify-content-center mt-1" id="patient-info-content-1">
+        <div class="row justify-content-center mt-1" id="staff-info-content-1">
             <!--HEADER-->
             <div class="card border-0">
                 <div class="row">
                     <div class="col align-self-start">
                         <div>
-                            <asp:LinkButton runat="server" PostBackUrl="~/Registration.aspx">
+                            <asp:LinkButton runat="server" PostBackUrl="~/Staff.aspx">
                                 <i class="fas fa-search me-1"></i>
-                                <span>Search Registered Patient</span>
+                                <span>Search Registered Staff/User</span>
                             </asp:LinkButton>
                         </div>
                     </div>
@@ -49,72 +50,21 @@
                         <div class="row text-center">
                             <h6><asp:Literal runat="server" ID="displayAccNo"></asp:Literal></h6>
                             <br />
-                            <p style="font-size:12px; font-weight:500"><asp:Literal runat="server" ID="displayCategory"></asp:Literal></p>
+                            <p style="font-size:12px; font-weight:500"><asp:Literal runat="server" ID="displayUsername"></asp:Literal></p>
                         </div>
                     </div>
                 </div>
                 <br />
-                <!--GENERATE QUEUE-->
-                <div class="row-cols-1" id="patient-info-gen-q">
-                    <div class="card border-0">
-                        <span>Queue</span>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <asp:Button runat="server" ID="BtnQList" Text="Queue List" PostBackUrl="~/Queue.aspx" CssClass="btn-custom mt-2" Width="100%" ForeColor="White" BackColor="#0066ff" />
-                        </div>
-                        <div class="row">
-                            <asp:Button runat="server" ID="BtnGenerateQueue1" Text="Generate Queue" CssClass="btn-custom mt-2" Width="100%" ForeColor="White" BackColor="#0066ff" />
-                            <ajaxPatientInfo:ModalPopupExtender runat="server" ID="ModalPopupGenerateQueue" PopupControlID="PanelGenerateQueue" TargetControlID="BtnGenerateQueue1"
-                                CancelControlID="BtnCancelGenerateQueue" BackgroundCssClass="Background">
-                            </ajaxPatientInfo:ModalPopupExtender>
-                        </div>
-                    </div>
-                </div>
             </div>
-
-            <!--MODUL POPUP: GENERATE QUEUE-->
-            <asp:Panel runat="server" ID="PanelGenerateQueue" CssClass="Popup" Width="700px" Style="display: none">
-                <div class="card">
-                    <div class="row">
-                        <div class="col align-self-center">
-                            <span>QMS Module</span>
-                        </div>
-                        <div class="col align-self-end">
-                            <div class="float-end">
-                                <!--CANCEL BTN-->
-                                <asp:Button runat="server" ID="BtnCancelGenerateQueue" Font-Size="Larger" Text="X" Font-Bold="true" BorderStyle="None" CssClass="btn-custom" ForeColor="#808080" BackColor="White" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body text-center">
-                    <div runat="server" id="beforeGenerate">
-                        <p>Last generated QMS number: &nbsp<b><asp:Literal runat="server" ID="getLatestNo"></asp:Literal></b></p>
-                        <p>Last visit for Account No. &nbsp<b><asp:Literal runat="server" ID="getAccNoQMS"></asp:Literal></b>&nbsp on <b><asp:Literal runat="server" ID="getLastVisited"></asp:Literal></b></p>
-                        <asp:Button runat="server" ID="BtnGenerateQueue2" Text="Generate Queue" OnClick="GenerateQueue" CssClass="btn-custom mt-2 mb-2" ForeColor="White" BackColor="#ff0000"></asp:Button>
-                    </div>
-                    <div runat="server" id="afterGenerate">
-                        <div class="row">
-                            <h1 class="mb-0"><asp:Literal runat="server" ID="getQueueNo"></asp:Literal></h1>
-                            <span>Queue generated</span>
-                        </div>
-                        <br />
-                        <div>
-                            <asp:Button runat="server" ID="Button1" Text="Back to Registration Module" PostBackUrl="~/Registration.aspx" CssClass="btn-custom mt-1 mb-2" ForeColor="White" BackColor="#0066ff"></asp:Button>
-                        </div>
-                    </div>
-                </div>
-            </asp:Panel>
 
             <div class="col p-0 m-0">
                 <div class="card p-0">
-                    <ajaxPatientInfo:TabContainer runat="server" ID="TabContainer1" ActiveTabIndex="0" BackColor="#0072c6">
-                        <ajaxPatientInfo:TabPanel runat="server" ID="TabPanel1" HeaderText="Basic Info" BorderStyle="None">
+                    <ajaxStaffInfo:TabContainer runat="server" ID="TabContainer1" ActiveTabIndex="0" BackColor="#0072c6">
+                        <ajaxStaffInfo:TabPanel runat="server" ID="TabPanel1" HeaderText="Basic Info" BorderStyle="None">
                             <ContentTemplate>
                                 <div class="row m-0 card-body pt-2 pb-1 ps-1 pe-1 note">
                                     <h5><b>Note</b></h5>
-                                    <h6><asp:Literal runat="server" ID="note"></asp:Literal></h6>
+                                    <h6>The basic information were reffered from UTMHR SYSTEM</h6>
                                 </div>
                                 <div class="row m-0 card-body justify-content-center">
                                     <p style="font-size:11px">&nbsp <span style="color:blue"><b>*</b></span> Changes of this detail is allowed</p>
@@ -129,11 +79,10 @@
                                                     <asp:ListItem Text="UTM-KL" Value="UTM-KL"></asp:ListItem>
                                                 </asp:DropDownList>
                                             </td>
-                                            <!--Status-->
-                                            <td class="pe-3" style="text-align: right">Status (UTM-ACAD/HR)</td>
+                                            <!--Category-->
+                                            <td class="pe-3" style="text-align: right">Category</td>
                                             <td>
-                                                <asp:TextBox runat="server" ID="getStat" ReadOnly="true" Enabled="false" CssClass="textbox-custom float-start" Width="100px" ></asp:TextBox>
-                                                <p class="float" style="font-size:10px; color: green">&nbsp<asp:Literal runat="server" ID="statusText"></asp:Literal></p>
+                                                <asp:TextBox runat="server" ID="getCategory" ReadOnly="true" Enabled="false" CssClass="textbox-custom" Width="250px" ></asp:TextBox>
                                             </td>
                                         </tr>
                                         <tr>
@@ -142,10 +91,27 @@
                                             <td>
                                                 <asp:TextBox runat="server" ID="getAccNo" ReadOnly="true" Enabled="false" CssClass="textbox-custom" Width="250px" ></asp:TextBox>
                                             </td>
-                                            <!--Category-->
-                                            <td class="pe-3" style="text-align: right">Category</td>
+                                            <!--Username-->
+                                            <td class="pe-3" style="text-align: right">Username</td>
                                             <td>
-                                                <asp:TextBox runat="server" ID="getCategory" ReadOnly="true" Enabled="false" CssClass="textbox-custom" Width="250px" ></asp:TextBox>
+                                                <asp:TextBox runat="server" ID="getUsername" ReadOnly="true" Enabled="false" CssClass="textbox-custom" Width="250px"></asp:TextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <!--Password-->
+                                            <td class="pe-3" style="text-align: right">Password <span style="color:blue">*</span></td>
+                                            <td>
+                                                <asp:TextBox runat="server" ID="getPassword" CssClass="textbox-custom" Width="250px"></asp:TextBox>
+                                            </td>
+                                            <!--TISMA Role-->
+                                            <td class="pe-3" style="text-align: right">TISMA Role</td>
+                                            <td>
+                                                <asp:DropDownList runat="server" ID="getTismaRoleDdl" Enabled="false" CssClass="dropdown-custom" BackColor="White" AppendDataBoundItems="true">
+                                                    <asp:ListItem Text="-Select-" Value="Select"></asp:ListItem>
+                                                    <asp:ListItem Text="Admin" Value="Admin"></asp:ListItem>
+                                                    <asp:ListItem Text="Medical Officer" Value="Medical Officer"></asp:ListItem>
+                                                    <asp:ListItem Text="Receptionist" Value="Receptionist"></asp:ListItem>
+                                                </asp:DropDownList>
                                             </td>
                                         </tr>
                                         <tr>
@@ -154,10 +120,10 @@
                                             <td>
                                                 <asp:TextBox runat="server" ID="getName" ReadOnly="true" Enabled="false" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="80px"></asp:TextBox>
                                             </td>
-                                            <!--Staff/Matric No.-->
-                                            <td class="pe-3" style="text-align: right">Staff/Matric No.</td>
+                                            <!--Staff ID-->
+                                            <td class="pe-3" style="text-align: right">Staff ID</td>
                                             <td>
-                                                <asp:TextBox runat="server" ID="getMatricNo" ReadOnly="true" Enabled="false" CssClass="textbox-custom" Width="250px"></asp:TextBox>
+                                                <asp:TextBox runat="server" ID="getStaffId" ReadOnly="true" Enabled="false" CssClass="textbox-custom" Width="250px"></asp:TextBox>
                                             </td>
                                         </tr>
                                         <tr>
@@ -263,37 +229,14 @@
                                         </tr>
                                         <tr>
                                             <!--Designation-->
-                                            <td class="pe-3" style="text-align: right">Designation <span style="color:blue">*</span></td>
+                                            <td class="pe-3" style="text-align: right">Designation</td>
                                             <td>
-                                                <asp:TextBox runat="server" ID="getDesignation" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="50px"></asp:TextBox>
+                                                <asp:TextBox runat="server" ID="getDesignation" ReadOnly="true" Enabled="false"  CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="50px"></asp:TextBox>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <!--Course-->
-                                            <td class="pe-3" style="text-align: right">Course</td>
-                                            <td>
-                                                <asp:TextBox runat="server" ID="getCourse" ReadOnly="true" Enabled="false" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="100px"></asp:TextBox>
-                                            </td>
-                                            <!--Faculty/Department-->
+                                            <!--Department-->
                                             <td class="pe-3" style="text-align: right">Faculty/Department</td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getFacDep" ReadOnly="true" Enabled="false" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="100px"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <!--Semester-->
-                                            <td class="pe-3" style="text-align: right">Semester <span style="color:blue">*</span></td>
-                                            <td>
-                                                <asp:TextBox runat="server" ID="getSem" CssClass="textbox-custom text-center" Width="50px"></asp:TextBox>
-                                                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator1" ControlToValidate="getSem" 
-                                                    ValidationExpression="^[0-9]*$" Display="Dynamic" SetFocusOnError="true"
-                                                    ErrorMessage="Error" ForeColor="Red" Font-Size="10px">
-                                                </asp:RegularExpressionValidator>
-                                            </td>
-                                            <!--Session-->
-                                            <td class="pe-3" style="text-align: right">Session <span style="color:blue">*</span></td>
-                                            <td>
-                                                <asp:TextBox runat="server" ID="getSession" CssClass="textbox-custom" Width="250px"></asp:TextBox>
                                             </td>
                                         </tr>
                                         <tr>
@@ -302,10 +245,10 @@
                                             <td>
                                                 <asp:TextBox runat="server" ID="getAddress" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="100px"></asp:TextBox>
                                             </td>
-                                            <!--Remarks-->
-                                            <td class="pe-3" style="text-align: right">Remarks <span style="color:blue">*</span></td>
+                                            <!--Session-->
+                                            <td class="pe-3" style="text-align: right">Session <span style="color:blue">*</span></td>
                                             <td>
-                                                <asp:TextBox runat="server" ID="getRemarks" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="100px"></asp:TextBox>
+                                                <asp:TextBox runat="server" ID="getSession" CssClass="textbox-custom" Width="250px"></asp:TextBox>
                                             </td>
                                         </tr>
                                     </table>
@@ -314,26 +257,8 @@
                                     <asp:Button runat="server" ID="BtnDelete" Text="Delete" OnClick="DeleteConfirmation" CssClass="btn-custom mt-2" ForeColor="White" BackColor="#ff0000" />
                                 </div>
                             </ContentTemplate>
-                        </ajaxPatientInfo:TabPanel>
-                        <ajaxPatientInfo:TabPanel runat="server" ID="TabPanel2" HeaderText="History" BorderStyle="None">
-                            <ContentTemplate>
-                                <div class="mt-4">
-                                    <asp:GridView runat="server" ID="ClinicalHistoryTable" CssClass="display compact cell-border" AutoGenerateColumns="False" ShowHeaderWhenEmpty="true" Width="100%">
-                                        <Columns>
-                                            <asp:TemplateField>
-                                                <HeaderTemplate>No.</HeaderTemplate>
-                                                <ItemTemplate><%#Container.DataItemIndex + 1 %></ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:BoundField DataField="clinical_date" HeaderText="Date" SortExpression="clinical_date" ItemStyle-HorizontalAlign="Left" />
-                                            <asp:BoundField DataField="emc_url" HeaderText="e-Medical Cert" ReadOnly="True" SortExpression="emc_url" />
-                                            <asp:BoundField DataField="s_name" HeaderText="Doctor/PIC" SortExpression="s_name" />
-                                        </Columns>
-                                        <EmptyDataTemplate>No Record Available</EmptyDataTemplate>
-                                    </asp:GridView>
-                                </div>
-                            </ContentTemplate>
-                        </ajaxPatientInfo:TabPanel>
-                    </ajaxPatientInfo:TabContainer>
+                        </ajaxStaffInfo:TabPanel>
+                    </ajaxStaffInfo:TabContainer>
                 </div>
             </div>
         </div>
@@ -342,8 +267,8 @@
         <div style="display:none">
             <asp:Button runat="server" ID="BtnPopup" Text="Open Popup" CssClass="btn-custom mt-2" Width="100%" ForeColor="White" BackColor="#0066ff" />
         </div>
-        <ajaxPatientInfo:ModalPopupExtender runat="server" ID="ModalPopupMessage" PopupControlID="PanelPopup" TargetControlID="BtnPopup" CancelControlID="BtnCancel" BackgroundCssClass="Background">
-        </ajaxPatientInfo:ModalPopupExtender>
+        <ajaxStaffInfo:ModalPopupExtender runat="server" ID="ModalPopupMessage" PopupControlID="PanelPopup" TargetControlID="BtnPopup" CancelControlID="BtnCancel" BackgroundCssClass="Background">
+        </ajaxStaffInfo:ModalPopupExtender>
         <asp:Panel runat="server" ID="PanelPopup" CssClass="Popup" Width="600px" Style="display: none">
             <div class="card">
                 <div class="row">
@@ -367,15 +292,6 @@
             </div>
         </asp:Panel>
         <script type="text/javascript">
-            $(function () {
-                $("[id*=ClinicalHistoryTable]").DataTable({
-                    lengthMenu: [[10, 20, 50, -1], [10, 20, 50, "All"]],
-                    language: {
-                        searchPlaceholder: "",
-                        search: "Search",
-                    },
-                });
-            });
             $("input[id$=BtnUpdate]").live("click", function () {
                 alert("All changes has been updated!");
             });

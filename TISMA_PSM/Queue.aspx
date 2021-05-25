@@ -25,52 +25,34 @@
                 </div>
             </div>
             <div class="card-body">
-                <!--REFRESH BUTTON-->
-                <button id="btn-refresh">
-                    Refresh
-                </button>
                 <!--TABLE-->
                 <div class="mt-3">
-                    <table id="q-list-table" class="cell-border hover order-column mt-2" style="width: 100%;">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Queue No.</th>
-                                <th>Account No.</th>
-                                <th>Name</th>
-                                <th>Category</th>
-                                <th>Entered at</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1.</td>
-                                <td>20211804000</td>
-                                <td>123</td>
-                                <td>Patient_0</td>
-                                <td>Student</td>
-                                <td>10/04/2021</td>
-                            </tr>
-                            <tr>
-                                <td>2.</td>
-                                <td>20211804001</td>
-                                <td>124</td>
-                                <td>Patient_1</td>
-                                <td>Student</td>
-                                <td>10/04/2021</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <asp:GridView runat="server" ID="QueueListTable" CssClass="display compact cell-border" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" Width="100%">
+                        <Columns>
+                            <asp:TemplateField>
+                                <HeaderTemplate>No.</HeaderTemplate>
+                                <ItemTemplate><%#Container.DataItemIndex + 1 %></ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="queue_no" HeaderText="Queue No." SortExpression="queue_no" />
+                            <asp:BoundField DataField="p_account_no" HeaderText="Account No." SortExpression="p_account_no" />
+                            <asp:BoundField DataField="p_name" HeaderText="Name" SortExpression="p_name" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="p_category" HeaderText="Category" SortExpression="p_category" />
+                            <asp:BoundField DataField="p_remarks" HeaderText="Remarks" SortExpression="p_remarks" />
+                        </Columns>
+                        <EmptyDataTemplate>No Record Available</EmptyDataTemplate>
+                    </asp:GridView>
                 </div>
             </div>
         </div>
     </div>
     <script>
-        $(document).ready(function () {
-            $('#q-list-table').DataTable();
-
-            $("#refresh-btn").on("click", function () {
-                $("#q-list-table").load("Queue-List.aspx #q-list-table");
+        $(function () {
+            $("[id*=QueueListTable]").DataTable({
+                lengthMenu: [[10, 20, 50, -1], [10, 20, 50, "All"]],
+                language: {
+                    searchPlaceholder: "Search queue no...",
+                    search: "",
+                },
             });
         });
     </script>

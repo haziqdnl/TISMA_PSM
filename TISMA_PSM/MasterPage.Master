@@ -90,6 +90,12 @@
                         <span>OPD</span>
                     </div>
                 </a>
+                <a href="UTMDB-Home.aspx" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fa fa-database fa-fw me-3"></span>
+                        <span>UTM-DB Admin</span>
+                    </div>
+                </a>
                 <ul class="list-group">
                     <li class="list-group-item text-muted d-flex align-items-center">
                         <small>OPTIONS</small>

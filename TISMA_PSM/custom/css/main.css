@@ -99,6 +99,10 @@ tbody {
     color: #fff; /*White*/
 }
 
+.note h5{
+    font-size: 14px;
+}
+
 .dataTables_wrapper .dataTables_filter {
     float: left;
 }
@@ -124,6 +128,7 @@ div.dataTables_wrapper div.dataTables_filter input {
 #page-content-wrapper {
     min-width: 100vw;
 }
+
 
 /****************************************/
 /*                SIDEBAR               */
@@ -325,18 +330,32 @@ div.dataTables_wrapper div.dataTables_filter input {
     text-align: center;
 }
 
-#qms-content-2 .card-body button {
-    font-size: 15px;
-    padding: 0.3rem 1rem 0.3rem 1rem ;
-    color: #fff; /*White*/
-    background: #0068b4; /*Blue*/
+#qms .Popup {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#qms .Popup .card {
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0;
     border: none;
+    border-bottom: 1px solid lightgrey;
+    color: #000;
+    background: #fff;
+}
+
+#qms .Popup .card span {
+    font-weight: 700;
+}
+
+#qms .Popup .card-body {
+    padding: 1rem 1rem 1rem 1rem;
 }
 
 
 /*###################################################################################   STAFF CSS */
 /****************************************/
-/*         REGISTRATION CONTENT         */
+/*             STAFF CONTENT            */
 /****************************************/
 #staff-content {
     border-top: 5px solid;
@@ -366,6 +385,144 @@ div.dataTables_wrapper div.dataTables_filter input {
 }
 
 #staff-content .Popup .card-body {
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+
+/*###################################################################################   ADD NEW STAFF CSS */
+/****************************************/
+/*         ADD NEW STAFF CONTENT        */
+/****************************************/
+#new-staff-content-1 {
+    border-top: 5px solid;
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff; /*White*/
+}
+
+#new-staff-content-1 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    background: #0072c6; /*Blue*/
+    color: #fff; /*White*/
+}
+
+#new-staff-content-1 .card span {
+    font-weight: 500;
+}
+
+#new-staff-content-2 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+}
+
+#new-staff-content-2 .col-2 .card {
+    border-top: 5px solid;
+    border-top-color: #0072c6;
+}
+
+#new-staff-content-2 img {
+    max-height: 170px;
+    max-width: 170px;
+}
+
+#new-staff-content-2 h6 {
+    font-size: 14px;
+}
+
+#new-staff-content-2 h5 {
+    font-size: 16px;
+}
+
+#new-staff-content-2 .card span {
+    font-weight: 500;
+}
+
+#new-staff .Popup {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#new-staff .Popup .card {
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    color: #000;
+    background: #fff;
+}
+
+#new-staff .Popup .card span {
+    font-weight: 500;
+}
+
+#new-staff .Popup .card-body {
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+
+/*###################################################################################   STAFF-INFO CSS */
+/****************************************/
+/*           STAFF INFO CONTENT         */
+/****************************************/
+#staff-info-content-1 {
+    border-top: 5px solid;
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff; /*White*/
+}
+
+#staff-info-content-1 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    background: #0072c6; /*Blue*/
+    color: #fff; /*White*/
+}
+
+#staff-info-content-1 .card span {
+    font-weight: 500;
+}
+
+#staff-info-content-2 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+}
+
+#staff-info-content-2 .col-2 .card {
+    border-top: 5px solid;
+    border-top-color: #0072c6; /*Blue*/
+}
+
+#staff-info-content-2 img {
+    max-height: 170px;
+    max-width: 170px;
+}
+
+#staff-info-content-2 h6 {
+    font-size: 14px;
+}
+
+#staff-info-content-2 .card span {
+    font-weight: 500;
+}
+
+#staff-info .Popup {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#staff-info .Popup .card {
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    color: #000;
+    background: #fff;
+}
+
+#staff-info .Popup .card-body {
     padding: 1rem 1rem 1rem 1rem;
 }
 
@@ -456,3 +613,144 @@ div.dataTables_wrapper div.dataTables_filter input {
     font-weight: 500;
 }
 
+#registration-new .Popup {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#registration-new .Popup .card {
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    color: #000;
+    background: #fff;
+}
+
+#registration-new .Popup .card span {
+    font-weight: 500;
+}
+
+#registration-new .Popup .card-body {
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+
+/*###################################################################################   PATIENT-INFO CSS */
+/****************************************/
+/*         PATIENT INFO CONTENT         */
+/****************************************/
+#patient-info-content-1 {
+    border-top: 5px solid;
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff; /*White*/
+}
+
+#patient-info-content-1 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    background: #0072c6; /*Blue*/
+    color: #fff; /*White*/
+}
+
+#patient-info-content-1 .card span {
+    font-weight: 500;
+}
+
+#patient-info-content-2 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+}
+
+#patient-info-content-2 .col-2 .card {
+    border-top: 5px solid;
+    border-top-color: #0072c6; /*Blue*/
+}
+
+#patient-info-content-2 img {
+    max-height: 170px;
+    max-width: 170px;
+}
+
+#patient-info-content-2 h6 {
+    font-size: 14px;
+}
+
+#patient-info-content-2 .card span {
+    font-weight: 500;
+}
+
+#patient-info-gen-q {
+    background: #fff; /*White*/
+}
+
+#patient-info-gen-q .card {
+    padding: 0.5rem 0.6rem 0.5rem 0.6rem;
+    border-radius: 0;
+    background: #acacac; /*Grey*/
+    color: #000; /*Black*/
+}
+
+#patient-info-gen-q .card span {
+    font-weight: 500;
+}
+
+#patient-info-gen-q .card-body {
+    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+}
+
+#patient-info .Popup {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#patient-info .Popup .card {
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    color: #000;
+    background: #fff;
+}
+
+#patient-info .Popup .card-body {
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+
+/*###################################################################################   OPD CSS */
+/****************************************/
+/*              OPD CONTENT             */
+/****************************************/
+#opd-content {
+    border-top: 5px solid;
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff; /*White*/
+}
+
+#opd-content .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    background: #0072c6; /*Blue*/
+    color: #fff; /*White*/
+}
+
+#opd-content .card span {
+    font-weight: 500;
+}
+
+#opd-content .Popup .card {
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    color: #000;
+    background: #fff;
+}
+
+#opd-content .Popup .card-body {
+    padding: 1rem 1rem 1rem 1rem;
+}

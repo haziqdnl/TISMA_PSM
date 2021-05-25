@@ -52,17 +52,20 @@
 
                 <!--SEARCH PATIENT TABLE-->
                 <div class="mt-4">
-                    <asp:GridView runat="server" ID="DisplayRegisteredData" CssClass="display compact cell-border" AutoGenerateColumns="False" AllowPaging="true"
+                    <asp:GridView runat="server" ID="DisplayRegisteredData" CssClass="display compact cell-border" AutoGenerateColumns="False"
                         OnPageIndexChanging="OnPaging" Width="100%">
                         <Columns>
                             <asp:TemplateField>
                                 <HeaderTemplate>No.</HeaderTemplate>
                                 <ItemTemplate><%#Container.DataItemIndex + 1 %></ItemTemplate>
                             </asp:TemplateField>
-                            <%--<asp:BoundField DataField="p_account_no" HeaderText="Account No." SortExpression="p_account_no" />--%>
-                            <asp:HyperLinkField DataTextField="p_account_no" HeaderText="Account No." SortExpression="p_account_no"
-                                DataNavigateUrlFields="p_account_no" DataNavigateUrlFormatString="Patient-Info.aspx?accno={0}" 
-                                ItemStyle-Font-Bold="true" ItemStyle-Width="60px" ItemStyle-ForeColor="#0066ff" />
+                            <asp:TemplateField HeaderText = "Account No." ItemStyle-Width="30">
+                                <ItemTemplate>
+                                    <asp:HyperLink runat="server" Font-Bold="true" ForeColor="#0066ff" 
+                                        Text='<%# Eval("p_account_no") %>'
+                                        NavigateUrl='<%# base.ResolveUrl("~/Patient-Info.aspx?accno=" + this.EncryptURL((String)Eval("p_account_no"))) %>'/>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:BoundField DataField="p_name" HeaderText="Name" SortExpression="p_name" ItemStyle-HorizontalAlign="Left" />
                             <asp:BoundField DataField="p_ic_no" HeaderText="IC No." ReadOnly="True" SortExpression="p_ic_no" />
                             <asp:BoundField DataField="p_passport_no" HeaderText="Passport No." SortExpression="p_passport_no" />
@@ -74,7 +77,17 @@
                 <!--MODUL POPUP: NEW REGISTRATION-->
                 <asp:Panel runat="server" ID="PanelRegister" CssClass="Popup" Style="display: none">
                     <div class="card">
-                        <span>Searching for new registration</span>
+                        <div class="row">
+                            <div class="col align-self-center">
+                                <span>Searching for new registration</span>
+                            </div>
+                            <div class="col align-self-end">
+                                <div class="float-end">
+                                    <!--CANCEL BTN-->
+                                    <asp:Button runat="server" ID="BtnCancelReg" Text="Cancel" CssClass="btn-custom" ForeColor="White" BackColor="#ff0000" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <br />
                     <div class="card-body">
@@ -87,10 +100,7 @@
 
                         <!--PUBLIC PATIENT REGISTER BTN-->
                         <asp:Button runat="server" ID="BtnPublicRegister" Text="Register New as Public" PostBackUrl="Registration-New-Public.aspx"
-                            CssClass="btn-custom" ForeColor="White" BackColor="#0000FF" />
-
-                        <!--CANCEL BTN-->
-                        <asp:Button runat="server" ID="BtnCancelReg" Text="Cancel Register" CssClass="btn-custom" ForeColor="White" BackColor="#ff0000" />
+                            CssClass="btn-custom" ForeColor="White" BackColor="#0000FF" />                        
                         <br />
                         <br />
                         <p style="font-size:11px">&nbsp <b>*</b> Click the <b>IC No.</b> to view the full details of the patient</p>
@@ -123,10 +133,13 @@
                                         <ItemTemplate><%#Container.DataItemIndex + 1 %></ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:BoundField DataField="name" HeaderText="Name" SortExpression="name" ItemStyle-HorizontalAlign="Left" />
-                                    <%--<asp:BoundField DataField="ic_no" HeaderText="IC No." ReadOnly="True" SortExpression="ic_no" />--%>
-                                    <asp:HyperLinkField DataTextField="ic_no" HeaderText="IC No." SortExpression="ic_no"
-                                        DataNavigateUrlFields="ic_no" DataNavigateUrlFormatString="Registration-New.aspx?pid={0}&stat=utmacad" 
-                                        ItemStyle-Font-Bold="true" ItemStyle-Width="60px" ItemStyle-ForeColor="#0066ff" />
+                                    <asp:TemplateField HeaderText = "IC No." ItemStyle-Width="30">
+                                        <ItemTemplate>
+                                            <asp:HyperLink runat="server" Font-Bold="true" ForeColor="#0066ff" 
+                                                Text='<%# Eval("ic_no") %>'
+                                                NavigateUrl='<%# base.ResolveUrl("~/Registration-New.aspx?pid=" + this.EncryptURL((String)Eval("ic_no"))) + "&stat=utmacad" %>'/>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:BoundField DataField="matric_no" HeaderText="Matric No." SortExpression="matric_no" />
                                     <asp:BoundField DataField="faculty" HeaderText="Faculty" SortExpression="faculty" />
                                     <asp:BoundField DataField="branch" HeaderText="Branch" SortExpression="branch" />
@@ -145,10 +158,13 @@
                                         <ItemTemplate><%#Container.DataItemIndex + 1 %></ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:BoundField DataField="name" HeaderText="Name" SortExpression="name" ItemStyle-HorizontalAlign="Left" />
-                                    <%--<asp:BoundField DataField="ic_no" HeaderText="IC No." ReadOnly="True" SortExpression="ic_no" />--%>
-                                    <asp:HyperLinkField DataTextField="ic_no" HeaderText="IC No." SortExpression="ic_no"
-                                        DataNavigateUrlFields="ic_no" DataNavigateUrlFormatString="Registration-New.aspx?pid={0}&stat=utmhr"
-                                        ItemStyle-Font-Bold="true" ItemStyle-Width="60px" ItemStyle-ForeColor="#0066ff" />
+                                    <asp:TemplateField HeaderText = "IC No." ItemStyle-Width="30">
+                                        <ItemTemplate>
+                                            <asp:HyperLink runat="server" Font-Bold="true" ForeColor="#0066ff" 
+                                                Text='<%# Eval("ic_no") %>'
+                                                NavigateUrl='<%# base.ResolveUrl("~/Registration-New.aspx?pid=" + this.EncryptURL((String)Eval("ic_no"))) + "&stat=utmhr" %>'/>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:BoundField DataField="staff_id" HeaderText="Staff ID" SortExpression="staff_id" />
                                     <asp:BoundField DataField="designation" HeaderText="Designation" SortExpression="designation" />
                                     <asp:BoundField DataField="department" HeaderText="Department" SortExpression="department" />
@@ -166,7 +182,7 @@
     <script type="text/javascript">
         $(function () {
             $("[id*=DisplayRegisteredData]").DataTable({
-                lengthMenu: [[5, 10, -1], [5, 10, "All"]],
+                lengthMenu: [[10, 20, -1], [10, 20, "All"]],
                 language: {
                     searchPlaceholder: "Search",
                     search: "",

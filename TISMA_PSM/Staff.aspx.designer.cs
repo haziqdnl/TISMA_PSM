@@ -15,15 +15,6 @@ namespace TISMA_PSM
     {
 
         /// <summary>
-        /// BtnSearch1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSearch1;
-
-        /// <summary>
         /// BtnRegister control.
         /// </summary>
         /// <remarks>
@@ -42,6 +33,15 @@ namespace TISMA_PSM
         protected global::AjaxControlToolkit.ModalPopupExtender ModalPopupRegister;
 
         /// <summary>
+        /// RegisteredStaffTable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView RegisteredStaffTable;
+
+        /// <summary>
         /// PanelRegister control.
         /// </summary>
         /// <remarks>
@@ -49,24 +49,6 @@ namespace TISMA_PSM
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel PanelRegister;
-
-        /// <summary>
-        /// DropDownList2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
-
-        /// <summary>
-        /// BtnSearch2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSearch2;
 
         /// <summary>
         /// BtnCancelReg control.
@@ -85,14 +67,5 @@ namespace TISMA_PSM
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView DisplayUTMHRData;
-
-        /// <summary>
-        /// DisplayRegisteredData control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView DisplayRegisteredData;
     }
 }

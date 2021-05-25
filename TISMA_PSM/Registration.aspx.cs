@@ -7,6 +7,10 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Diagnostics;
+using System.Text;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace TISMA_PSM
 {
@@ -24,50 +28,94 @@ namespace TISMA_PSM
 
         private void BindGrid()
         {
-            //- TISMADB
             DataTable dt1 = new DataTable();
-            string constr1 = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-            SqlConnection con1 = new SqlConnection(constr1);
-            SqlDataAdapter sda1 = new SqlDataAdapter();
-            SqlCommand cmd1 = new SqlCommand("GetTISMAPatient")
+
+            //- DB Exception-Error handling
+            try
             {
-                CommandType = CommandType.StoredProcedure
-            };
-            cmd1.Parameters.AddWithValue("@Filter", ViewState["Filter"].ToString());
-            cmd1.Connection = con1;
-            sda1.SelectCommand = cmd1;
-            sda1.Fill(dt1);
+                //- Get Query: TISMADB
+                string constr1 = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
+                SqlConnection con1 = new SqlConnection(constr1);
+                SqlDataAdapter sda1 = new SqlDataAdapter();
+                SqlCommand cmd1 = new SqlCommand("GetTISMAPatient")
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                cmd1.Parameters.AddWithValue("@Filter", ViewState["Filter"].ToString());
+                cmd1.Connection = con1;
+                sda1.SelectCommand = cmd1;
+                sda1.Fill(dt1);
+            }
+            catch (SqlException ex)
+            {
+                //- Display handling-error message
+                SqlExceptionMsg(ex);
+            }
+            finally
+            {
+                Debug.WriteLine("Database execution successful");
+            }
+
+            //- DataTable binding
             DisplayRegisteredData.DataSource = dt1;
             DisplayRegisteredData.DataBind();
 
-            //- UTMACAD
-            string constr2 = ConfigurationManager.ConnectionStrings["utmacadConnectionString"].ConnectionString;
-            using (SqlConnection con2 = new SqlConnection(constr2))
+            //- DB Exception-Error handling
+            try
             {
-                using (SqlDataAdapter sda2 = new SqlDataAdapter("SELECT * FROM utm_acad_tbl", con2))
+                //- Get Query: UTMACAD
+                string constr2 = ConfigurationManager.ConnectionStrings["utmacadConnectionString"].ConnectionString;
+                using (SqlConnection con2 = new SqlConnection(constr2))
                 {
-                    using (DataTable dt2 = new DataTable())
+                    using (SqlDataAdapter sda2 = new SqlDataAdapter("SELECT * FROM utm_acad_tbl", con2))
                     {
-                        sda2.Fill(dt2);
-                        DisplayUTMACADData.DataSource = dt2;
-                        DisplayUTMACADData.DataBind();
+                        using (DataTable dt2 = new DataTable())
+                        {
+                            sda2.Fill(dt2);
+                            DisplayUTMACADData.DataSource = dt2;
+                            DisplayUTMACADData.DataBind();
+                        }
                     }
                 }
             }
-
-            //- UTMHR
-            string constr3 = ConfigurationManager.ConnectionStrings["utmhrConnectionString"].ConnectionString;
-            using (SqlConnection con3 = new SqlConnection(constr3))
+            catch (SqlException ex)
             {
-                using (SqlDataAdapter sda3 = new SqlDataAdapter("SELECT * FROM utm_hr_tbl", con3))
+                //- Display handling-error message
+                SqlExceptionMsg(ex);
+            }
+            finally
+            {
+                //- Display success message
+                Debug.WriteLine("Database execution successful");
+            }
+
+            //- DB Exception-Error handling
+            try
+            {
+                //- Get Query: UTMHR
+                string constr3 = ConfigurationManager.ConnectionStrings["utmhrConnectionString"].ConnectionString;
+                using (SqlConnection con3 = new SqlConnection(constr3))
                 {
-                    using (DataTable dt3 = new DataTable())
+                    using (SqlDataAdapter sda3 = new SqlDataAdapter("SELECT * FROM utm_hr_tbl", con3))
                     {
-                        sda3.Fill(dt3);
-                        DisplayUTMHRData.DataSource = dt3;
-                        DisplayUTMHRData.DataBind();
+                        using (DataTable dt3 = new DataTable())
+                        {
+                            sda3.Fill(dt3);
+                            DisplayUTMHRData.DataSource = dt3;
+                            DisplayUTMHRData.DataBind();
+                        }
                     }
                 }
+            }
+            catch (SqlException ex)
+            {
+                //- Display handling-error message
+                SqlExceptionMsg(ex);
+            }
+            finally
+            {
+                //- Display success message
+                Debug.WriteLine("Database execution successful");
             }
 
             //- Datatable render
@@ -91,5 +139,47 @@ namespace TISMA_PSM
             DisplayRegisteredData.PageIndex = e.NewPageIndex;
             this.BindGrid();
         }
+
+        public string EncryptURL(string url)
+        {
+            //- Custom key
+            string EncryptionKey = "3NCRYPTTH1SURLP4R4M";
+
+            //- Encryption logic
+            String encrypted;
+            byte[] clearBytes = Encoding.Unicode.GetBytes(url);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
+                0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
+                });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
+                    }
+                    encrypted = Convert.ToBase64String(ms.ToArray());
+                }
+            }
+            return encrypted;
+        }
+
+        public static void SqlExceptionMsg(SqlException ex)
+        {
+            StringBuilder errorMessages = new StringBuilder();
+            for (int i = 0; i < ex.Errors.Count; i++)
+            {
+                errorMessages.Append("Index #" + i + "\n" +
+                    "Message: " + ex.Errors[i].Message + "\n" +
+                    "LineNumber: " + ex.Errors[i].LineNumber + "\n" +
+                    "Source: " + ex.Errors[i].Source + "\n" +
+                    "Procedure: " + ex.Errors[i].Procedure + "\n");
+            }
+            Debug.WriteLine(errorMessages.ToString());
+        }        
     }
 }

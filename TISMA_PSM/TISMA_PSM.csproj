@@ -48,6 +48,7 @@
       <HintPath>..\..\..\ASP.NET AJAX Control Toolkit\Bin\AjaxControlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -71,6 +72,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Add-New-Staff.aspx" />
     <Content Include="bootstrap\css\bootstrap-grid.css" />
     <Content Include="bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="bootstrap\css\bootstrap-grid.rtl.css" />
@@ -96,6 +98,7 @@
     <Content Include="bootstrap\js\bootstrap.min.js" />
     <Content Include="bootstrap\js\jquery-3.4.1.min.js" />
     <Content Include="bootstrap\js\popper.min.js" />
+    <Content Include="Consultation.aspx" />
     <Content Include="custom\css\main.css" />
     <Content Include="custom\css\x.css" />
     <Content Include="Dashboard.aspx" />
@@ -1759,11 +1762,26 @@
     <Content Include="Registration-New-Public.aspx" />
     <Content Include="Registration-New.aspx" />
     <Content Include="Registration.aspx" />
+    <Content Include="Staff-Info.aspx" />
     <Content Include="Staff.aspx" />
     <Content Include="Web.config" />
     <Content Include="X-Home.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Add-New-Staff.aspx.cs">
+      <DependentUpon>Add-New-Staff.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Add-New-Staff.aspx.designer.cs">
+      <DependentUpon>Add-New-Staff.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Consultation.aspx.cs">
+      <DependentUpon>Consultation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Consultation.aspx.designer.cs">
+      <DependentUpon>Consultation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1841,6 +1859,13 @@
     </Compile>
     <Compile Include="Registration.aspx.designer.cs">
       <DependentUpon>Registration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Staff-Info.aspx.cs">
+      <DependentUpon>Staff-Info.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Staff-Info.aspx.designer.cs">
+      <DependentUpon>Staff-Info.aspx</DependentUpon>
     </Compile>
     <Compile Include="Staff.aspx.cs">
       <DependentUpon>Staff.aspx</DependentUpon>

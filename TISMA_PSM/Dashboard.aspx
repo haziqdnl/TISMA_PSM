@@ -26,7 +26,7 @@
                 <div class="row w-auto card-body">
                     <div class="col align-self-start">
                         <div class="row align-self-start">
-                            <h1>0</h1>
+                            <h1><asp:Literal runat="server" ID="getPatientWaiting"></asp:Literal></h1>
                         </div>
                         <div class="row align-self-end">
                             <h5>Patients Waiting</h5>
@@ -42,7 +42,7 @@
                 <div class="row w-auto card-body">
                     <div class="col align-self-start">
                         <div class="row row-cols-lg-1 align-self-start">
-                            <h1>0</h1>
+                            <h1><asp:Literal runat="server" ID="getPatientRegistered"></asp:Literal></h1>
                         </div>
                         <div class="row align-self-end">
                             <h5>Patients Registered</h5>

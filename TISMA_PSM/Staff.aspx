@@ -31,92 +31,104 @@
 
             <!--SEARCH STAFF FORM-->
             <div class="card-body">
-                <!--SEARCH TEXTBOX-->
-                <asp:TextBox runat="server" TextMode="Search" placeholder="Search" CssClass="textbox-custom" Width="500px"></asp:TextBox>
-                <!--SEARCH BTN-->
-                <asp:Button runat="server" ID="BtnSearch1" Text="Search" CssClass="btn-custom" ForeColor="White" BackColor="#00bfbf" />
                 <!--NEW REGISTRATION BTN-->
-                <asp:Button runat="server" ID="BtnRegister" Text="Add New Staff" CssClass="btn-custom" ForeColor="White" BackColor="#ff0000" />
+                <asp:Button runat="server" ID="BtnRegister" Text="Add New Staff" CssClass="btn-custom" ForeColor="White" BackColor="#0A9E00" />
                 <ajaxRegister:ModalPopupExtender runat="server" ID="ModalPopupRegister" PopupControlID="PanelRegister" TargetControlID="BtnRegister"
                     CancelControlID="BtnCancelReg" BackgroundCssClass="Background">
                 </ajaxRegister:ModalPopupExtender>
                 <br />
+                <br />
+                <p style="font-size:11px">&nbsp <b>*</b> Click the <b>Account No.</b> to view the full details of the user/staff</p>
+
+                <!--SEARCH STAFF TABLE-->
+                <div class="mt-4">
+                    <asp:GridView runat="server" ID="RegisteredStaffTable" CssClass="display compact cell-border" ShowHeaderWhenEmpty="true" AutoGenerateColumns="False" DataKeyNames="s_ic_no" Width="100%">
+                        <Columns>
+                            <asp:TemplateField>
+                                <HeaderTemplate>No.</HeaderTemplate>
+                                <ItemTemplate><%#Container.DataItemIndex + 1 %></ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText = "Account No." ItemStyle-Width="30">
+                                <ItemTemplate>
+                                    <asp:HyperLink runat="server" Font-Bold="true" ForeColor="#0066ff" 
+                                        Text='<%# Eval("s_account_no") %>'
+                                        NavigateUrl='<%# base.ResolveUrl("~/Staff-Info.aspx?accno=" + this.EncryptURL((String)Eval("s_account_no"))) %>'/>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="s_username" HeaderText="Username" SortExpression="s_username" />
+                            <asp:BoundField DataField="s_name" HeaderText="Name" SortExpression="s_name" ItemStyle-HorizontalAlign="Left"/>
+                            <asp:BoundField DataField="s_designation" HeaderText="Designation" SortExpression="s_designation" />
+                            <asp:BoundField DataField="s_staff_id" HeaderText="Staff ID" SortExpression="s_staff_id" />
+                            <asp:BoundField DataField="s_ic_no" HeaderText="IC No." ReadOnly="True" SortExpression="s_ic_no" />
+                            <asp:BoundField DataField="s_tel_no" HeaderText="Tel No." SortExpression="s_tel_no" />
+                        </Columns>
+                        <EmptyDataTemplate>No Record Available</EmptyDataTemplate>
+                    </asp:GridView>
+                </div>
 
                 <!--MODUL POPUP: NEW REGISTRATION-->
                 <asp:Panel runat="server" ID="PanelRegister" CssClass="Popup" Style="display: none">
                     <div class="card">
-                        <span>Searching for new staff from UTMHR</span>
+                        <div class="row">
+                            <div class="col align-self-center">
+                                <span>Searching for new staff from UTMHR</span>
+                            </div>
+                            <div class="col align-self-end">
+                                <div class="float-end">
+                                    <!--CANCEL BTN-->
+                                    <asp:Button runat="server" ID="BtnCancelReg" Text="Cancel" CssClass="btn-custom" ForeColor="White" BackColor="#ff0000" />
+                                </div>
+                            </div>
+                        </div>                        
                     </div>
-                    <br />
-
                     <div class="card-body">
-                        <!--SELECT/DROPDOWN INPUT: Filter By-->
-                        <asp:DropDownList runat="server" ID="DropDownList2" CssClass="dropdown-custom">
-                            <asp:ListItem Text="--Filter by--" Value="" />
-                            <asp:ListItem Text="Matric No." Value="matric_no" />
-                            <asp:ListItem Text="IC No." Value="ic_no" />
-                            <asp:ListItem Text="Name" Value="name" />
-                        </asp:DropDownList>
-                        <!--SEARCH TEXTBOX-->
-                        <asp:TextBox runat="server" TextMode="Search" placeholder="Search" CssClass="textbox-custom" Width="500px"></asp:TextBox>
-                        <!--SEARCH BTN-->
-                        <asp:Button runat="server" ID="BtnSearch2" Text="Search" CssClass="btn-custom" ForeColor="White" BackColor="#00bfbf" />
-                        <!--CANCEL BTN-->
-                        <asp:Button runat="server" ID="BtnCancelReg" Text="Cancel" CssClass="btn-custom" ForeColor="Black" BackColor="#e5e5e5" />
-                        <br />
-
+                        <p style="font-size:11px">&nbsp <b>*</b> Click the <b>IC No.</b> to view the full details of the patient</p>
                         <!--SEARCHED PATIENT TABLE-->
                         <div class="mt-3">
-                            <asp:GridView runat="server" ID="DisplayUTMHRData" CssClass="display compact cell-border" AutoGenerateColumns="False" DataKeyNames="ic_no" Width="100%">
+                            <asp:GridView runat="server" ID="DisplayUTMHRData" CssClass="display compact cell-border" AutoGenerateColumns="False" Width="100%">
                                 <Columns>
+                                    <asp:TemplateField>
+                                        <HeaderTemplate>No.</HeaderTemplate>
+                                        <ItemTemplate><%#Container.DataItemIndex + 1 %></ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="name" HeaderText="Name" SortExpression="name" ItemStyle-HorizontalAlign="Left" />
+                                    <asp:TemplateField HeaderText = "IC No." ItemStyle-Width="30">
+                                        <ItemTemplate>
+                                            <asp:HyperLink runat="server" Font-Bold="true" ForeColor="#0066ff" 
+                                                Text='<%# Eval("ic_no") %>'
+                                                NavigateUrl='<%# base.ResolveUrl("~/Add-New-Staff.aspx?pid=" + this.EncryptURL((String)Eval("ic_no"))) %>'/>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:BoundField DataField="staff_id" HeaderText="Staff ID" SortExpression="staff_id" />
-                                    <asp:BoundField DataField="ic_no" HeaderText="IC No." ReadOnly="True" SortExpression="ic_no" />
-                                    <asp:BoundField DataField="name" HeaderText="Name" SortExpression="name" />
                                     <asp:BoundField DataField="designation" HeaderText="Designation" SortExpression="designation" />
                                     <asp:BoundField DataField="department" HeaderText="Department" SortExpression="department" />
-                                    <asp:BoundField DataField="dob" HeaderText="DOB" SortExpression="dob" />
                                     <asp:BoundField DataField="branch" HeaderText="Branch" SortExpression="branch" />
                                     <asp:BoundField DataField="session_no" HeaderText="Session" SortExpression="session_no" />
-                                    <asp:BoundField DataField="remarks" HeaderText="Remark" SortExpression="remarks" />
                                 </Columns>
                             </asp:GridView>
                         </div>
                         <br />
                     </div>
-                </asp:Panel>
-
-                <!--SEARCH PATIENT TABLE-->
-                <div class="mt-4">
-                    <asp:GridView runat="server" ID="DisplayRegisteredData" CssClass="display compact cell-border" AutoGenerateColumns="False" DataKeyNames="s_ic_no" Width="100%">
-                        <Columns>
-                            <asp:BoundField DataField="s_username" HeaderText="Username" SortExpression="s_username" />
-                            <asp:BoundField DataField="s_staff_id" HeaderText="Staff ID" SortExpression="s_staff_id" />
-                            <asp:BoundField DataField="s_name" HeaderText="Name" SortExpression="s_name" />
-                            <asp:BoundField DataField="s_designation" HeaderText="Designation" SortExpression="s_designation" />
-                            <asp:BoundField DataField="s_ic_no" HeaderText="IC No." ReadOnly="True" SortExpression="s_ic_no" />
-                            <asp:BoundField DataField="s_dob" HeaderText="DOB" SortExpression="s_dob" />
-                            <asp:BoundField DataField="s_tel_no" HeaderText="Tel No." SortExpression="s_tel_no" />
-                        </Columns>
-                    </asp:GridView>
-                </div>
+                </asp:Panel>                
             </div>
         </div>
     </div>
     <script type="text/javascript">
         $(function () {
-            $("[id*=DisplayRegisteredData]").DataTable({
-                bLengthChange: true,
-                lengthMenu: [[5, 10, -1], [5, 10, "All"]],
-                bFilter: true,
-                bSort: true,
-                bPaginate: true,
+            $("[id*=RegisteredStaffTable]").DataTable({
+                lengthMenu: [[10, 20, -1], [10, 20, "All"]],
+                language: {
+                    searchPlaceholder: "Search",
+                    search: "",
+                },
             });
+
             $("[id*=DisplayUTMHRData]").DataTable({
-                bLengthChange: true,
-                lengthMenu: [[5, 10, -1], [5, 10, "All"]],
-                bFilter: true,
-                bSort: true,
-                bPaginate: true,
+                lengthMenu: [[5, 10], [5, 10]],
+                language: {
+                    searchPlaceholder: "Search",
+                    search: "",
+                },
             });
         });
     </script>

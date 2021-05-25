@@ -11,8 +11,26 @@ namespace TISMA_PSM
 {
 
 
-    public partial class Registration_New_Public
+    public partial class Consultation
     {
+
+        /// <summary>
+        /// displayAccNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal displayAccNo;
+
+        /// <summary>
+        /// displayCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal displayCategory;
 
         /// <summary>
         /// TabContainer1 control.
@@ -33,31 +51,40 @@ namespace TISMA_PSM
         protected global::AjaxControlToolkit.TabPanel TabPanel1;
 
         /// <summary>
-        /// getBranchDdl control.
+        /// note control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList getBranchDdl;
+        protected global::System.Web.UI.WebControls.Literal note;
 
         /// <summary>
-        /// RequiredFieldValidator1 control.
+        /// getBranch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        protected global::System.Web.UI.WebControls.DropDownList getBranch;
 
         /// <summary>
-        /// getCategory control.
+        /// getStat control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox getCategory;
+        protected global::System.Web.UI.WebControls.TextBox getStat;
+
+        /// <summary>
+        /// statusText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal statusText;
 
         /// <summary>
         /// getAccNo control.
@@ -69,6 +96,15 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.TextBox getAccNo;
 
         /// <summary>
+        /// getCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox getCategory;
+
+        /// <summary>
         /// getName control.
         /// </summary>
         /// <remarks>
@@ -78,6 +114,15 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.TextBox getName;
 
         /// <summary>
+        /// getMatricNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox getMatricNo;
+
+        /// <summary>
         /// getIcNo control.
         /// </summary>
         /// <remarks>
@@ -85,15 +130,6 @@ namespace TISMA_PSM
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox getIcNo;
-
-        /// <summary>
-        /// RegularExpressionValidator1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
 
         /// <summary>
         /// getPassportNo control.
@@ -132,31 +168,22 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.TextBox getAge;
 
         /// <summary>
-        /// getGenderDdl control.
+        /// getGender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList getGenderDdl;
+        protected global::System.Web.UI.WebControls.DropDownList getGender;
 
         /// <summary>
-        /// RequiredFieldValidator2 control.
+        /// getMaritalStat control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
-
-        /// <summary>
-        /// getMaritalStatDdl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList getMaritalStatDdl;
+        protected global::System.Web.UI.WebControls.DropDownList getMaritalStat;
 
         /// <summary>
         /// RequiredFieldValidator3 control.
@@ -168,58 +195,40 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
 
         /// <summary>
-        /// getReligionDdl control.
+        /// getReligion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList getReligionDdl;
+        protected global::System.Web.UI.WebControls.DropDownList getReligion;
 
         /// <summary>
-        /// RequiredFieldValidator4 control.
+        /// RequiredFieldValidator1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
 
         /// <summary>
-        /// getRaceDdl control.
+        /// getRace control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList getRaceDdl;
+        protected global::System.Web.UI.WebControls.DropDownList getRace;
 
         /// <summary>
-        /// RequiredFieldValidator5 control.
+        /// getNation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
-
-        /// <summary>
-        /// getNationDdl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList getNationDdl;
-
-        /// <summary>
-        /// RequiredFieldValidator6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator6;
+        protected global::System.Web.UI.WebControls.TextBox getNation;
 
         /// <summary>
         /// getPhone control.
@@ -249,6 +258,51 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.TextBox getDesignation;
 
         /// <summary>
+        /// getCourse control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox getCourse;
+
+        /// <summary>
+        /// getFacDep control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox getFacDep;
+
+        /// <summary>
+        /// getSem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox getSem;
+
+        /// <summary>
+        /// RegularExpressionValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
+
+        /// <summary>
+        /// getSession control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox getSession;
+
+        /// <summary>
         /// getAddress control.
         /// </summary>
         /// <remarks>
@@ -267,13 +321,40 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.TextBox getRemarks;
 
         /// <summary>
-        /// BtnAddtoTISMA control.
+        /// BtnUpdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnAddtoTISMA;
+        protected global::System.Web.UI.WebControls.Button BtnUpdate;
+
+        /// <summary>
+        /// BtnDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnDelete;
+
+        /// <summary>
+        /// TabPanel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel2;
+
+        /// <summary>
+        /// ClinicalHistoryTable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView ClinicalHistoryTable;
 
         /// <summary>
         /// BtnPopup control.
@@ -303,6 +384,15 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.Panel PanelPopup;
 
         /// <summary>
+        /// BtnConfirm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnConfirm;
+
+        /// <summary>
         /// BtnCancel control.
         /// </summary>
         /// <remarks>
@@ -310,14 +400,5 @@ namespace TISMA_PSM
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnCancel;
-
-        /// <summary>
-        /// BtnBackto control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnBackto;
     }
 }

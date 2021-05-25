@@ -1,19 +1,19 @@
-﻿<%@ Page Title="Patient Info :: TISMA" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Patient-Info.aspx.cs" Inherits="TISMA_PSM.Patient_Info" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Consultation.aspx.cs" Inherits="TISMA_PSM.Consultation" %>
 
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxPatientInfo" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxOpd" %>
 
-<asp:Content ID="PatientInfo" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="container-fluid content-p-custom" id="patient-info">
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="container-fluid content-p-custom" id="opd">
         <!--TITLE SECTION-->
         <div class="row justify-content-center">
             <div class="row header-p-custom">
-                <div class="col ">
-                    <h5>Module Registration</h5>
+                <div class="col align-self-start">
+                    <span style="font-size: 19px;font-weight: 600;">Module OPD</span>&nbsp<span>Out Patient Department</span>
                 </div>
                 <div class="col align-self-end">
                     <div class="float-end subheader-custom">
                         <i class="fas fa-home me-1"></i>
-                        <span><b>Dashboard&nbsp;&nbsp;>&nbsp;&nbsp;Modules&nbsp;&nbsp;></b>&nbsp;&nbsp;Registration</span>
+                        <span><b>Dashboard&nbsp;&nbsp;>&nbsp;&nbsp;Modules&nbsp;&nbsp;></b>&nbsp;&nbsp;OPD</span>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                         <div>
                             <asp:LinkButton runat="server" PostBackUrl="~/Registration.aspx">
                                 <i class="fas fa-search me-1"></i>
-                                <span>Search Registered Patient</span>
+                                <span>Search</span>
                             </asp:LinkButton>
                         </div>
                     </div>
@@ -54,63 +54,12 @@
                     </div>
                 </div>
                 <br />
-                <!--GENERATE QUEUE-->
-                <div class="row-cols-1" id="patient-info-gen-q">
-                    <div class="card border-0">
-                        <span>Queue</span>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <asp:Button runat="server" ID="BtnQList" Text="Queue List" PostBackUrl="~/Queue.aspx" CssClass="btn-custom mt-2" Width="100%" ForeColor="White" BackColor="#0066ff" />
-                        </div>
-                        <div class="row">
-                            <asp:Button runat="server" ID="BtnGenerateQueue1" Text="Generate Queue" CssClass="btn-custom mt-2" Width="100%" ForeColor="White" BackColor="#0066ff" />
-                            <ajaxPatientInfo:ModalPopupExtender runat="server" ID="ModalPopupGenerateQueue" PopupControlID="PanelGenerateQueue" TargetControlID="BtnGenerateQueue1"
-                                CancelControlID="BtnCancelGenerateQueue" BackgroundCssClass="Background">
-                            </ajaxPatientInfo:ModalPopupExtender>
-                        </div>
-                    </div>
-                </div>
             </div>
-
-            <!--MODUL POPUP: GENERATE QUEUE-->
-            <asp:Panel runat="server" ID="PanelGenerateQueue" CssClass="Popup" Width="700px" Style="display: none">
-                <div class="card">
-                    <div class="row">
-                        <div class="col align-self-center">
-                            <span>QMS Module</span>
-                        </div>
-                        <div class="col align-self-end">
-                            <div class="float-end">
-                                <!--CANCEL BTN-->
-                                <asp:Button runat="server" ID="BtnCancelGenerateQueue" Font-Size="Larger" Text="X" Font-Bold="true" BorderStyle="None" CssClass="btn-custom" ForeColor="#808080" BackColor="White" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body text-center">
-                    <div runat="server" id="beforeGenerate">
-                        <p>Last generated QMS number: &nbsp<b><asp:Literal runat="server" ID="getLatestNo"></asp:Literal></b></p>
-                        <p>Last visit for Account No. &nbsp<b><asp:Literal runat="server" ID="getAccNoQMS"></asp:Literal></b>&nbsp on <b><asp:Literal runat="server" ID="getLastVisited"></asp:Literal></b></p>
-                        <asp:Button runat="server" ID="BtnGenerateQueue2" Text="Generate Queue" OnClick="GenerateQueue" CssClass="btn-custom mt-2 mb-2" ForeColor="White" BackColor="#ff0000"></asp:Button>
-                    </div>
-                    <div runat="server" id="afterGenerate">
-                        <div class="row">
-                            <h1 class="mb-0"><asp:Literal runat="server" ID="getQueueNo"></asp:Literal></h1>
-                            <span>Queue generated</span>
-                        </div>
-                        <br />
-                        <div>
-                            <asp:Button runat="server" ID="Button1" Text="Back to Registration Module" PostBackUrl="~/Registration.aspx" CssClass="btn-custom mt-1 mb-2" ForeColor="White" BackColor="#0066ff"></asp:Button>
-                        </div>
-                    </div>
-                </div>
-            </asp:Panel>
 
             <div class="col p-0 m-0">
                 <div class="card p-0">
-                    <ajaxPatientInfo:TabContainer runat="server" ID="TabContainer1" ActiveTabIndex="0" BackColor="#0072c6">
-                        <ajaxPatientInfo:TabPanel runat="server" ID="TabPanel1" HeaderText="Basic Info" BorderStyle="None">
+                    <ajaxOpd:TabContainer runat="server" ID="TabContainer1" ActiveTabIndex="0" BackColor="#0072c6">
+                        <ajaxOpd:TabPanel runat="server" ID="TabPanel1" HeaderText="Basic Info" BorderStyle="None">
                             <ContentTemplate>
                                 <div class="row m-0 card-body pt-2 pb-1 ps-1 pe-1 note">
                                     <h5><b>Note</b></h5>
@@ -309,13 +258,13 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    <asp:Button runat="server" ID="BtnUpdate" Text="Update" OnClick="UpdateToTisma" CssClass="btn-custom mt-2" ForeColor="White" BackColor="#00cc00" />
+                                    <asp:Button runat="server" ID="BtnUpdate" Text="Update"  CssClass="btn-custom mt-2" ForeColor="White" BackColor="#00cc00" />
                                     &nbsp&nbsp&nbsp
-                                    <asp:Button runat="server" ID="BtnDelete" Text="Delete" OnClick="DeleteConfirmation" CssClass="btn-custom mt-2" ForeColor="White" BackColor="#ff0000" />
+                                    <asp:Button runat="server" ID="BtnDelete" Text="Delete"  CssClass="btn-custom mt-2" ForeColor="White" BackColor="#ff0000" />
                                 </div>
                             </ContentTemplate>
-                        </ajaxPatientInfo:TabPanel>
-                        <ajaxPatientInfo:TabPanel runat="server" ID="TabPanel2" HeaderText="History" BorderStyle="None">
+                        </ajaxOpd:TabPanel>
+                        <ajaxOpd:TabPanel runat="server" ID="TabPanel2" HeaderText="History" BorderStyle="None">
                             <ContentTemplate>
                                 <div class="mt-4">
                                     <asp:GridView runat="server" ID="ClinicalHistoryTable" CssClass="display compact cell-border" AutoGenerateColumns="False" ShowHeaderWhenEmpty="true" Width="100%">
@@ -332,8 +281,8 @@
                                     </asp:GridView>
                                 </div>
                             </ContentTemplate>
-                        </ajaxPatientInfo:TabPanel>
-                    </ajaxPatientInfo:TabContainer>
+                        </ajaxOpd:TabPanel>
+                    </ajaxOpd:TabContainer>
                 </div>
             </div>
         </div>
@@ -342,8 +291,8 @@
         <div style="display:none">
             <asp:Button runat="server" ID="BtnPopup" Text="Open Popup" CssClass="btn-custom mt-2" Width="100%" ForeColor="White" BackColor="#0066ff" />
         </div>
-        <ajaxPatientInfo:ModalPopupExtender runat="server" ID="ModalPopupMessage" PopupControlID="PanelPopup" TargetControlID="BtnPopup" CancelControlID="BtnCancel" BackgroundCssClass="Background">
-        </ajaxPatientInfo:ModalPopupExtender>
+        <ajaxOpd:ModalPopupExtender runat="server" ID="ModalPopupMessage" PopupControlID="PanelPopup" TargetControlID="BtnPopup" CancelControlID="BtnCancel" BackgroundCssClass="Background">
+        </ajaxOpd:ModalPopupExtender>
         <asp:Panel runat="server" ID="PanelPopup" CssClass="Popup" Width="600px" Style="display: none">
             <div class="card">
                 <div class="row">
@@ -360,7 +309,7 @@
                 </div>
                 <div>
                     <!--CONFIRM BTN-->
-                    <asp:Button runat="server" ID="BtnConfirm" Text="Confirm" OnClick="DeleteFromTisma" CssClass="btn-custom mt-1 mb-2" ForeColor="White" BackColor="#ff0000"></asp:Button>
+                    <asp:Button runat="server" ID="BtnConfirm" Text="Confirm"  CssClass="btn-custom mt-1 mb-2" ForeColor="White" BackColor="#ff0000"></asp:Button>
                     <!--CANCEL BTN-->
                     <asp:Button runat="server" ID="BtnCancel" Text="Cancel" CssClass="btn-custom" ForeColor="White" BackColor="#0A9E00" />
                 </div>

@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="QMS :: TISMA" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="QMS.aspx.cs" Inherits="TISMA_PSM.QMS" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxQms" %>
+
 <asp:Content ID="QMS" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container-fluid" style="padding: 1.5rem 1rem 1.5rem 1rem" id="qms">
         <!--TITLE SECTION-->
@@ -34,38 +36,74 @@
             <!--INSTRUCTION-->
             <div class="card border-0">
                 <div class="col">
-                    <span>Instruction: Key-in the last 3 numbers</span>
+                    <span>Instruction: Key-in the 3 numbers, Ex: ' 001 '</span>
                 </div>
             </div>
             <div class="card-body">
                 <!--QUEUE NO.: Date-->
-                <input readonly value="20210411" style="width: 6rem;" />
+                <asp:TextBox runat="server" ID="getTodayDate" ReadOnly="true" Enabled="false" CssClass="textbox-custom" Width="100px" BackColor="White"></asp:TextBox>
                 <!--QUEUE NO.: Number-->
-                <input autofocus required placeholder="Your number here" maxlength="3" minlength="3" style="width: 10rem;" />
+                <asp:TextBox runat="server" ID="getQueueNo" AutoFocus="true" CssClass="textbox-custom" Placeholder="Your number here" Width="150px" BackColor="White" Required="true"></asp:TextBox>
                 <!--SUBMIT BTN-->
-                <button type="submit">Enter</button>
+                <asp:Button runat="server" ID="BtnEnter" Text="Enter" OnClick="KeyInQueue" CssClass="btn-custom mt-2" BorderStyle="None" Font-Size="15px" ForeColor="White" BackColor="#0068b4"
+                    Style="padding: 0.3rem 1rem 0.3rem 1rem" />
+                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator1" ControlToValidate="getQueueNo"
+                    ValidationExpression="^[0-9]{3}$" Display="Dynamic" SetFocusOnError="true" ErrorMessage="Please enter the correct format" ForeColor="Red" Font-Size="10px">
+                </asp:RegularExpressionValidator>
                 <!--TABLE-->
                 <div class="mt-3">
-                    <table id="qms-table" class="cell-border hover order-column mt-2" style="width: 100%;">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Queue No.</th>
-                                <th>Account No.</th>
-                                <th>Name</th>
-                                <th>Category</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                    <asp:GridView runat="server" ID="QmsTable" CssClass="display compact cell-border" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" Width="100%">
+                        <Columns>
+                            <asp:TemplateField>
+                                <HeaderTemplate>No.</HeaderTemplate>
+                                <ItemTemplate><%#Container.DataItemIndex + 1 %></ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="queue_no" HeaderText="Queue No." SortExpression="queue_no" />
+                            <asp:BoundField DataField="p_account_no" HeaderText="Account No." SortExpression="p_account_no" />
+                            <asp:BoundField DataField="p_name" HeaderText="Name" SortExpression="p_name" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="p_category" HeaderText="Category" SortExpression="p_category" />
+                            <asp:BoundField DataField="p_remarks" HeaderText="Remarks" SortExpression="p_remarks" />
+                        </Columns>
+                        <EmptyDataTemplate>No Record Available</EmptyDataTemplate>
+                    </asp:GridView>
                 </div>
             </div>
         </div>
+
+        <!--MODUL POPUP: POPUP MESSAGE-->
+        <div style="display:none">
+            <asp:Button runat="server" ID="BtnPopup" Text="Open Popup" CssClass="btn-custom mt-2" Width="100%" ForeColor="White" BackColor="#0066ff" />
+        </div>
+        <ajaxQms:ModalPopupExtender runat="server" ID="ModalPopupMessage" PopupControlID="PanelPopup" TargetControlID="BtnPopup" CancelControlID="BtnCancel" BackgroundCssClass="Background">
+        </ajaxQms:ModalPopupExtender>
+        <asp:Panel runat="server" ID="PanelPopup" CssClass="Popup" Width="600px" Style="display: none">
+            <div class="card">
+                <div class="row">
+                    <div class="col align-self-center">
+                        <span><asp:Literal runat="server" ID="getPopupTitle"></asp:Literal></span>
+                    </div>
+                    <div class="col align-self-end">
+                        <div class="float-end">
+                            <!--CANCEL BTN-->
+                            <asp:Button runat="server" ID="BtnCancel" Font-Size="Larger" Text="X" Font-Bold="true" BorderStyle="None" CssClass="btn-custom" ForeColor="#808080" BackColor="White" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body text-center">
+                <p><asp:Literal runat="server" ID="getPopupMessage"></asp:Literal></p>
+            </div>
+        </asp:Panel>
     </div>
     <script>
-        $(document).ready(function () {
-            $('#qms-table').DataTable();
+        $(function () {
+            $("[id*=QmsTable]").DataTable({
+                lengthMenu: [[10, 20, 50, -1], [10, 20, 50, "All"]],
+                language: {
+                    searchPlaceholder: "Search queue no...",
+                    search: "",
+                },
+            });
         });
     </script>
 </asp:Content>
