@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="OPD :: TISMA" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="OPD.aspx.cs" Inherits="TISMA_PSM.OPD" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxOpd" %>
+
 <asp:Content ID="OPD" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container-fluid content-p-custom" id="opd">
         <!--TITLE SECTION-->
@@ -53,6 +55,33 @@
                 </div>
             </div>
         </div>
+
+        <!--MODUL POPUP: UPDATE POPUP MESSAGE-->
+        <div style="display:none">
+            <asp:Button runat="server" ID="BtnPopupUpdate" Text="Open Popup" CssClass="btn-custom mt-2" Width="100%" ForeColor="White" BackColor="#0066ff" />
+        </div>
+        <ajaxOpd:ModalPopupExtender runat="server" ID="ModalPopupMessageUpdate" PopupControlID="PanelPopupUpdate" TargetControlID="BtnPopupUpdate" CancelControlID="BtnOK" BackgroundCssClass="Background">
+        </ajaxOpd:ModalPopupExtender>
+        <asp:Panel runat="server" ID="PanelPopupUpdate" CssClass="Popup" Width="600px" Style="display: none">
+            <div class="card">
+                <div class="row">
+                    <div class="col align-self-center">
+                        <span>System Message</span>
+                    </div>
+                    <div class="col align-self-end">
+                    </div>
+                </div>
+            </div>
+            <div class="card-body text-center">
+                <div class="row">
+                    <p>All changes has been updated!</p>
+                </div>
+                <div>
+                    <!--OK BTN-->
+                    <asp:Button runat="server" ID="BtnOK" Text="OK" CssClass="btn-custom" ForeColor="White" BackColor="#0A9E00" />
+                </div>
+            </div>
+        </asp:Panel>
     </div>
     <script>
         $(function () {

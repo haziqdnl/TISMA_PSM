@@ -18,14 +18,14 @@ GO
 -- Create date: 11 May 2021
 -- Description:	
 -- =============================================
-CREATE PROCEDURE CheckIsStaffMO
-	@IcNo NVARCHAR(12)
+CREATE PROCEDURE CheckIsEmailStaffExist
+	@Email NVARCHAR(50)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
-	IF EXISTS(SELECT fk_ic_no FROM pku_medical_officer WHERE fk_ic_no = @IcNo)
+	IF EXISTS(SELECT s_email FROM pku_staff WHERE s_email = @Email)
 	BEGIN
 		SELECT 'TRUE'
 	END

@@ -66,7 +66,7 @@ namespace TISMA_PSM
             finally
             {
                 //- Display success message
-                Debug.WriteLine("Database execution successful");
+                Debug.WriteLine("DB Execution Success: Queue Table");
             }
 
             //- DataTable render

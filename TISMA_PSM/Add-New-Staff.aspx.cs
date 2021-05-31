@@ -84,7 +84,7 @@ namespace TISMA_PSM
             finally
             {
                 //- Display success message
-                Debug.WriteLine("Database execution successful");
+                Debug.WriteLine("DB Execution Success: Retrieve staff data from UTM-HR");
             }
         }
 
@@ -93,7 +93,7 @@ namespace TISMA_PSM
             //- DB Exception-Error handling
             try
             {
-                //- Check TISMA Role
+                //- Identify TISMA Role
                 string role = getTismaRoleDdl.SelectedValue, spFunc;
                 if (role.Equals("Admin"))
                     spFunc = "AddToTismaPkuAdmin";
@@ -148,7 +148,7 @@ namespace TISMA_PSM
             finally
             {
                 //- Display success message
-                Debug.WriteLine("Database execution successful");
+                Debug.WriteLine("DB Execution Success: Add to TISMA");
             }
             Response.Redirect("Staff.aspx");
         }

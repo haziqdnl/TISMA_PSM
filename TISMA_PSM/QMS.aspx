@@ -36,7 +36,7 @@
             <!--INSTRUCTION-->
             <div class="card border-0">
                 <div class="col">
-                    <span>Instruction: Key-in the 3 numbers, Ex: ' 001 '</span>
+                    <span>Instruction: Key-in the 3 digits, Ex: ' 001 '</span>
                 </div>
             </div>
             <div class="card-body">
@@ -48,8 +48,11 @@
                 <asp:Button runat="server" ID="BtnEnter" Text="Enter" OnClick="KeyInQueue" CssClass="btn-custom mt-2" BorderStyle="None" Font-Size="15px" ForeColor="White" BackColor="#0068b4"
                     Style="padding: 0.3rem 1rem 0.3rem 1rem" />
                 <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator1" ControlToValidate="getQueueNo"
-                    ValidationExpression="^[0-9]{3}$" Display="Dynamic" SetFocusOnError="true" ErrorMessage="Please enter the correct format" ForeColor="Red" Font-Size="10px">
+                    ValidationExpression="^[0-9]{1,3}$" Display="Dynamic" SetFocusOnError="true" ErrorMessage="Please enter the correct format" ForeColor="Red" Font-Size="10px">
                 </asp:RegularExpressionValidator>
+                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator3" ControlToValidate="getQueueNo"
+                    ErrorMessage="Required" ForeColor="Red" Font-Size="10px">
+                </asp:RequiredFieldValidator>
                 <!--TABLE-->
                 <div class="mt-3">
                     <asp:GridView runat="server" ID="QmsTable" CssClass="display compact cell-border" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" Width="100%">

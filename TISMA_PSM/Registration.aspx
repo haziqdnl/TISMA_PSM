@@ -68,7 +68,7 @@
                             </asp:TemplateField>
                             <asp:BoundField DataField="p_name" HeaderText="Name" SortExpression="p_name" ItemStyle-HorizontalAlign="Left" />
                             <asp:BoundField DataField="p_ic_no" HeaderText="IC No." ReadOnly="True" SortExpression="p_ic_no" />
-                            <asp:BoundField DataField="p_passport_no" HeaderText="Passport No." SortExpression="p_passport_no" />
+                            <asp:BoundField DataField="MatricStaff" HeaderText="Matric/Staff No." SortExpression="MatricStaff" />
                             <asp:BoundField DataField="p_category" HeaderText="Category" SortExpression="p_category" />
                         </Columns>
                     </asp:GridView>

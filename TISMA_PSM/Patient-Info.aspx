@@ -117,7 +117,7 @@
                                     <h6><asp:Literal runat="server" ID="note"></asp:Literal></h6>
                                 </div>
                                 <div class="row m-0 card-body justify-content-center">
-                                    <p style="font-size:11px">&nbsp <span style="color:blue"><b>*</b></span> Changes of this detail is allowed</p>
+                                    <p style="font-size:11px">&nbsp <span style="color:red"><b>*</b></span> Changes of this detail is allowed</p>
                                     <table id="register-form-table" style="text-align: left;">
                                         <tr>
                                             <!--Branch-->
@@ -167,7 +167,7 @@
                                                 <asp:TextBox runat="server" ID="getIcNo" ReadOnly="true" Enabled="false" CssClass="textbox-custom" Width="250px"></asp:TextBox>
                                             </td>
                                             <!--Passport No.-->
-                                            <td class="pe-3" style="text-align: right">Passport No. <span style="color:blue">*</span></td>
+                                            <td class="pe-3" style="text-align: right">Passport No. <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getPassportNo" CssClass="textbox-custom" Width="250px"></asp:TextBox>
                                                 <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator2" ControlToValidate="getPassportNo" 
@@ -199,7 +199,7 @@
                                                 </asp:DropDownList>
                                             </td>
                                             <!--Marital Status-->
-                                            <td class="pe-3" style="text-align: right">Marital Status <span style="color:blue">*</span></td>
+                                            <td class="pe-3" style="text-align: right">Marital Status <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:DropDownList runat="server" ID="getMaritalStat" CssClass="dropdown-custom" AutoPostBack="true" BackColor="White" Width="250px">
                                                     <asp:ListItem Text="-Select-" Value="Select"></asp:ListItem>
@@ -211,12 +211,13 @@
                                                 </asp:DropDownList>
                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator3" ControlToValidate="getMaritalStat" 
                                                     InitialValue="Select" 
-                                                    ErrorMessage="Please select" ForeColor="Red" Font-Size="10px"></asp:RequiredFieldValidator>
+                                                    ErrorMessage="Please select" ForeColor="Red" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                         </tr>
                                         <tr>
                                             <!--Religion-->
-                                            <td class="pe-3" style="text-align: right">Religion <span style="color:blue">*</span></td>
+                                            <td class="pe-3" style="text-align: right">Religion <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:DropDownList runat="server" ID="getReligion" CssClass="dropdown-custom" AutoPostBack="true"  BackColor="White" Width="250px">
                                                     <asp:ListItem Text="-Select-" Value="Select"></asp:ListItem>
@@ -228,7 +229,8 @@
                                                 </asp:DropDownList>
                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator1" ControlToValidate="getReligion" 
                                                     InitialValue="Select" 
-                                                    ErrorMessage="Please select" ForeColor="Red" Font-Size="10px"></asp:RequiredFieldValidator>
+                                                    ErrorMessage="Please select" ForeColor="Red" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                             <!--Race-->
                                             <td class="pe-3" style="text-align: right">Race</td>
@@ -251,21 +253,40 @@
                                         </tr>
                                         <tr>
                                             <!--Phone No.-->
-                                            <td class="pe-3" style="text-align: right">Phone No. <span style="color:blue">*</span></td>
+                                            <td class="pe-3" style="text-align: right">Phone No. <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getPhone" CssClass="textbox-custom" Width="250px"></asp:TextBox>
+                                                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator4" ControlToValidate="getPhone" 
+                                                    ValidationExpression="[0-9]{10,15}" 
+                                                    Display="Dynamic" SetFocusOnError="true"
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
+                                                </asp:RegularExpressionValidator>
+                                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator10" ControlToValidate="getPhone"
+                                                    ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                             <!--Email-->
-                                            <td class="pe-3" style="text-align: right">Email <span style="color:blue">*</span></td>
+                                            <td class="pe-3" style="text-align: right">Email <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getEmail" CssClass="textbox-custom" Width="250px"></asp:TextBox>
+                                                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator3" ControlToValidate="getEmail" 
+                                                    ValidationExpression="^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$" 
+                                                    Display="Dynamic" SetFocusOnError="true"
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
+                                                </asp:RegularExpressionValidator>
+                                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator11" ControlToValidate="getEmail"
+                                                    ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                         </tr>
                                         <tr>
                                             <!--Designation-->
-                                            <td class="pe-3" style="text-align: right">Designation <span style="color:blue">*</span></td>
+                                            <td class="pe-3" style="text-align: right">Designation <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getDesignation" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="50px"></asp:TextBox>
+                                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator6" ControlToValidate="getDesignation"
+                                                    ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                         </tr>
                                         <tr>
@@ -282,36 +303,45 @@
                                         </tr>
                                         <tr>
                                             <!--Semester-->
-                                            <td class="pe-3" style="text-align: right">Semester <span style="color:blue">*</span></td>
-                                            <td>
+                                            <td runat="server" id="semTitle" class="pe-3" style="text-align: right">Semester <span style="color:red">*</span></td>
+                                            <td runat="server" id="semTextbox">
                                                 <asp:TextBox runat="server" ID="getSem" CssClass="textbox-custom text-center" Width="50px"></asp:TextBox>
                                                 <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator1" ControlToValidate="getSem" 
                                                     ValidationExpression="^[0-9]*$" Display="Dynamic" SetFocusOnError="true"
-                                                    ErrorMessage="Error" ForeColor="Red" Font-Size="10px">
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
                                                 </asp:RegularExpressionValidator>
+                                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator4" ControlToValidate="getSem"
+                                                    ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                             <!--Session-->
-                                            <td class="pe-3" style="text-align: right">Session <span style="color:blue">*</span></td>
+                                            <td class="pe-3" style="text-align: right">Session <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getSession" CssClass="textbox-custom" Width="250px"></asp:TextBox>
+                                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" ControlToValidate="getSession"
+                                                    ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                         </tr>
                                         <tr>
                                             <!--Address-->
-                                            <td class="pe-3" style="text-align: right">Address <span style="color:blue">*</span></td>
+                                            <td class="pe-3" style="text-align: right">Address <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getAddress" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="100px"></asp:TextBox>
+                                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator5" ControlToValidate="getAddress"
+                                                    ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                             <!--Remarks-->
-                                            <td class="pe-3" style="text-align: right">Remarks <span style="color:blue">*</span></td>
+                                            <td class="pe-3" style="text-align: right">Remarks <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getRemarks" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="100px"></asp:TextBox>
                                             </td>
                                         </tr>
                                     </table>
-                                    <asp:Button runat="server" ID="BtnUpdate" Text="Update" OnClick="UpdateToTisma" CssClass="btn-custom mt-2" ForeColor="White" BackColor="#00cc00" />
+                                    <asp:Button runat="server" ID="BtnUpdate" Text="Save" OnClick="UpdateToTisma" Width="80px" CssClass="btn-custom mt-2" ForeColor="White" BackColor="#00cc00" />
                                     &nbsp&nbsp&nbsp
-                                    <asp:Button runat="server" ID="BtnDelete" Text="Delete" OnClick="DeleteConfirmation" CssClass="btn-custom mt-2" ForeColor="White" BackColor="#ff0000" />
+                                    <asp:Button runat="server" ID="BtnDelete" Text="Delete" OnClick="DeleteConfirmation" Width="80px" CssClass="btn-custom mt-2" ForeColor="White" BackColor="#ff0000" />
                                 </div>
                             </ContentTemplate>
                         </ajaxPatientInfo:TabPanel>
@@ -338,13 +368,13 @@
             </div>
         </div>
 
-        <!--MODUL POPUP: DELETE POPUP MESSAGE-->
+        <!--MODUL POPUP: UPDATE POPUP MESSAGE-->
         <div style="display:none">
-            <asp:Button runat="server" ID="BtnPopup" Text="Open Popup" CssClass="btn-custom mt-2" Width="100%" ForeColor="White" BackColor="#0066ff" />
+            <asp:Button runat="server" ID="BtnPopupUpdate" Text="Open Popup" CssClass="btn-custom mt-2" Width="100%" ForeColor="White" BackColor="#0066ff" />
         </div>
-        <ajaxPatientInfo:ModalPopupExtender runat="server" ID="ModalPopupMessage" PopupControlID="PanelPopup" TargetControlID="BtnPopup" CancelControlID="BtnCancel" BackgroundCssClass="Background">
+        <ajaxPatientInfo:ModalPopupExtender runat="server" ID="ModalPopupMessageUpdate" PopupControlID="PanelPopupUpdate" TargetControlID="BtnPopupUpdate" CancelControlID="BtnOK" BackgroundCssClass="Background">
         </ajaxPatientInfo:ModalPopupExtender>
-        <asp:Panel runat="server" ID="PanelPopup" CssClass="Popup" Width="600px" Style="display: none">
+        <asp:Panel runat="server" ID="PanelPopupUpdate" CssClass="Popup" Width="600px" Style="display: none">
             <div class="card">
                 <div class="row">
                     <div class="col align-self-center">
@@ -356,7 +386,33 @@
             </div>
             <div class="card-body text-center">
                 <div class="row">
-                    <p>Are you sure want to DELETE this patient record?</p>
+                    <p>All changes has been updated!</p>
+                </div>
+                <div>
+                    <!--OK BTN-->
+                    <asp:Button runat="server" ID="BtnOK" Text="OK" CssClass="btn-custom" ForeColor="White" BackColor="#0A9E00" />
+                </div>
+            </div>
+        </asp:Panel>
+        <!--MODUL POPUP: DELETE POPUP MESSAGE-->
+        <div style="display:none">
+            <asp:Button runat="server" ID="BtnPopupDelete" Text="Open Popup" CssClass="btn-custom mt-2" Width="100%" ForeColor="White" BackColor="#0066ff" />
+        </div>
+        <ajaxPatientInfo:ModalPopupExtender runat="server" ID="ModalPopupMessageDelete" PopupControlID="PanelPopupDelete" TargetControlID="BtnPopupDelete" CancelControlID="BtnCancel" BackgroundCssClass="Background">
+        </ajaxPatientInfo:ModalPopupExtender>
+        <asp:Panel runat="server" ID="PanelPopupDelete" CssClass="Popup" Width="600px" Style="display: none">
+            <div class="card">
+                <div class="row">
+                    <div class="col align-self-center">
+                        <span>System Message</span>
+                    </div>
+                    <div class="col align-self-end">
+                    </div>
+                </div>
+            </div>
+            <div class="card-body text-center">
+                <div class="row">
+                    <p>Are you sure want to <b>DELETE</b> this patient record?</p>
                 </div>
                 <div>
                     <!--CONFIRM BTN-->
@@ -375,9 +431,6 @@
                         search: "Search",
                     },
                 });
-            });
-            $("input[id$=BtnUpdate]").live("click", function () {
-                alert("All changes has been updated!");
             });
         </script>
     </div>

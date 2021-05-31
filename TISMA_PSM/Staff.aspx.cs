@@ -29,7 +29,7 @@ namespace TISMA_PSM
             //- DB Exception-Error handling
             try
             {
-                //- Get Query: TISMADB
+                //- Retrieve Query: TISMADB
                 string constr1 = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
                 using (SqlConnection con1 = new SqlConnection(constr1))
                 {
@@ -52,13 +52,13 @@ namespace TISMA_PSM
             finally
             {
                 //- Display success message
-                Debug.WriteLine("Database execution successful");
+                Debug.WriteLine("DB Execution Success: Staff Table");
             }
 
             //- DB Exception-Error handling
             try
             {
-                //- Get Query: UTMHR
+                //- Retrieve Query: UTMHR
                 string constr2 = ConfigurationManager.ConnectionStrings["utmhrConnectionString"].ConnectionString;
                 using (SqlConnection con2 = new SqlConnection(constr2))
                 {
@@ -81,7 +81,7 @@ namespace TISMA_PSM
             finally
             {
                 //- Display success message
-                Debug.WriteLine("Database execution successful");
+                Debug.WriteLine("DB Execution Success: UTM-HR Table");
             }
 
             //- Datatable render

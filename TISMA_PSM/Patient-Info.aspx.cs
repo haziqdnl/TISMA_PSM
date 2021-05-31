@@ -123,13 +123,17 @@ namespace TISMA_PSM
                             finally
                             {
                                 //- Display success message
-                                Debug.WriteLine("Database execution successful");
+                                Debug.WriteLine("DB Execution Success: Identify student patient");
                             }
                         }
                         else if (category.Equals("Staff"))
                         {
                             //- Display note
                             note.Text = "The basic information were reffered from UTMHR SYSTEM / ACAD SYSTEM";
+
+                            //- Hide semester textbox
+                            semTextbox.Visible = false;
+                            semTitle.Visible = false;
 
                             //- DB Exception-Error handling
                             try
@@ -166,13 +170,17 @@ namespace TISMA_PSM
                             finally
                             {
                                 //- Display success message
-                                Debug.WriteLine("Database execution successful");
+                                Debug.WriteLine("DB Execution Success: Identify staff patient");
                             }
                         }
                         else if (category.Equals("Public"))
                         {
                             //- Display note
                             note.Text = "The basic information is registered as public";
+
+                            //- Hide semester textbox
+                            semTextbox.Visible = false;
+                            semTitle.Visible = false;
 
                             //- DB Exception-Error handling
                             try
@@ -205,7 +213,7 @@ namespace TISMA_PSM
                             finally
                             {
                                 //- Display success message
-                                Debug.WriteLine("Database execution successful");
+                                Debug.WriteLine("DB Execution Success: Identify public patient");
                             }
                         }
                     }
@@ -218,7 +226,7 @@ namespace TISMA_PSM
                 finally
                 {
                     //- Display success message
-                    Debug.WriteLine("Database execution successful");
+                    Debug.WriteLine("DB Execution Success: Retrieve patient data from DB");
                 }
                 GetLatestQueueInfo();
 
@@ -273,7 +281,7 @@ namespace TISMA_PSM
             finally
             {
                 //- Display success message
-                Debug.WriteLine("Database execution successful");
+                Debug.WriteLine("DB Execution Success: Clinical History Table");
             }
             ClinicalHistoryTable.UseAccessibleHeader = true;
             ClinicalHistoryTable.HeaderRow.TableSection = TableRowSection.TableHeader;
@@ -281,7 +289,7 @@ namespace TISMA_PSM
 
         protected void DeleteConfirmation(object sender, EventArgs e)
         {
-            ModalPopupMessage.Show();
+            ModalPopupMessageDelete.Show();
         }
 
         protected void DeleteFromTisma(object sender, EventArgs e)
@@ -304,7 +312,7 @@ namespace TISMA_PSM
                 string constr2 = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(constr2))
                 {
-                    using (SqlCommand cmd = new SqlCommand("DELETE FROM clinical_info WHERE fk_ic_no = '" + getIcNo.Text + "'", con))
+                    using (SqlCommand cmd = new SqlCommand("DELETE FROM clinical_info WHERE fk_p_ic_no = '" + getIcNo.Text + "'", con))
                     {
                         con.Open();
                         cmd.ExecuteNonQuery();
@@ -343,7 +351,7 @@ namespace TISMA_PSM
             finally
             {
                 //- Display success message
-                Debug.WriteLine("Database execution successful");
+                Debug.WriteLine("DB Execution Success: Delete patient data");
             }
             Response.Redirect("Registration.aspx");
         }
@@ -404,7 +412,7 @@ namespace TISMA_PSM
             finally
             {
                 //- Display success message
-                Debug.WriteLine("Database execution successful");
+                Debug.WriteLine("DB Execution Success: Generate Queue");
             }
 
             //- Pass data to front
@@ -472,7 +480,7 @@ namespace TISMA_PSM
             finally
             {
                 //- Display success message
-                Debug.WriteLine("Database execution successful");
+                Debug.WriteLine("DB Execution Success: Queue Info");
             }
         }
 
@@ -491,10 +499,10 @@ namespace TISMA_PSM
             {
                 //- Update Query
                 string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(constr))
+                using (SqlConnection con1 = new SqlConnection(constr))
                 {
                     //- Table 'patient'
-                    using (SqlCommand cmd = new SqlCommand("UPDATE patient " +
+                    using (SqlCommand cmd1 = new SqlCommand("UPDATE patient " +
                                                            "SET p_passport_no = '" + getPassportNo.Text + "', " +
                                                                "p_age = '" + age + "', " +
                                                                "p_marital_stat = '" + getMaritalStat.SelectedValue + "', " +
@@ -505,38 +513,41 @@ namespace TISMA_PSM
                                                                "p_session = '" + session + "', " +
                                                                "p_address = '" + getAddress.Text + "', " +
                                                                "p_remarks = '" + getRemarks.Text + "' " +
-                                                           "WHERE p_ic_no = '" + getIcNo.Text + "'", con))
+                                                           "WHERE p_ic_no = '" + getIcNo.Text + "'", con1))
                     {
-                        con.Open();
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-                        con.Dispose();
+                        con1.Open();
+                        cmd1.ExecuteNonQuery();
+                        con1.Close();
+                        con1.Dispose();
                     }
-                    //- If category is 'Student', update 'semester'
-                    if (getCategory.Text.Equals("Student"))
+                }
+                //- If category is 'Student', update 'semester'
+                if (getCategory.Text.Equals("Student"))
+                {
+                    //- DB Exception-Error handling
+                    try
                     {
-                        //- DB Exception-Error handling
-                        try
+                        using (SqlConnection con2 = new SqlConnection(constr))
                         {
                             //- Table 'patient_student'
-                            using (SqlCommand cmd = new SqlCommand("UPDATE patient_student SET semester = '" + getSem.Text + "' WHERE p_ic_no = '" + getIcNo.Text + "'", con))
+                            using (SqlCommand cmd2 = new SqlCommand("UPDATE patient_student SET semester = '" + getSem.Text + "' WHERE fk_ic_no = '" + getIcNo.Text + "'", con2))
                             {
-                                con.Open();
-                                cmd.ExecuteNonQuery();
-                                con.Close();
-                                con.Dispose();
+                                con2.Open();
+                                cmd2.ExecuteNonQuery();
+                                con2.Close();
+                                con2.Dispose();
                             }
                         }
-                        catch (SqlException ex)
-                        {
-                            //- Display handling-error message
-                            SqlExceptionMsg(ex);
-                        }
-                        finally
-                        {
-                            //- Display success message
-                            Debug.WriteLine("Database execution successful");
-                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        //- Display handling-error message
+                        SqlExceptionMsg(ex);
+                    }
+                    finally
+                    {
+                        //- Display success message
+                        Debug.WriteLine("DB Execution Success: Update patient student data");
                     }
                 }
             }
@@ -548,8 +559,9 @@ namespace TISMA_PSM
             finally
             {
                 //- Display success message
-                Debug.WriteLine("Database execution successful");
+                Debug.WriteLine("DB Execution Success: Update patient data");
             }
+            ModalPopupMessageUpdate.Show();
         }
 
         public static bool CheckIsQueueNotExist(String queueStr, DateTime dateGenerated)

@@ -40,8 +40,10 @@
             </div>
         </div>
 
+        <!--CONTENT 2-->
         <div class="row mt-3" id="registration-new-content-2">
             <div class="col-2 p-0 m-0 me-4">
+                <!--PROFILE PICTURE-->
                 <div class="card">
                     <div class="row justify-content-center card-body">
                         <img src="https://iupac.org/wp-content/uploads/2018/05/default-avatar.png" />
@@ -71,7 +73,8 @@
                                                 </asp:DropDownList>
                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator1" ControlToValidate="getBranchDdl" 
                                                     InitialValue="Select" 
-                                                    ErrorMessage="Please select" ForeColor="Red" Font-Size="10px"></asp:RequiredFieldValidator>
+                                                    ErrorMessage="Please select" ForeColor="Red" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                             <!--Category-->
                                             <td class="pe-3" style="text-align: right">Category</td>
@@ -92,6 +95,9 @@
                                             <td class="pe-3" style="text-align: right">Name <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getName" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="80px" required="true"></asp:TextBox>
+                                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator7" ControlToValidate="getName"
+                                                    ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                         </tr>
                                         <tr>
@@ -99,19 +105,22 @@
                                             <td class="pe-3" style="text-align: right">IC No. <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getIcNo" CssClass="textbox-custom" Width="250px" required="true"></asp:TextBox>
-                                                <p class="fas fa-question-circle" style="font-size:10px; color: green">&nbsp without ' - '</p>
                                                 <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator1" ControlToValidate="getIcNo" 
                                                     ValidationExpression="^[A-Za-z0-9]{12}$" Display="Dynamic" SetFocusOnError="true"
-                                                    ErrorMessage="Error" ForeColor="Red" Font-Size="10px">
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
                                                 </asp:RegularExpressionValidator>
+                                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator8" ControlToValidate="getIcNo"
+                                                    ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
+                                                <p class="fas fa-question-circle" style="font-size:10px; color: green">&nbsp without ' - '</p>
                                             </td>
                                             <!--Passport No.-->
                                             <td class="pe-3" style="text-align: right">Passport No.</td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getPassportNo" CssClass="textbox-custom" Width="250px"></asp:TextBox>
                                                 <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator2" ControlToValidate="getPassportNo" 
-                                                    ValidationExpression="^[A-Za-z0-9]{12}$" Display="Dynamic" SetFocusOnError="true"
-                                                    ErrorMessage="Error" ForeColor="Red" Font-Size="10px">
+                                                    ValidationExpression="^[A-Za-z0-9]{10,12}$" Display="Dynamic" SetFocusOnError="true"
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
                                                 </asp:RegularExpressionValidator>
                                             </td>
                                         </tr>
@@ -120,6 +129,9 @@
                                             <td class="pe-3" style="text-align: right">DOB <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getDob" CssClass="textbox-custom" TextMode="Date" Width="250px" required="true"></asp:TextBox>
+                                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator9" ControlToValidate="getDob"
+                                                    ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                             <!--Age-->
                                             <td class="pe-3" style="text-align: right">Age</td>
@@ -138,7 +150,8 @@
                                                 </asp:DropDownList>
                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" ControlToValidate="getGenderDdl" 
                                                     InitialValue="Select" 
-                                                    ErrorMessage="Please select" ForeColor="Red" Font-Size="10px"></asp:RequiredFieldValidator>
+                                                    ErrorMessage="Please select" ForeColor="Red" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                             <!--Marital Status-->
                                             <td class="pe-3" style="text-align: right">Marital Stat. <span style="color:red">*</span></td>
@@ -153,7 +166,8 @@
                                                 </asp:DropDownList>
                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator3" ControlToValidate="getMaritalStatDdl" 
                                                     InitialValue="Select" 
-                                                    ErrorMessage="Please select" ForeColor="Red" Font-Size="10px"></asp:RequiredFieldValidator>
+                                                    ErrorMessage="Please select" ForeColor="Red" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                         </tr>
                                         <tr>
@@ -170,7 +184,8 @@
                                                 </asp:DropDownList>
                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator4" ControlToValidate="getReligionDdl" 
                                                     InitialValue="Select" 
-                                                    ErrorMessage="Please select" ForeColor="Red" Font-Size="10px"></asp:RequiredFieldValidator>
+                                                    ErrorMessage="Please select" ForeColor="Red" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                             <!--Race-->
                                             <td class="pe-3" style="text-align: right">Race <span style="color:red">*</span></td>
@@ -184,7 +199,8 @@
                                                 </asp:DropDownList>
                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator5" ControlToValidate="getRaceDdl" 
                                                     InitialValue="Select" 
-                                                    ErrorMessage="Please select" ForeColor="Red" Font-Size="10px"></asp:RequiredFieldValidator>
+                                                    ErrorMessage="Please select" ForeColor="Red" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                         </tr>
                                         <tr>
@@ -195,7 +211,8 @@
                                                 </asp:DropDownList>
                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator6" ControlToValidate="getNationDdl" 
                                                     InitialValue="-Select-" 
-                                                    ErrorMessage="Please select" ForeColor="Red" Font-Size="10px"></asp:RequiredFieldValidator>
+                                                    ErrorMessage="Please select" ForeColor="Red" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                         </tr>
                                         <tr>
@@ -203,12 +220,28 @@
                                             <td class="pe-3" style="text-align: right">Phone No. <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getPhone" CssClass="textbox-custom" required="true" Width="250px"></asp:TextBox>
-                                                <p class="fas fa-question-circle" style="font-size:10px; color: green">&nbsp with ' - '</p>
+                                                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator4" ControlToValidate="getPhone" 
+                                                    ValidationExpression="[0-9]{10,15}" 
+                                                    Display="Dynamic" SetFocusOnError="true"
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
+                                                </asp:RegularExpressionValidator>
+                                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator10" ControlToValidate="getPhone"
+                                                    ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
+                                                <p class="fas fa-question-circle" style="font-size:10px; color: green">&nbsp without ' - '</p>
                                             </td>
                                             <!--Email-->
                                             <td class="pe-3" style="text-align: right">Email <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getEmail" CssClass="textbox-custom" required="true" Width="250px"></asp:TextBox>
+                                                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator3" ControlToValidate="getEmail" 
+                                                    ValidationExpression="^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$" 
+                                                    Display="Dynamic" SetFocusOnError="true"
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
+                                                </asp:RegularExpressionValidator>
+                                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator11" ControlToValidate="getEmail"
+                                                    ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                         </tr>
                                         <tr>
@@ -216,6 +249,9 @@
                                             <td class="pe-3" style="text-align: right">Occupation <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getDesignation" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="50px" required="true"></asp:TextBox>
+                                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator12" ControlToValidate="getDesignation"
+                                                    ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                         </tr>
                                         <tr>
@@ -223,6 +259,9 @@
                                             <td class="pe-3" style="text-align: right">Address <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getAddress" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="100px" required="true"></asp:TextBox>
+                                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator13" ControlToValidate="getAddress"
+                                                    ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                             <!--Remarks-->
                                             <td class="pe-3" style="text-align: right">Remarks</td>

@@ -61,7 +61,7 @@ namespace TISMA_PSM
             finally
             {
                 //- Display success message
-                Debug.WriteLine("Database execution successful");
+                Debug.WriteLine("DB Execution Success: Calculate Patient Waiting/Registered");
             }
         }
 
@@ -81,32 +81,30 @@ namespace TISMA_PSM
     }
 }
 
-
-
 /*
- int result = DateTime.Compare(DateTime.Now, dateExpired);
-            if (result < 0)
-                Debug.WriteLine("Not Expired");
-            else if (result == 0)
-                Debug.WriteLine("Expired");
-            else
-                Debug.WriteLine("Expired");
+int result = DateTime.Compare(DateTime.Now, dateExpired);
+if (result < 0)
+    Debug.WriteLine("Not Expired");
+else if (result == 0)
+    Debug.WriteLine("Expired");
+else
+    Debug.WriteLine("Expired");
  */
 
 /*
-         //- DB Exception-Error handling
-            try
-            {
+//- DB Exception-Error handling
+try
+{
 
-            }
-            catch (SqlException ex)
-            {
-                //- Display handling-error message
-                SqlExceptionMsg(ex);
-            }
-            finally
-            {
-                //- Display success message
-                Debug.WriteLine("Database execution successful");
-            }
-         */
+}
+catch (SqlException ex)
+{
+    //- Display handling-error message
+    SqlExceptionMsg(ex);
+}
+finally
+{
+    //- Display success message
+    Debug.WriteLine("DB Execution Success: ");
+}
+*/

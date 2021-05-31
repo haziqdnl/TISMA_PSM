@@ -53,7 +53,7 @@ namespace TISMA_PSM
             }
             finally
             {
-                Debug.WriteLine("Database execution successful");
+                Debug.WriteLine("DB Execution Success: TISMA Table");
             }
 
             //- DataTable binding
@@ -86,7 +86,7 @@ namespace TISMA_PSM
             finally
             {
                 //- Display success message
-                Debug.WriteLine("Database execution successful");
+                Debug.WriteLine("DB Execution Success: UTM-ACAD Table");
             }
 
             //- DB Exception-Error handling
@@ -115,7 +115,7 @@ namespace TISMA_PSM
             finally
             {
                 //- Display success message
-                Debug.WriteLine("Database execution successful");
+                Debug.WriteLine("DB Execution Success: UTM-HR Table");
             }
 
             //- Datatable render

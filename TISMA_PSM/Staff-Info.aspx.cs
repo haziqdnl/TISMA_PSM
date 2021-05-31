@@ -17,6 +17,10 @@ namespace TISMA_PSM
 {
     public partial class Staff_Info : System.Web.UI.Page
     {
+        //- Global variable
+        public static string currentPhone;
+        public static string currentEmail;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //- Get pid (ic_no) and stat from URL param
@@ -70,8 +74,8 @@ namespace TISMA_PSM
                                 getReligion.SelectedValue = sdr1["s_religion"].ToString();
                                 getRace.SelectedValue = sdr1["s_race"].ToString();
                                 getNation.Text = sdr1["s_nationality"].ToString();
-                                getPhone.Text = sdr1["s_tel_no"].ToString();
-                                getEmail.Text = sdr1["s_email"].ToString();
+                                getPhone.Text = sdr1["s_tel_no"].ToString(); currentPhone = sdr1["s_tel_no"].ToString();
+                                getEmail.Text = sdr1["s_email"].ToString(); currentEmail = sdr1["s_email"].ToString();
                                 getDesignation.Text = sdr1["s_designation"].ToString();
                                 getFacDep.Text = sdr1["s_department"].ToString();
                                 getAddress.Text = sdr1["s_address"].ToString();
@@ -108,7 +112,7 @@ namespace TISMA_PSM
                             finally
                             {
                                 //- Display success message
-                                Debug.WriteLine("Database execution successful");
+                                Debug.WriteLine("DB Execution Success: Check role admin");
                             }
                         }
                         else if (CheckIsStaffMO(ic_no).Equals(true))
@@ -140,7 +144,7 @@ namespace TISMA_PSM
                             finally
                             {
                                 //- Display success message
-                                Debug.WriteLine("Database execution successful");
+                                Debug.WriteLine("DB Execution Success: Check role MO");
                             }
                         }
                         else if (CheckIsStaffReceptionist(ic_no).Equals(true))
@@ -172,7 +176,7 @@ namespace TISMA_PSM
                             finally
                             {
                                 //- Display success message
-                                Debug.WriteLine("Database execution successful");
+                                Debug.WriteLine("DB Execution Success: Check role Receptionist");
                             }
                         }
                     }
@@ -185,14 +189,14 @@ namespace TISMA_PSM
                 finally
                 {
                     //- Display success message
-                    Debug.WriteLine("Database execution successful");
+                    Debug.WriteLine("DB Execution Success: Retrieve staff data");
                 }
             }
         }
 
         protected void DeleteConfirmation(object sender, EventArgs e)
         {
-            ModalPopupMessage.Show();
+            ModalPopupMessageDelete.Show();
         }
 
         protected void DeleteFromTisma(object sender, EventArgs e)
@@ -221,7 +225,7 @@ namespace TISMA_PSM
             finally
             {
                 //- Display success message
-                Debug.WriteLine("Database execution successful");
+                Debug.WriteLine("DB Execution Success: Staff deleted");
             }
             Response.Redirect("Staff.aspx");
         }
@@ -236,43 +240,93 @@ namespace TISMA_PSM
             //- Calculate the current session when the patient data is updated
             String session = DateTime.Now.AddYears(-1).ToString("yyyy") + "/" + DateTime.Now.ToString("yyyy");
 
-            //- DB Exception-Error handling
-            try
+            Debug.WriteLine(currentPhone);
+
+            if (CheckIsPhoneStaffExist(getPhone.Text).Equals(true) && !getPhone.Text.Equals(currentPhone))
             {
-                //- Update Query
-                string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(constr))
+                getValidationMsg.Text = "The updated phone number already in use.";
+                ModalPopupMessageValidation.Show();
+            }
+            else if (CheckIsEmailStaffExist(getEmail.Text).Equals(true) && !getEmail.Text.Equals(currentEmail))
+            {
+                getValidationMsg.Text = "The updated email address already in use.";
+                ModalPopupMessageValidation.Show();
+            }
+            else
+            {
+                //- DB Exception-Error handling
+                try
                 {
-                    //- Table 'pku_staff'
-                    using (SqlCommand cmd = new SqlCommand("UPDATE pku_staff " +
-                                                           "SET s_password = '"+getPassword.Text+"', " +
-                                                               "s_passport_no = '"+getPassportNo.Text+"', " +
-                                                               "s_marital_stat = '"+getMaritalStat.SelectedValue+"', " +
-                                                               "s_religion = '"+getReligion.SelectedValue+"', " +
-                                                               "s_tel_no = '"+getPhone.Text+"', " +
-                                                               "s_email = '"+getEmail.Text+"', " +
-                                                               "s_address = '"+getAddress.Text+"', " +
-                                                               "s_session = '"+session+"', " +
-                                                               "s_age = '"+age+"' " +
-                                                           "WHERE s_ic_no = '"+getIcNo.Text+"'", con))
+                    //- Update Query
+                    string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
+                    using (SqlConnection con = new SqlConnection(constr))
                     {
-                        con.Open();
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-                        con.Dispose();
+                        //- Table 'pku_staff'
+                        using (SqlCommand cmd = new SqlCommand("UPDATE pku_staff " +
+                                                               "SET s_password = '" + getPassword.Text + "', " +
+                                                                   "s_passport_no = '" + getPassportNo.Text + "', " +
+                                                                   "s_marital_stat = '" + getMaritalStat.SelectedValue + "', " +
+                                                                   "s_religion = '" + getReligion.SelectedValue + "', " +
+                                                                   "s_tel_no = '" + getPhone.Text + "', " +
+                                                                   "s_email = '" + getEmail.Text + "', " +
+                                                                   "s_address = '" + getAddress.Text + "', " +
+                                                                   "s_session = '" + session + "', " +
+                                                                   "s_age = '" + age + "' " +
+                                                               "WHERE s_ic_no = '" + getIcNo.Text + "'", con))
+                        {
+                            con.Open();
+                            cmd.ExecuteNonQuery();
+                            con.Close();
+                            con.Dispose();
+                        }
                     }
                 }
-            }
-            catch (SqlException ex)
+                catch (SqlException ex)
+                {
+                    //- Display handling-error message
+                    SqlExceptionMsg(ex);
+                }
+                finally
+                {
+                    //- Display success message
+                    Debug.WriteLine("DB Execution Success: Staff updated");
+                }
+                ModalPopupMessageUpdate.Show();
+            }            
+        }
+
+        public static bool CheckIsEmailStaffExist(string email)
+        {
+            //- Search Query
+            string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
+            SqlConnection con = new SqlConnection(constr);
+            SqlCommand cmd = new SqlCommand("CheckIsEmailStaffExist", con)
             {
-                //- Display handling-error message
-                SqlExceptionMsg(ex);
-            }
-            finally
+                CommandType = CommandType.StoredProcedure
+            };
+            cmd.Parameters.AddWithValue("@Email", email);
+            con.Open();
+            bool status = Convert.ToBoolean(cmd.ExecuteScalar());
+            con.Close();
+
+            return status;
+        }
+
+        public static bool CheckIsPhoneStaffExist(string telNo)
+        {
+            //- Search Query
+            string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
+            SqlConnection con = new SqlConnection(constr);
+            SqlCommand cmd = new SqlCommand("CheckIsPhoneStaffExist", con)
             {
-                //- Display success message
-                Debug.WriteLine("Database execution successful");
-            }
+                CommandType = CommandType.StoredProcedure
+            };
+            cmd.Parameters.AddWithValue("@TelNo", telNo);
+            con.Open();
+            bool status = Convert.ToBoolean(cmd.ExecuteScalar());
+            con.Close();
+
+            return status;
         }
 
         public static bool CheckIsStaffAdmin(string icNo)

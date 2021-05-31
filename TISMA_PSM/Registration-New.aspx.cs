@@ -24,9 +24,7 @@ namespace TISMA_PSM
 
             //- Check is patient added to TISMA
             if (CheckIsPatientAddedToTisma(ic_no).Equals(true))
-            {
                 ModalPopupMessage.Show();
-            }
 
             //- Status identifier
             string stat = IdentifyStatus(tempStat);
@@ -89,7 +87,7 @@ namespace TISMA_PSM
                 finally
                 {
                     //- Display success message
-                    Debug.WriteLine("Database execution successful");
+                    Debug.WriteLine("DB Execution Success: Retrieve patient data from UTM-ACAD");
                 }
             }
             //- Get Query: UTM-HR
@@ -149,7 +147,7 @@ namespace TISMA_PSM
                 finally
                 {
                     //- Display success message
-                    Debug.WriteLine("Database execution successful");
+                    Debug.WriteLine("DB Execution Success: Retrieve patient data from UTM-HR");
                 }
                 
             }
@@ -160,16 +158,16 @@ namespace TISMA_PSM
             //- DB Exception-Error handling
             try
             {
-                //- Insert Query
-                string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-                SqlConnection con = new SqlConnection(constr);
-
                 //- Identify patient status
                 string spFunc;
                 if (getStat.Text.Equals("UTM-ACAD"))
                     spFunc = "AddToTismaStudent";
                 else
                     spFunc = "AddToTismaStaff";
+
+                //- Insert Query
+                string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
+                SqlConnection con = new SqlConnection(constr);
 
                 SqlCommand cmd = new SqlCommand(spFunc, con)
                 {
@@ -225,7 +223,7 @@ namespace TISMA_PSM
             finally
             {
                 //- Display success message
-                Debug.WriteLine("Database execution successful");
+                Debug.WriteLine("DB Execution Success: Add patient to TISMA");
             }
             Response.Redirect("Registration.aspx");
         }

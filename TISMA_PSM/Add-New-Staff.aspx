@@ -109,7 +109,8 @@
                                                 </asp:DropDownList>
                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator1" ControlToValidate="getTismaRoleDdl" 
                                                     InitialValue="Select" 
-                                                    ErrorMessage="Please select" ForeColor="Red" Font-Size="10px"></asp:RequiredFieldValidator>
+                                                    ErrorMessage="Please select" ForeColor="Red" Font-Size="10px">
+                                                </asp:RequiredFieldValidator>
                                             </td>
                                         </tr>
                                         <tr>
@@ -262,7 +263,7 @@
                         <span>System Message</span>
                     </div>
                     <div class="col align-self-end">
-                        <div class="float-end">
+                        <div class="float-end" style="display:none">
                             <!--CANCEL BTN-->
                             <asp:Button runat="server" ID="BtnCancel" Font-Size="Larger" Text="X" Font-Bold="true" BorderStyle="None" CssClass="btn-custom" ForeColor="#808080" BackColor="White" />
                         </div>
@@ -272,6 +273,9 @@
             <div class="card-body text-center">
                 <div class="row">
                     <p>This staff/user already added to TISMA. Please check again!</p>
+                </div>
+                <div>
+                    <asp:Button runat="server" ID="BtnBackto" Text="Back to Staff Module" PostBackUrl="~/Staff.aspx" CausesValidation="false" CssClass="btn-custom mt-1 mb-2" ForeColor="White" BackColor="#0066ff"></asp:Button>
                 </div>
             </div>
         </asp:Panel>
