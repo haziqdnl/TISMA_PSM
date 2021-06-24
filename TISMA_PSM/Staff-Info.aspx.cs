@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
@@ -11,7 +6,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Security.Cryptography;
 using System.IO;
-using System.Windows;
+using System.Web.Helpers;
 
 namespace TISMA_PSM
 {
@@ -62,7 +57,6 @@ namespace TISMA_PSM
                                 getCategory.Text = sdr1["s_category"].ToString();
                                 getAccNo.Text = sdr1["s_account_no"].ToString(); displayAccNo.Text = sdr1["s_account_no"].ToString(); displayUsername.Text = sdr1["s_username"].ToString();
                                 getUsername.Text = sdr1["s_username"].ToString();
-                                getPassword.Text = sdr1["s_password"].ToString();
                                 getName.Text = sdr1["s_name"].ToString();
                                 getStaffId.Text = sdr1["s_staff_id"].ToString();
                                 getIcNo.Text = sdr1["s_ic_no"].ToString();
@@ -257,22 +251,34 @@ namespace TISMA_PSM
                 //- DB Exception-Error handling
                 try
                 {
+                    string passwordHashed = "", passwordSalt = "";
+                    if (!String.IsNullOrEmpty(getPassword.Text))
+                    {
+                        string[] encryptedUrl = Hashing(getPassword.Text);
+                        passwordHashed = encryptedUrl[0];
+                        passwordSalt = encryptedUrl[1];
+                    }
+
+                    string extraQuery = "";
+                    if (!String.IsNullOrEmpty(getPassword.Text))
+                        extraQuery = "s_password = '" + passwordHashed + "', s_password_salt = '" + passwordSalt + "', ";
+
+                    string query = "UPDATE pku_staff SET " + extraQuery + "s_passport_no = '" + getPassportNo.Text + "', " +
+                                                                          "s_marital_stat = '" + getMaritalStat.SelectedValue + "', " +
+                                                                          "s_religion = '" + getReligion.SelectedValue + "', " +
+                                                                          "s_tel_no = '" + getPhone.Text + "', " +
+                                                                          "s_email = '" + getEmail.Text + "', " +
+                                                                          "s_address = '" + getAddress.Text + "', " +
+                                                                          "s_session = '" + session + "', " +
+                                                                          "s_age = '" + age + "' " +
+                                                                        "WHERE s_ic_no = '" + getIcNo.Text + "'";
+
                     //- Update Query
                     string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
                     using (SqlConnection con = new SqlConnection(constr))
                     {
                         //- Table 'pku_staff'
-                        using (SqlCommand cmd = new SqlCommand("UPDATE pku_staff " +
-                                                               "SET s_password = '" + getPassword.Text + "', " +
-                                                                   "s_passport_no = '" + getPassportNo.Text + "', " +
-                                                                   "s_marital_stat = '" + getMaritalStat.SelectedValue + "', " +
-                                                                   "s_religion = '" + getReligion.SelectedValue + "', " +
-                                                                   "s_tel_no = '" + getPhone.Text + "', " +
-                                                                   "s_email = '" + getEmail.Text + "', " +
-                                                                   "s_address = '" + getAddress.Text + "', " +
-                                                                   "s_session = '" + session + "', " +
-                                                                   "s_age = '" + age + "' " +
-                                                               "WHERE s_ic_no = '" + getIcNo.Text + "'", con))
+                        using (SqlCommand cmd = new SqlCommand(query, con))
                         {
                             con.Open();
                             cmd.ExecuteNonQuery();
@@ -406,6 +412,15 @@ namespace TISMA_PSM
                 }
             }
             return encryptedURL;
+        }
+
+        public static string[] Hashing(string password)
+        {
+            string salt = Crypto.GenerateSalt();
+            string hashed = Crypto.HashPassword(salt + password);
+            string[] encryption = { hashed, salt };
+
+            return encryption;
         }
 
         public static void SqlExceptionMsg(SqlException ex)

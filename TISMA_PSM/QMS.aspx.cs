@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Diagnostics;
 using System.Text;
-using System.Security.Cryptography;
-using System.IO;
 
 namespace TISMA_PSM
 {
@@ -103,18 +97,21 @@ namespace TISMA_PSM
             {
                 getPopupTitle.Text = "Queue Number Not Exist or Expired";
                 getPopupMessage.Text = "Unfortunately, the <b>queue number</b> you entered is <b>expired or not exist</b>. Please refer to the Receptionist at the reception counter";
+                BindGrid();
                 ModalPopupMessage.Show();
             }
             else if (CheckIsQueueCheckedIn(queue, today).Equals(true))
             {
                 getPopupTitle.Text = "Queue Number Has Checked-In";
                 getPopupMessage.Text = "Unfortunately, the <b>patient with this queue number has checked-in</b>. Please refer to the Receptionist at the reception counter";
+                BindGrid();
                 ModalPopupMessage.Show();
             }
             else if (CheckIsQueueExpired(queue, today).Equals(true))
             {
                 getPopupTitle.Text = "Queue Number Already Expired";
                 getPopupMessage.Text = "Unfortunately, the <b>queue number</b> you entered already <b>expired</b>. Please refer to the Receptionist at the reception counter";
+                BindGrid();
                 ModalPopupMessage.Show();
             }
             else

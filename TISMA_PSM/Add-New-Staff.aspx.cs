@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
@@ -12,6 +7,7 @@ using System.Text;
 using System.Security.Cryptography;
 using System.IO;
 using System.Net.Mail;
+using System.Web.Helpers;
 
 namespace TISMA_PSM
 {
@@ -53,7 +49,6 @@ namespace TISMA_PSM
                             getCategory.Text = sdr["category"].ToString();
                             getAccNo.Text = GenerateAccNo();
                             getUsername.Text = username;
-                            getPassword.Text = sdr["ic_no"].ToString();
                             getName.Text = sdr["name"].ToString();
                             getStaffId.Text = sdr["staff_id"].ToString();
                             getIcNo.Text = sdr["ic_no"].ToString();
@@ -102,6 +97,11 @@ namespace TISMA_PSM
                 else
                     spFunc = "AddToTismaPkuReceptionist";
 
+                //- Generate salt and hash password
+                string[] encryptedUrl = Hashing(getIcNo.Text);
+                string passwordHashed = encryptedUrl[0];
+                string passwordSalt = encryptedUrl[1];
+
                 //- Insert Query
                 string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
                 SqlConnection con = new SqlConnection(constr);
@@ -114,7 +114,8 @@ namespace TISMA_PSM
                 cmd.Parameters.AddWithValue("@Passport", getPassportNo.Text);
                 cmd.Parameters.AddWithValue("@AccNo", getAccNo.Text);
                 cmd.Parameters.AddWithValue("@Username", getUsername.Text);
-                cmd.Parameters.AddWithValue("@Password", getPassword.Text);
+                cmd.Parameters.AddWithValue("@Password", passwordHashed);
+                cmd.Parameters.AddWithValue("@PasswordSalt", passwordSalt);
                 cmd.Parameters.AddWithValue("@StaffId", getStaffId.Text);
                 cmd.Parameters.AddWithValue("@TelNo", getPhone.Text);
                 cmd.Parameters.AddWithValue("@Email", getEmail.Text);
@@ -250,6 +251,15 @@ namespace TISMA_PSM
                 Debug.WriteLine("The generated Acc No. ["+accNo+"] already existed. Re-generating....");
                 return GenerateAccNo();
             }
+        }
+
+        public static string[] Hashing(string password)
+        {
+            string salt = Crypto.GenerateSalt();
+            string hashed = Crypto.HashPassword(salt + password);
+            string[] encryption = { hashed, salt };
+
+            return encryption;
         }
 
         public static void SqlExceptionMsg(SqlException ex)

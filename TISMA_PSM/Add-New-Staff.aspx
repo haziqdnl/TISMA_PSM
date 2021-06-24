@@ -92,14 +92,8 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <!--Password-->
-                                            <td class="pe-3" style="text-align: right">Password</td>
-                                            <td>
-                                                <asp:TextBox runat="server" ID="getPassword" ReadOnly="true" Enabled="false" CssClass="textbox-custom" Width="250px"></asp:TextBox>
-                                                <p class="fas fa-exclamation-circle" style="font-size:10px; color: green"></p>
-                                            </td>
                                             <!--TISMA Role-->
-                                            <td class="pe-3" style="text-align: right">TISMA Role <span style="color:red">*</span></td>
+                                            <td class="pe-3" style="text-align: right" colspan="3">TISMA Role <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:DropDownList runat="server" ID="getTismaRoleDdl" CssClass="dropdown-custom" BackColor="White" AppendDataBoundItems="true">
                                                     <asp:ListItem Text="-Select-" Value="Select"></asp:ListItem>

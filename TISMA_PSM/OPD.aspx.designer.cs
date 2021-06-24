@@ -24,39 +24,48 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.GridView OpdTable;
 
         /// <summary>
-        /// BtnPopupUpdate control.
+        /// BtnPopupConfirmation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnPopupUpdate;
+        protected global::System.Web.UI.WebControls.Button BtnPopupConfirmation;
 
         /// <summary>
-        /// ModalPopupMessageUpdate control.
+        /// ModalPopupConfirmation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender ModalPopupMessageUpdate;
+        protected global::AjaxControlToolkit.ModalPopupExtender ModalPopupConfirmation;
 
         /// <summary>
-        /// PanelPopupUpdate control.
+        /// PanelPopupConfirmation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelPopupUpdate;
+        protected global::System.Web.UI.WebControls.Panel PanelPopupConfirmation;
 
         /// <summary>
-        /// BtnOK control.
+        /// BtnRedirect control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnOK;
+        protected global::System.Web.UI.WebControls.Button BtnRedirect;
+
+        /// <summary>
+        /// BtnCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnCancel;
     }
 }

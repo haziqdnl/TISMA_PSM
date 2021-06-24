@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
@@ -16,8 +12,15 @@ namespace TISMA_PSM
 {
     public partial class OPD : System.Web.UI.Page
     {
+        //- Global variable
+        public static string thisAccNo;
+        public static string thisQueueNo;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Convert.ToString(Session["UserRole"]).Equals("Receptionist"))
+                Response.Redirect("Dashboard.aspx");
+
             if (!IsPostBack)
             {
                 BindGrid();
@@ -36,7 +39,8 @@ namespace TISMA_PSM
                 string query = "SELECT qms.queue_no, patient.p_name, qms.fk_ic_no, patient.p_category, patient.p_account_no, patient.p_remarks " +
                                "FROM qms LEFT OUTER JOIN patient " +
                                "ON qms.fk_ic_no = patient.p_ic_no " +
-                               "WHERE qms.is_keyed_in = '" + 1 + "' AND qms.is_expired = '" + 0 + "' AND qms.is_checked_in = '" + 0 + "' AND qms.date_generated = '" + today.ToString("yyyyMMdd") + "'";
+                               "WHERE qms.is_keyed_in = '" + 1 + "' AND qms.is_expired = '" + 0 + "' AND qms.is_checked_in = '" + 0 + "' AND qms.date_generated = '" + today.ToString("yyyyMMdd") + "' " +
+                               "ORDER BY qms.queue_no";
 
                 //- Get Query: TISMADB
                 string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
@@ -75,6 +79,24 @@ namespace TISMA_PSM
             //- Datatable render
             OpdTable.UseAccessibleHeader = true;
             OpdTable.HeaderRow.TableSection = TableRowSection.TableHeader;
+        }
+
+        protected void CheckInPatient(object sender, EventArgs e)
+        {
+            String encryptedAccNo = EncryptURL(thisAccNo);
+            Debug.Write(encryptedAccNo);
+            Response.Redirect("Consultation.aspx?accno=" + encryptedAccNo + "&queue=" + thisQueueNo);
+        }
+
+        protected void ShowModalPopupConfirmation(object sender, EventArgs e)
+        {
+            string[] arg = new string[2];
+            Button btn = (Button)sender;
+            arg = btn.CommandArgument.ToString().Split(';');
+            thisAccNo = arg[0];
+            thisQueueNo = arg[1];
+            ModalPopupConfirmation.Show();
+            BindGrid();
         }
 
         public string EncryptURL(string url)

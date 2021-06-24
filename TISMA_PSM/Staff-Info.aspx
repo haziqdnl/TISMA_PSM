@@ -98,12 +98,13 @@
                                         </tr>
                                         <tr>
                                             <!--Password-->
-                                            <td class="pe-3" style="text-align: right">Password <span style="color:red">*</span></td>
+                                            <td class="pe-3" style="text-align: right">Change Password <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getPassword" CssClass="textbox-custom" Width="250px"></asp:TextBox>
-                                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" ControlToValidate="getPassword"
-                                                    ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
-                                                </asp:RequiredFieldValidator>
+                                                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator2" ControlToValidate="getPassword" 
+                                                    ValidationExpression="^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#$%^&+=_]).*$" Display="Dynamic" SetFocusOnError="true"
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
+                                                </asp:RegularExpressionValidator>
                                             </td>
                                             <!--TISMA Role-->
                                             <td class="pe-3" style="text-align: right">TISMA Role</td>
@@ -333,7 +334,7 @@
             </div>
             <div class="card-body text-center">
                 <div class="row">
-                    <p>Are you sure want to DELETE this patient record?</p>
+                    <p>Are you sure want to <b>DELETE</b> this staff from the system?</p>
                 </div>
                 <div>
                     <!--CONFIRM BTN-->

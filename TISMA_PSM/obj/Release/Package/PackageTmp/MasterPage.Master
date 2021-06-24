@@ -1,0 +1,177 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="TISMA_PSM.MasterPage" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxLogout" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TISMA</title>
+
+    <!--CSS Bootstrap-->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <!--CSS Fontawesome-->
+    <link rel="stylesheet" href="fontawesome/css/all.css" />
+    <!--CSS DataTables--><%--<link href="datatables/css/jquery.dataTables.min.css" rel="stylesheet" />--%>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css" type="text/css" />
+    <!--CSS Custom-->
+    <link rel="stylesheet" href="custom/css/main.css" />
+
+    <!--JS bootstrap-->
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!--jQuery--><%--<script src="bootstrap/js/jquery-3.4.1.min.js"></script>--%>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <!--JS DataTables--><%--<script src="datatables/js/jquery.dataTables.min.js"></script>--%>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
+
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager runat="server" ID="ScriptManager1">
+        </asp:ScriptManager>
+        <div class="d-flex" id="wrapper">
+            <!--SIDEBAR-->
+            <div class="border-light" id="sidebar-wrapper">
+                <!--SIDEBAR: Heading-->
+                <div class="sidebar-heading">
+                    T I S M A
+                </div>
+                <!--SIDEBAR: Menu-->
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-muted d-flex align-items-center">
+                        <small>MAIN MENU</small>
+                    </li>
+                </ul>
+                <a href="Dashboard.aspx" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fa fa-laptop fa-fw me-3"></span>
+                        <span>Dashboard</span>
+                    </div>
+                </a>
+                <a href="Queue.aspx" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fa fa-users fa-fw me-3"></span>
+                        <span>Queue List</span>
+                    </div>
+                </a>
+                <ul class="list-group">
+                    <li class="list-group-item text-muted d-flex align-items-center">
+                        <small>MODULES</small>
+                    </li>
+                </ul>
+                <a href="Staff.aspx" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fas fa-user-nurse fa-fw me-3"></span>
+                        <span>Staff</span>
+                    </div>
+                </a>
+                <a href="Registration.aspx" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fas fa-clipboard fa-fw me-3"></span>
+                        <span>Registration</span>
+                    </div>
+                </a>
+                <a href="QMS.aspx" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fa fa-people-arrows fa-fw me-3"></span>
+                        <span>QMS</span>
+                    </div>
+                </a>
+                <a href="OPD.aspx" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fa fa-medkit fa-fw me-3"></span>
+                        <span>OPD</span>
+                    </div>
+                </a>
+                <%--<a href="UTMDB-Home.aspx" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fa fa-database fa-fw me-3"></span>
+                        <span>UTM-DB Admin</span>
+                    </div>
+                </a>--%>
+                <ul class="list-group">
+                    <li class="list-group-item text-muted d-flex align-items-center">
+                        <small>OPTIONS</small>
+                    </li>
+                </ul>
+                <a href="Profile.aspx" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fas fa-user-circle fa-fw me-3"></span>
+                        <span>Profile</span>
+                    </div>
+                </a>
+                <asp:LinkButton runat="server" ID="LinkButton" CssClass="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fas fa-sign-out-alt fw me-3"></span>
+                        <span>Logout</span>
+                    </div>
+                </asp:LinkButton>
+                <ajaxLogout:ModalPopupExtender runat="server" ID="ModalPopupLogout" PopupControlID="PanelLogout" TargetControlID="LinkButton"
+                    CancelControlID="BtnLogoutCancel" BackgroundCssClass="Background">
+                </ajaxLogout:ModalPopupExtender>
+                <%--<a href="X-Home.aspx" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fas fa-question-circle fw me-3"></span>
+                        <span>Help</span>
+                    </div>
+                </a>--%>
+            </div>
+            <!--MAIN CONTENT-->
+            <div id="page-content-wrapper">
+                <!--TOPBAR-->
+                <nav class="navbar navbar-expand navbar-light" id="topbar-custom">
+                    <!--TOPBAR: Sidebar Toggle Button-->
+                    <button type="button" id="menu-toggle" class="btn btn-dark" data-toggle="sidebar-colapse">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <!--TOPBAR: Profile Menu-->
+                    <div class="ms-auto topbar-profile">
+                        <a href="Profile.aspx">
+                            <i class="fas fa-user-circle fa-2x"></i>
+                            <span>Haziq Danial (Admin)</span>
+                        </a>
+                    </div>
+                </nav>
+                <!--PLACEHOLDER/LAYOUT-->
+                <div class="container-fluid">
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+                <!--FOOTER-->
+                <footer class="border-top border-bottom bg-light container-fluid mt-2" id="footer-custom">
+                    <p>
+                        <b>Copyright &copy; <%: DateTime.Now.Year %> Projek Sarjana Muda (PSM).</b>
+                        School of Computing, Faculty of Engineering, UTM.
+                    </p>
+                </footer>
+            </div>
+            <!--MODUL POPUP: LOGOUT-->
+            <asp:Panel runat="server" ID="PanelLogout" CssClass="Popup" Style="display: none;" Width="400px">
+                <br />
+                <div class="card-body text-center">
+                    <h5>Confirm logout?</h5>
+                </div>
+                <div class="card-body row">
+                    <div class="col text-center">
+                        <asp:Button runat="server" ID="BtnLogoutConfirm" Text="Confirm" CssClass="btn-custom" ForeColor="#ffffff" BackColor="#5c001f" />
+                    </div>
+                    <div class="col text-center">
+                        <asp:Button runat="server" ID="BtnLogoutCancel" Text="Cancel" CssClass="btn-custom" ForeColor="Black" BackColor="#e5e5e5" />
+                    </div>
+                </div>
+                <br />
+            </asp:Panel>
+        </div>
+
+        <!--Custom jQuery-->
+        <script>
+            $("#menu-toggle").click(function (e) {
+                $("#wrapper").toggleClass("toggled");
+            });
+        </script>
+    </form>
+</body>
+</html>

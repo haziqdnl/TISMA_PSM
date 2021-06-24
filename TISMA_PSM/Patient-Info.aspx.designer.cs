@@ -564,6 +564,24 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.GridView ClinicalHistoryTable;
 
         /// <summary>
+        /// TabPanel3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel3;
+
+        /// <summary>
+        /// MCHistoryTable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView MCHistoryTable;
+
+        /// <summary>
         /// BtnPopupUpdate control.
         /// </summary>
         /// <remarks>

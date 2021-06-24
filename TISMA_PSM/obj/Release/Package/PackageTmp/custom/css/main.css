@@ -1,0 +1,877 @@
+﻿/*
+    NOTE:
+    1. If CSS not refreshed: 'ctrl + F5'
+*/
+/*###################################################################################   GLOBAL CSS  */
+body {
+    background: #cadddd; /*Light Blue*/
+}
+
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+}
+
+table {
+    text-align: center;
+}
+
+th {
+    border: 1px solid #fff; /*White*/
+    border-collapse: collapse;
+}
+
+thead {
+    background: #5c001f; /*Maroon*/
+    color: #fff; /*White*/
+    font-size: 14px;
+    font-weight: 300;
+}
+
+tbody {
+    font-size: 14px;
+}
+
+.Background {
+    background-color: #000; /*Black*/
+    filter: opacity(70);
+    opacity: 0.8;
+}
+
+.Popup {
+    background-color: #fff; /*White*/
+    width: auto;
+    height: auto;
+}
+
+.content-p-custom {
+    padding: 1.5rem 1rem 1.5rem 1rem;
+}
+
+.header-p-custom {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.subheader-custom {
+    font-size: 12px;
+    padding-bottom: 0.5rem;
+}
+
+.dropdown-custom {
+    padding: 0 0.6rem 0 0.6rem;
+    border: 1px solid lightgrey;
+    height: 30px;
+    width: auto;
+    color: #000; /**Black*/
+}
+
+.textbox-custom {
+    padding: 0 0.6rem 0 0.6rem;
+    border: 1px solid lightgrey;
+    height: 30px;
+}
+
+.disabled-textbox {
+    color: #000; /**Black*/
+    background: lightgray;
+    font-weight: 400;
+}
+
+.btn-custom {
+    height: 32px;
+    width: auto;
+    border: none;
+    padding: 0 1rem 0 1rem;
+    border-radius: 4px 5px;
+    text-align: center;
+}
+
+.btn-custom:hover{
+    opacity: 0.65;
+    transition: 0.4s;
+}
+
+.note {
+    border-left: 5px solid #ff0000; /*Maroon*/
+    background: #ff9346; /*Orange*/
+    color: #fff; /*White*/
+}
+
+.note h5{
+    font-size: 14px;
+}
+
+.dataTables_wrapper .dataTables_filter {
+    float: left;
+}
+
+.dataTables_wrapper .dataTables_length {
+    float: right;
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+    width: 500px;
+    padding: 0 0.6rem 0 0.6rem;
+}
+
+
+/*###################################################################################   MASTER CSS  */
+/****************************************/
+/*             MAIN CONTENT             */
+/****************************************/
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+
+/****************************************/
+/*                SIDEBAR               */
+/****************************************/
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -12rem;
+    -webkit-transition: margin 0.25s ease-out;
+    -moz-transition: margin 0.25s ease-out;
+    -o-transition: margin 0.25s ease-out;
+    transition: margin 0.25s ease-out;
+    background: #272c33; /*Dark Grey*/
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.735rem 1.5rem;
+    font-size: 1.264rem;
+    font-weight: 700;
+    color: #fff; /*White*/
+    background: #5c001f; /*Maroon*/
+}
+
+#sidebar-wrapper .list-group {
+    width: 12rem;
+}
+
+#sidebar-wrapper .sidebar-icon {
+    margin-right: 10px;
+    color: #fff; /*White*/
+}
+
+#sidebar-wrapper .list-group-item {
+    background: #272c33; /*Dark Grey*/
+    color: #fff; /*White*/
+}
+
+#sidebar-wrapper .list-group-item-action:hover {
+    background: #000000; /*Black*/
+    color: #fff; /*White*/
+}
+
+/****************************************/
+/*                TOPBAR                */
+/****************************************/
+#topbar-custom {
+    background: #5c001f; /*Maroon*/
+    padding-right: 20px;
+    padding-left: 15px;
+}
+
+.topbar-profile {
+    color: #fff; /*White*/
+}
+
+.topbar-profile:hover {
+    color: #808080; /*Grey*/
+    transition: all 0.8s;
+}
+
+.topbar-profile i {
+    margin-right: 2px;
+    vertical-align: middle;
+}
+
+/****************************************/
+/*                FOOTER                */
+/****************************************/
+#footer-custom {
+    position: fixed;
+    bottom: 0;
+    font-size: 11px;
+}
+
+#footer-custom p {
+    padding-left: 0.5rem;
+    padding-top: 1rem;
+}
+
+/****************************************/
+/*             @MEDIA CSS               */
+/****************************************/
+@media(min-width: 768px) {
+
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -12rem;
+    }
+}
+
+
+/*###################################################################################   DASHBOARD CSS */
+/****************************************/
+/*           DASHBOARD CONTENT          */
+/****************************************/
+#dashboard .card {
+    color: #fff; /*White*/
+    border: none;
+    font-weight: 100;
+}
+
+#dashboard .card h5 {
+    font-size: 14px;
+}
+
+#dashboard .card-body {
+    padding: 1rem 0.5rem 1rem 0.5rem;
+}
+
+/****************************************/
+/*            GOOGLE CALENDAR           */
+/****************************************/
+#g-calendar {
+    border-top: 5px solid;
+    border-top-color: #0068b4; /*Blue*/
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background: #fff; /*White*/
+}
+
+
+/*###################################################################################   QUEUE LIST CSS */
+/****************************************/
+/*           QUEUE LIST CONTENT         */
+/****************************************/
+#q-list-content {
+    border-top: 5px solid;
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff;
+}
+
+#q-list-content .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+#q-list-content .card-body {
+    background: #eaeaea; /*Grey*/
+}
+
+
+/*###################################################################################   QMS CSS */
+/****************************************/
+/*              QMS CONTENT             */
+/****************************************/
+#qms-content-1 {
+    border-top: 5px solid;
+    border-top-color: #808080; /*Grey*/
+    background: #fff;
+}
+
+#qms-content-1 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+#qms-content-1 .card-body {
+    color: #0072c6;
+    padding: 0.4rem 0 0.4rem 0;
+}
+
+#qms-content-2 {
+    background: #fff; /*White*/
+}
+
+#qms-content-2 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 0;
+    background: #bf3a3a; /*Light Red*/
+}
+
+#qms-content-2 span {
+    font-size: 13px;
+    color: #fff; /*White*/
+}
+
+#qms-content-2 .card-body {
+    background: #eaeaea; /*Grey*/
+}
+
+#qms-content-2 .card-body input {
+    font-size: 15px;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    text-align: center;
+}
+
+#qms .Popup {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#qms .Popup .card {
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    color: #000;
+    background: #fff;
+}
+
+#qms .Popup .card span {
+    font-weight: 700;
+}
+
+#qms .Popup .card-body {
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+
+/*###################################################################################   STAFF CSS */
+/****************************************/
+/*             STAFF CONTENT            */
+/****************************************/
+#staff-content {
+    border-top: 5px solid;
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff; /*White*/
+}
+
+#staff-content .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    background: #0072c6; /*Blue*/
+    color: #fff; /*White*/
+}
+
+#staff-content .card span {
+    font-weight: 500;
+}
+
+#staff-content .Popup .card {
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    color: #000;
+    background: #fff;
+}
+
+#staff-content .Popup .card-body {
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+
+/*###################################################################################   ADD NEW STAFF CSS */
+/****************************************/
+/*         ADD NEW STAFF CONTENT        */
+/****************************************/
+#new-staff-content-1 {
+    border-top: 5px solid;
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff; /*White*/
+}
+
+#new-staff-content-1 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    background: #0072c6; /*Blue*/
+    color: #fff; /*White*/
+}
+
+#new-staff-content-1 .card span {
+    font-weight: 500;
+}
+
+#new-staff-content-2 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+}
+
+#new-staff-content-2 .col-2 .card {
+    border-top: 5px solid;
+    border-top-color: #0072c6;
+}
+
+#new-staff-content-2 img {
+    max-height: 170px;
+    max-width: 170px;
+}
+
+#new-staff-content-2 h6 {
+    font-size: 14px;
+}
+
+#new-staff-content-2 h5 {
+    font-size: 16px;
+}
+
+#new-staff-content-2 .card span {
+    font-weight: 500;
+}
+
+#new-staff .Popup {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#new-staff .Popup .card {
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    color: #000;
+    background: #fff;
+}
+
+#new-staff .Popup .card span {
+    font-weight: 500;
+}
+
+#new-staff .Popup .card-body {
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+
+/*###################################################################################   STAFF-INFO CSS */
+/****************************************/
+/*           STAFF INFO CONTENT         */
+/****************************************/
+#staff-info-content-1 {
+    border-top: 5px solid;
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff; /*White*/
+}
+
+#staff-info-content-1 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    background: #0072c6; /*Blue*/
+    color: #fff; /*White*/
+}
+
+#staff-info-content-1 .card span {
+    font-weight: 500;
+}
+
+#staff-info-content-2 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+}
+
+#staff-info-content-2 .col-2 .card {
+    border-top: 5px solid;
+    border-top-color: #0072c6; /*Blue*/
+}
+
+#staff-info-content-2 img {
+    max-height: 170px;
+    max-width: 170px;
+}
+
+#staff-info-content-2 h6 {
+    font-size: 14px;
+}
+
+#staff-info-content-2 .card span {
+    font-weight: 500;
+}
+
+#staff-info .Popup {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#staff-info .Popup .card {
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    color: #000;
+    background: #fff;
+}
+
+#staff-info .Popup .card-body {
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+
+/*###################################################################################   REGISTRATION CSS */
+/****************************************/
+/*         REGISTRATION CONTENT         */
+/****************************************/
+#registration-content {
+    border-top: 5px solid;
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff; /*White*/
+}
+
+#registration-content .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    background: #0072c6; /*Blue*/
+    color: #fff; /*White*/
+}
+
+#registration-content .card span {
+    font-weight: 500;
+}
+
+#registration-content .Popup .card {
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    color: #000;
+    background: #fff;
+}
+
+#registration-content .Popup .card-body {
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+
+/*###################################################################################   REGISTRATION-NEW CSS */
+/****************************************/
+/*       REGISTRATION NEW CONTENT       */
+/****************************************/
+#registration-new-content-1 {
+    border-top: 5px solid;
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff; /*White*/
+}
+
+#registration-new-content-1 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    background: #0072c6; /*Blue*/
+    color: #fff; /*White*/
+}
+
+#registration-new-content-1 .card span {
+    font-weight: 500;
+}
+
+#registration-new-content-2 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+}
+
+#registration-new-content-2 .col-2 .card {
+    border-top: 5px solid;
+    border-top-color: #0072c6; /*Blue*/
+}
+
+#registration-new-content-2 img {
+    max-height: 170px;
+    max-width: 170px;
+}
+
+#registration-new-content-2 h6 {
+    font-size: 14px;
+}
+
+#registration-new-content-2 h5 {
+    font-size: 16px;
+}
+
+#registration-new-content-2 .card span {
+    font-weight: 500;
+}
+
+#registration-new .Popup {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#registration-new .Popup .card {
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    color: #000;
+    background: #fff;
+}
+
+#registration-new .Popup .card span {
+    font-weight: 500;
+}
+
+#registration-new .Popup .card-body {
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+
+/*###################################################################################   PATIENT-INFO CSS */
+/****************************************/
+/*         PATIENT INFO CONTENT         */
+/****************************************/
+#patient-info-content-1 {
+    border-top: 5px solid;
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff; /*White*/
+}
+
+#patient-info-content-1 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    background: #0072c6; /*Blue*/
+    color: #fff; /*White*/
+}
+
+#patient-info-content-1 .card span {
+    font-weight: 500;
+}
+
+#patient-info-content-2 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+}
+
+#patient-info-content-2 .col-2 .card {
+    border-top: 5px solid;
+    border-top-color: #0072c6; /*Blue*/
+}
+
+#patient-info-content-2 img {
+    max-height: 170px;
+    max-width: 170px;
+}
+
+#patient-info-content-2 h6 {
+    font-size: 14px;
+}
+
+#patient-info-content-2 .card span {
+    font-weight: 500;
+}
+
+#patient-info-gen-q {
+    background: #fff; /*White*/
+}
+
+#patient-info-gen-q .card {
+    padding: 0.5rem 0.6rem 0.5rem 0.6rem;
+    border-radius: 0;
+    background: #acacac; /*Grey*/
+    color: #000; /*Black*/
+}
+
+#patient-info-gen-q .card span {
+    font-weight: 500;
+}
+
+#patient-info-gen-q .card-body {
+    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+}
+
+#patient-info .Popup {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#patient-info .Popup .card {
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    color: #000;
+    background: #fff;
+}
+
+#patient-info .Popup .card-body {
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+
+/*###################################################################################   OPD CSS */
+/****************************************/
+/*              OPD CONTENT             */
+/****************************************/
+#opd-content {
+    border-top: 5px solid;
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff; /*White*/
+}
+
+#opd-content .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    background: #0072c6; /*Blue*/
+    color: #fff; /*White*/
+}
+
+#opd-content .card span {
+    font-weight: 500;
+}
+
+#opd .Popup {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#opd .Popup .card {
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    color: #000;
+    background: #fff;
+}
+#opd .Popup .card span {
+    font-weight: 500;
+}
+
+#opd .Popup .card-body {
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+
+/*###################################################################################   CONSULTATION CSS */
+/****************************************/
+/*         CONSULTATION CONTENT         */
+/****************************************/
+#consult-content-1 {
+    border-top: 5px solid;
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff; /*White*/
+}
+
+#consult-content-1 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    background: #0072c6; /*Blue*/
+    color: #fff; /*White*/
+}
+
+#consult-content-1 .card span {
+    font-weight: 500;
+}
+
+#consult-content-2 .card, #consult-content-3 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    border-top: 5px solid;
+    border-top-color: #0072c6; /*Blue*/
+}
+
+#consult-content-2 img {
+    max-height: 170px;
+    max-width: 170px;
+}
+
+#consult-content-2 h6, #consult-content-3 h6 {
+    font-size: 14px;
+}
+
+#consult-content-3 .card span, #consult-content-2 .card span {
+    font-weight: 500;
+}
+
+#consult .Popup {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#consult .Popup .card {
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    color: #000;
+    background: #fff;
+}
+
+#consult .Popup .card-body {
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+#patient-info-table td {
+    padding: 0rem 1rem 0 1rem;
+}
+
+.clinical-sign {
+    height: 32px;
+    width: 125px;
+    text-align: center;
+    border: none;
+    padding: 0 1rem 0 1rem;
+    border-radius: 4px 5px;
+    background-color: #000;
+    color: #fff;
+}
+
+.border-custom {
+    border: 2px dashed lightgrey;
+}
+
+.combobox-custom {
+    color: #000; /**Black*/
+    background-color: white;
+    padding: 0 0.6rem 0 0.6rem;
+    vertical-align: bottom;
+}
+
+#PasswordCard {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    width: 30%;
+}
+
+#PasswordCard .card {
+    background-color: #efefef;
+    padding: 30px 40px 30px 40px;
+}
+
+.EMCViewBtn {
+    font-weight: bold;
+    color: #fff;
+    background-color: #0066ff;
+    height: 32px;
+    width: auto;
+    border: none;
+    padding: 0 1rem 0 1rem;
+    border-radius: 4px 5px;
+    text-align: center;
+}

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
@@ -11,7 +7,6 @@ using System.Diagnostics;
 using System.Text;
 using System.Security.Cryptography;
 using System.IO;
-using System.Windows;
 
 namespace TISMA_PSM
 {
@@ -22,7 +17,7 @@ namespace TISMA_PSM
             //- Show and Hide several div on Generate Queue function
             afterGenerate.Visible = false;
 
-            //- Get pid (ic_no) and stat from URL param
+            //- Get accno (account_no) and stat from URL param
             String acc_no = DecryptURL(Request.QueryString["accno"]);
 
             //- Local attribute
@@ -229,11 +224,11 @@ namespace TISMA_PSM
                     Debug.WriteLine("DB Execution Success: Retrieve patient data from DB");
                 }
                 GetLatestQueueInfo();
-
-                if (!IsPostBack)
-                {
-                    BindGrid();
-                }
+                BindGrid();
+            }
+            else
+            {
+                BindGrid();
             }
         }
 
@@ -242,19 +237,14 @@ namespace TISMA_PSM
             //- DB Exception-Error handling
             try
             {
-                string query = "SELECT clinical_info.clinical_date, emc.emc_url, pku_staff.s_name " +
-                               "FROM clinical_info " +
-                               "LEFT OUTER JOIN emc " +
-                               "ON clinical_info.fk_p_ic_no = emc.fk_p_ic_no " +
-                               "LEFT OUTER JOIN pku_staff " +
-                               "ON clinical_info.fk_p_ic_no = pku_staff.s_ic_no " +
-                               "WHERE clinical_info.fk_p_ic_no = '"+getIcNo.Text+"'";
-
                 //- Retrieve Query: TISMADB
                 string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(constr))
                 {
-                    SqlCommand cmd = new SqlCommand(query, con);
+                    SqlCommand cmd = new SqlCommand("SELECT clinical_info.clinical_date, clinical_info.symptom, clinical_info.ill_sign, clinical_info.diagnosis, pku_staff.s_name " +
+                                                     "FROM clinical_info LEFT OUTER JOIN pku_staff ON pku_staff.s_ic_no = clinical_info.fk_s_ic_no " +
+                                                     "WHERE clinical_info.fk_p_ic_no = '" + getIcNo.Text + "' " +
+                                                     "ORDER BY clinical_info.clinical_date", con);
                     con.Open();
                     SqlDataReader sdr = cmd.ExecuteReader();
 
@@ -271,6 +261,30 @@ namespace TISMA_PSM
                         ClinicalHistoryTable.DataSource = dt;
                         ClinicalHistoryTable.DataBind();
                     }
+                    con.Close();
+                }
+                using (SqlConnection con2 = new SqlConnection(constr))
+                {
+                    SqlCommand cmd2 = new SqlCommand("SELECT date_created, url_hashed, emc_password " +
+                                                     "FROM emc WHERE fk_p_ic_no = '" + getIcNo.Text + "' " +
+                                                     "ORDER BY date_created", con2);
+                    con2.Open();
+                    SqlDataReader sdr2 = cmd2.ExecuteReader();
+
+                    if (sdr2.HasRows)
+                    {
+                        //- If records available
+                        MCHistoryTable.DataSource = sdr2;
+                        MCHistoryTable.DataBind();
+                    }
+                    else
+                    {
+                        //- If no records found
+                        DataTable dt2 = new DataTable();
+                        MCHistoryTable.DataSource = dt2;
+                        MCHistoryTable.DataBind();
+                    }
+                    con2.Close();
                 }
             }
             catch (SqlException ex)
@@ -285,6 +299,17 @@ namespace TISMA_PSM
             }
             ClinicalHistoryTable.UseAccessibleHeader = true;
             ClinicalHistoryTable.HeaderRow.TableSection = TableRowSection.TableHeader;
+            MCHistoryTable.UseAccessibleHeader = true;
+            MCHistoryTable.HeaderRow.TableSection = TableRowSection.TableHeader;
+        }
+
+        protected void MCHistoryTable_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType.Equals(DataControlRowType.DataRow))
+            {
+                string x = e.Row.Cells[3].Text;
+                e.Row.Cells[3].Text = DecryptEMCPassword(x);
+            }
         }
 
         protected void DeleteConfirmation(object sender, EventArgs e)
@@ -358,7 +383,7 @@ namespace TISMA_PSM
 
         protected void GenerateQueue(object sender, EventArgs e)
         {
-            //- Step 1: Set today's date
+            //- Step 1: Get today's date
             DateTime dateGenerated = DateTime.Now;
             Debug.WriteLine(dateGenerated.ToString("dd-MM-yyyy HH:mm:ss"));
 
@@ -377,8 +402,6 @@ namespace TISMA_PSM
                 queueNo += 1;
                 queueStr = ConvertQueueNo(queueNo);
             }
-            Debug.WriteLine(CheckIsQueueNotExist(ConvertQueueNo(queueNo), dateGenerated).Equals(true));
-            Debug.WriteLine(ConvertQueueNo(queueNo));
 
             //- Step 4: Database INSERT query
             //-- DB Exception-Error handling
@@ -592,6 +615,34 @@ namespace TISMA_PSM
             else
                 queueStr = queueNo.ToString();
             return queueStr;
+        }
+
+        public static string DecryptEMCPassword(string encryption)
+        {
+            //- Custom key
+            string EncryptionKey = "3NCRYPTP@55W0RD3MC";
+
+            //- Decrypt logic
+            encryption = encryption.Replace(" ", "+");
+            byte[] cipherBytes = Convert.FromBase64String(encryption);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
+                    0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
+                });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(cipherBytes, 0, cipherBytes.Length);
+                        cs.Close();
+                    }
+                    encryption = Encoding.Unicode.GetString(ms.ToArray());
+                }
+            }
+            return encryption;
         }
 
         public static string DecryptURL(string encryptedURL)

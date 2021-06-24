@@ -64,7 +64,6 @@ tbody {
     height: 30px;
     width: auto;
     color: #000; /**Black*/
-    background: lightgray;
 }
 
 .textbox-custom {
@@ -85,6 +84,7 @@ tbody {
     border: none;
     padding: 0 1rem 0 1rem;
     border-radius: 4px 5px;
+    text-align: center;
 }
 
 .btn-custom:hover{
@@ -93,8 +93,7 @@ tbody {
 }
 
 .note {
-    border-left: 5px solid;
-    border-left-color: #ff0000; /*Maroon*/
+    border-left: 5px solid #ff0000; /*Maroon*/
     background: #ff9346; /*Orange*/
     color: #fff; /*White*/
 }
@@ -742,7 +741,77 @@ div.dataTables_wrapper div.dataTables_filter input {
     font-weight: 500;
 }
 
-#opd-content .Popup .card {
+#opd .Popup {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#opd .Popup .card {
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    color: #000;
+    background: #fff;
+}
+#opd .Popup .card span {
+    font-weight: 500;
+}
+
+#opd .Popup .card-body {
+    padding: 1rem 1rem 1rem 1rem;
+}
+
+
+/*###################################################################################   CONSULTATION CSS */
+/****************************************/
+/*         CONSULTATION CONTENT         */
+/****************************************/
+#consult-content-1 {
+    border-top: 5px solid;
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff; /*White*/
+}
+
+#consult-content-1 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    background: #0072c6; /*Blue*/
+    color: #fff; /*White*/
+}
+
+#consult-content-1 .card span {
+    font-weight: 500;
+}
+
+#consult-content-2 .card, #consult-content-3 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    border-top: 5px solid;
+    border-top-color: #0072c6; /*Blue*/
+}
+
+#consult-content-2 img {
+    max-height: 170px;
+    max-width: 170px;
+}
+
+#consult-content-2 h6, #consult-content-3 h6 {
+    font-size: 14px;
+}
+
+#consult-content-3 .card span, #consult-content-2 .card span {
+    font-weight: 500;
+}
+
+#consult .Popup {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#consult .Popup .card {
     padding: 1rem 1rem 1rem 1rem;
     border-radius: 0;
     border: none;
@@ -751,6 +820,98 @@ div.dataTables_wrapper div.dataTables_filter input {
     background: #fff;
 }
 
-#opd-content .Popup .card-body {
+#consult .Popup .card-body {
     padding: 1rem 1rem 1rem 1rem;
+}
+
+#patient-info-table td {
+    padding: 0rem 1rem 0 1rem;
+}
+
+.clinical-sign {
+    height: 32px;
+    width: 125px;
+    text-align: center;
+    border: none;
+    padding: 0 1rem 0 1rem;
+    border-radius: 4px 5px;
+    background-color: #000;
+    color: #fff;
+}
+
+.border-custom {
+    border: 2px dashed lightgrey;
+}
+
+.combobox-custom {
+    color: #000; /**Black*/
+    background-color: white;
+    padding: 0 0.6rem 0 0.6rem;
+    vertical-align: bottom;
+}
+
+#PasswordCard {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    width: 30%;
+}
+
+#PasswordCard .card {
+    background-color: #efefef;
+    padding: 30px 40px 30px 40px;
+}
+
+.EMCViewBtn {
+    font-weight: bold;
+    color: #fff;
+    background-color: #0066ff;
+    height: 32px;
+    width: auto;
+    border: none;
+    padding: 0 1rem 0 1rem;
+    border-radius: 4px 5px;
+    text-align: center;
+}
+
+
+/*###################################################################################   LOGIN CSS */
+/****************************************/
+/*             LOGIN CONTENT            */
+/****************************************/
+.center-custom {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    width: 30%;
+}
+
+#LoginCard {
+    border: none;
+}
+
+#LoginCard .card-header {
+    background: #cadddd; /*Light Blue*/
+    border:none;
+}
+
+#LoginCard .card-body {
+    background-color: #fff;
+    padding: 30px 40px 30px 40px;
+}
+
+#LoginTable {
+    width: 100%;
+    text-align: start;
+}
+
+#LoginTable td {
+    vertical-align: middle;
+}
+#LoginTable p {
+    display: inherit;
 }

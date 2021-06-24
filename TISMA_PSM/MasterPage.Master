@@ -14,23 +14,18 @@
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
     <!--CSS Fontawesome-->
     <link rel="stylesheet" href="fontawesome/css/all.css" />
-    <!--CSS DataTables-->
-    <%--<link href="datatables/css/jquery.dataTables.min.css" rel="stylesheet" />--%>
-    <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
-
+    <!--CSS DataTables--><%--<link href="datatables/css/jquery.dataTables.min.css" rel="stylesheet" />--%>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css" type="text/css" />
     <!--CSS Custom-->
     <link rel="stylesheet" href="custom/css/main.css" />
 
     <!--JS bootstrap-->
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!--jQuery-->
-    <%--<script src="bootstrap/js/jquery-3.4.1.min.js"></script>--%>
+    <!--jQuery--><%--<script src="bootstrap/js/jquery-3.4.1.min.js"></script>--%>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <!--JS DataTables-->
-    <%--<script src="datatables/js/jquery.dataTables.min.js"></script>--%>
+    <!--JS DataTables--><%--<script src="datatables/js/jquery.dataTables.min.js"></script>--%>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
-
 </head>
 <body>
     <form id="form1" runat="server">
@@ -66,7 +61,7 @@
                         <small>MODULES</small>
                     </li>
                 </ul>
-                <a href="Staff.aspx" class="list-group-item list-group-item-action">
+                <a runat="server" id="StaffLink" href="Staff.aspx" class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fas fa-user-nurse fa-fw me-3"></span>
                         <span>Staff</span>
@@ -84,7 +79,7 @@
                         <span>QMS</span>
                     </div>
                 </a>
-                <a href="OPD.aspx" class="list-group-item list-group-item-action">
+                <a runat="server" id="OPDLink" href="OPD.aspx" class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-medkit fa-fw me-3"></span>
                         <span>OPD</span>
@@ -116,12 +111,6 @@
                 <ajaxLogout:ModalPopupExtender runat="server" ID="ModalPopupLogout" PopupControlID="PanelLogout" TargetControlID="LinkButton"
                     CancelControlID="BtnLogoutCancel" BackgroundCssClass="Background">
                 </ajaxLogout:ModalPopupExtender>
-                <%--<a href="X-Home.aspx" class="list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="fas fa-question-circle fw me-3"></span>
-                        <span>Help</span>
-                    </div>
-                </a>--%>
             </div>
             <!--MAIN CONTENT-->
             <div id="page-content-wrapper">
@@ -135,7 +124,7 @@
                     <div class="ms-auto topbar-profile">
                         <a href="Profile.aspx">
                             <i class="fas fa-user-circle fa-2x"></i>
-                            <span>Haziq Danial (Admin)</span>
+                            <span><asp:Literal runat="server" ID="getUserName"></asp:Literal> (<asp:Literal runat="server" ID="getUserRole"></asp:Literal>)</span>
                         </a>
                     </div>
                 </nav>
@@ -160,7 +149,7 @@
                 </div>
                 <div class="card-body row">
                     <div class="col text-center">
-                        <asp:Button runat="server" ID="BtnLogoutConfirm" Text="Confirm" CssClass="btn-custom" ForeColor="#ffffff" BackColor="#5c001f" />
+                        <asp:Button runat="server" ID="BtnLogoutConfirm" OnClick="Logout" Text="Confirm" CssClass="btn-custom" ForeColor="#ffffff" BackColor="#5c001f" />
                     </div>
                     <div class="col text-center">
                         <asp:Button runat="server" ID="BtnLogoutCancel" Text="Cancel" CssClass="btn-custom" ForeColor="Black" BackColor="#e5e5e5" />

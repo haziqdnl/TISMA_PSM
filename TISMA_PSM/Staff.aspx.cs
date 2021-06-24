@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
@@ -18,6 +14,9 @@ namespace TISMA_PSM
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Convert.ToString(Session["UserRole"]).Equals("Receptionist") || Convert.ToString(Session["UserRole"]).Equals("Medical Officer"))
+                Response.Redirect("Dashboard.aspx");
+
             if (!this.IsPostBack)
             {
                 this.BindGrid();

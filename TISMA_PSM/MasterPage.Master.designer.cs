@@ -33,6 +33,24 @@ namespace TISMA_PSM
         protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
+        /// StaffLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor StaffLink;
+
+        /// <summary>
+        /// OPDLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor OPDLink;
+
+        /// <summary>
         /// LinkButton control.
         /// </summary>
         /// <remarks>
@@ -49,6 +67,24 @@ namespace TISMA_PSM
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ModalPopupExtender ModalPopupLogout;
+
+        /// <summary>
+        /// getUserName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal getUserName;
+
+        /// <summary>
+        /// getUserRole control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal getUserRole;
 
         /// <summary>
         /// MainContent control.
