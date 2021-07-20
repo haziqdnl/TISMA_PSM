@@ -26,9 +26,9 @@
                 <div class="row">
                     <div class="col align-self-start">
                         <div>
-                            <asp:LinkButton runat="server" PostBackUrl="~/Staff.aspx">
+                            <asp:LinkButton runat="server" PostBackUrl="~/Staff.aspx" CausesValidation="false">
                                 <i class="fas fa-search me-1"></i>
-                                <span>Search Registered Staff/User</span>
+                                <span>Search Added Staff/User</span>
                             </asp:LinkButton>
                         </div>
                     </div>
@@ -98,13 +98,7 @@
                                         </tr>
                                         <tr>
                                             <!--Password-->
-                                            <td class="pe-3" style="text-align: right">Password <span style="color:red">*</span></td>
-                                            <td>
-                                                <asp:TextBox runat="server" ID="getPassword" CssClass="textbox-custom" Width="250px"></asp:TextBox>
-                                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" ControlToValidate="getPassword"
-                                                    ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
-                                                </asp:RequiredFieldValidator>
-                                            </td>
+                                            <td colspan="2"></td>
                                             <!--TISMA Role-->
                                             <td class="pe-3" style="text-align: right">TISMA Role</td>
                                             <td>
@@ -139,7 +133,7 @@
                                             <td>
                                                 <asp:TextBox runat="server" ID="getPassportNo" CssClass="textbox-custom" Width="250px"></asp:TextBox>
                                                 <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator1" ControlToValidate="getPassportNo" 
-                                                    ValidationExpression="^[A-Za-z0-9]{10,12}$" Display="Dynamic" SetFocusOnError="true"
+                                                    ValidationExpression="^([A-Z]|[0-9]){8,12}$" Display="Dynamic" SetFocusOnError="true"
                                                     ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
                                                 </asp:RegularExpressionValidator>
                                             </td>
@@ -187,7 +181,7 @@
                                             <!--Religion-->
                                             <td class="pe-3" style="text-align: right">Religion <span style="color:red">*</span></td>
                                             <td>
-                                                <asp:DropDownList runat="server" ID="getReligion" CssClass="dropdown-custom" AutoPostBack="true"  BackColor="White" Width="250px">
+                                                <asp:DropDownList runat="server" ID="getReligion" CssClass="dropdown-custom" AutoPostBack="true" BackColor="White" Width="250px">
                                                     <asp:ListItem Text="-Select-" Value="Select"></asp:ListItem>
                                                     <asp:ListItem Text="Muslim" Value="Muslim"></asp:ListItem>
                                                     <asp:ListItem Text="Buddha" Value="Buddha"></asp:ListItem>
@@ -225,7 +219,7 @@
                                             <td>
                                                 <asp:TextBox runat="server" ID="getPhone" CssClass="textbox-custom" Width="250px"></asp:TextBox>
                                                 <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator4" ControlToValidate="getPhone" 
-                                                    ValidationExpression="[0-9]{10,15}" 
+                                                    ValidationExpression="^[0]{1}[1]{1}[0-9]{8,10}$" 
                                                     Display="Dynamic" SetFocusOnError="true"
                                                     ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
                                                 </asp:RegularExpressionValidator>
@@ -264,6 +258,11 @@
                                             <td class="pe-3" style="text-align: right">Address <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getAddress" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="100px"></asp:TextBox>
+                                                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator6" ControlToValidate="getAddress" 
+                                                    ValidationExpression="^[#.0-9a-zA-Z\s,-]+$" 
+                                                    Display="Dynamic" SetFocusOnError="true"
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
+                                                </asp:RegularExpressionValidator>
                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator4" ControlToValidate="getAddress"
                                                     ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
                                                 </asp:RequiredFieldValidator>

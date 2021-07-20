@@ -1,10 +1,20 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="e-MC.aspx.cs" Inherits="TISMA_PSM.e_MC" EnableEventValidation="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="e-MC.aspx.cs" Inherits="TISMA_PSM.E_MC" EnableEventValidation="false" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>e-MC :: TISMA</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="custom/icon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="custom/icon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="custom/icon/favicon-16x16.png" />
+    <link rel="manifest" href="custom/icon/site.webmanifest" />
+    <link rel="mask-icon" href="custom/icon/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+
     <!--CSS Bootstrap-->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
     <!--CSS Fontawesome-->
@@ -29,13 +39,13 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div runat="server" id="PasswordCard" class="container d-flex justify-content-center align-items-center">
+        <div runat="server" id="PasswordCard" class="container justify-content-center align-items-center">
             <div class="card w-100">
                 <p style="color:#717171">This is a confidential document</p>
                 <p>Enter e-MC Password:</p>
                 <asp:TextBox runat="server" ID="getPassword" TextMode="Password" CssClass="textbox-custom text-center float-start" ></asp:TextBox>
                 <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator1" ControlToValidate="getPassword" 
-                    ValidationExpression="^[A-Z]{8}$" Display="Dynamic" SetFocusOnError="true"
+                    ValidationExpression="([a-z]|[A-Z]|[0-9]){8}$" Display="Dynamic" SetFocusOnError="true"
                     ErrorMessage="Invalid Password" ForeColor="Red" Font-Size="10px">
                 </asp:RegularExpressionValidator>
                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" ControlToValidate="getPassword"
@@ -48,7 +58,7 @@
                 </div>
             </div>
         </div>
-        <div runat="server" id="eMCCard" visible="false" class="container mt-5 d-flex justify-content-center align-items-center">
+        <div runat="server" id="eMCCard" visible="false" class="container">
             <table runat="server" id="tableMC" style="border: 40px solid #fff; width: 21cm; height: auto; background-color: #fff; margin: 0; padding: 0; font-weight: 500; font-size: 12px">
                 <tr>
                     <td class="text-center" colspan="3">
@@ -63,7 +73,7 @@
                 </tr>
                 <tr>
                     <td class="text-start" colspan="3">
-                        <p>No. Siri:<asp:Literal runat="server" ID="getSerialNo"></asp:Literal></p>
+                        <p>No. Siri: <asp:Literal runat="server" ID="getSerialNo"></asp:Literal></p>
                         <br />
                         <br />
                     </td>
@@ -127,7 +137,7 @@
                         <p>Tarikh Dicetak:</p>
                     </td>
                     <td></td>
-                    <td class="text-start" style="width:250px">
+                    <td class="text-start" style="width:200px">
                         <p>Pengesahan Doktor:</p>
                     </td>
                 </tr>
@@ -184,9 +194,7 @@
             </table>
             <br />
             <br />
-        </div>
-        <div runat="server" id="DownloadCard" visible="false" class="container mt-5 d-flex justify-content-center align-items-center">
-            <div class="text-center" style="margin-bottom: 80px">
+            <div runat="server" id="DownloadCard" class="text-center" style="margin-bottom: 80px">
                 <asp:Button ID="btnDownload" runat="server" Text="Download e-MC" OnClick="ExportToPDF" CssClass="btn-custom" ForeColor="White" BackColor="#0066ff" />
             </div>
         </div>

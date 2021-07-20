@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Registration-New-Public.aspx.cs" Inherits="TISMA_PSM.Registration_New_Public" %>
+﻿<%@ Page Title="Registration :: TISMA" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Registration-New-Public.aspx.cs" Inherits="TISMA_PSM.Registration_New_Public" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxTab" %>
 
@@ -30,7 +30,7 @@
                     </div>
                     <div class="col align-self-end">
                         <div class="float-end">
-                            <asp:LinkButton runat="server" PostBackUrl="~/Registration.aspx">
+                            <asp:LinkButton runat="server" PostBackUrl="~/Registration.aspx" CausesValidation="false">
                         <i class="fas fa-search me-1"></i>
                         <span>Search Registered Patient</span>
                             </asp:LinkButton>
@@ -95,6 +95,11 @@
                                             <td class="pe-3" style="text-align: right">Name <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getName" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="80px" required="true"></asp:TextBox>
+                                                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator5" ControlToValidate="getName" 
+                                                    ValidationExpression="(^[A-Za-z'@/-]{1,16})([ ]{0,1})([A-Za-z'@/-]{1,16})?([ ]{0,1})?([A-Za-z'@/-]{1,16})?([ ]{0,1})?([A-Za-z'@/-]{1,16})?([ ]{0,1})?([A-Za-z'@/-]{1,16})?([ ]{0,1})?([A-Za-z'@/-]{1,16})?([ ]{0,1})?([A-Za-z'@/-]{1,16})?([ ]{0,1})?([A-Za-z'@/-]{1,16})?([ ]{0,1})?([A-Za-z'@/-]{1,16})?([ ]{0,1})?" 
+                                                    Display="Dynamic" SetFocusOnError="true"
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
+                                                </asp:RegularExpressionValidator>
                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator7" ControlToValidate="getName"
                                                     ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
                                                 </asp:RequiredFieldValidator>
@@ -106,7 +111,7 @@
                                             <td>
                                                 <asp:TextBox runat="server" ID="getIcNo" CssClass="textbox-custom" Width="250px" required="true"></asp:TextBox>
                                                 <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator1" ControlToValidate="getIcNo" 
-                                                    ValidationExpression="^[A-Za-z0-9]{12}$" Display="Dynamic" SetFocusOnError="true"
+                                                    ValidationExpression="^([A-Z]|[0-9]){12}$" Display="Dynamic" SetFocusOnError="true"
                                                     ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
                                                 </asp:RegularExpressionValidator>
                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator8" ControlToValidate="getIcNo"
@@ -119,7 +124,7 @@
                                             <td>
                                                 <asp:TextBox runat="server" ID="getPassportNo" CssClass="textbox-custom" Width="250px"></asp:TextBox>
                                                 <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator2" ControlToValidate="getPassportNo" 
-                                                    ValidationExpression="^[A-Za-z0-9]{10,12}$" Display="Dynamic" SetFocusOnError="true"
+                                                    ValidationExpression="^([A-Z]|[0-9]){8,12}$" Display="Dynamic" SetFocusOnError="true"
                                                     ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
                                                 </asp:RegularExpressionValidator>
                                             </td>
@@ -221,7 +226,7 @@
                                             <td>
                                                 <asp:TextBox runat="server" ID="getPhone" CssClass="textbox-custom" required="true" Width="250px"></asp:TextBox>
                                                 <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator4" ControlToValidate="getPhone" 
-                                                    ValidationExpression="[0-9]{10,15}" 
+                                                    ValidationExpression="^[0]{1}[1]{1}[0-9]{8,10}$" 
                                                     Display="Dynamic" SetFocusOnError="true"
                                                     ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
                                                 </asp:RegularExpressionValidator>
@@ -249,6 +254,11 @@
                                             <td class="pe-3" style="text-align: right">Occupation <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getDesignation" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="50px" required="true"></asp:TextBox>
+                                                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator6" ControlToValidate="getDesignation" 
+                                                    ValidationExpression="^[()'#./0-9a-zA-Z\s,-]+$" 
+                                                    Display="Dynamic" SetFocusOnError="true"
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
+                                                </asp:RegularExpressionValidator>
                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator12" ControlToValidate="getDesignation"
                                                     ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
                                                 </asp:RequiredFieldValidator>
@@ -259,6 +269,11 @@
                                             <td class="pe-3" style="text-align: right">Address <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getAddress" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="100px" required="true"></asp:TextBox>
+                                                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator7" ControlToValidate="getAddress" 
+                                                    ValidationExpression="^[()'#./0-9a-zA-Z\s,-]+$" 
+                                                    Display="Dynamic" SetFocusOnError="true"
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
+                                                </asp:RegularExpressionValidator>
                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator13" ControlToValidate="getAddress"
                                                     ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
                                                 </asp:RequiredFieldValidator>
@@ -267,6 +282,11 @@
                                             <td class="pe-3" style="text-align: right">Remarks</td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getRemarks" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="100px"></asp:TextBox>
+                                                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator8" ControlToValidate="getRemarks" 
+                                                    ValidationExpression="^[()'#./0-9a-zA-Z\s,-]+$" 
+                                                    Display="Dynamic" SetFocusOnError="true"
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
+                                                </asp:RegularExpressionValidator>
                                             </td>
                                         </tr>
                                     </table>

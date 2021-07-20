@@ -11,7 +11,7 @@ namespace TISMA_PSM
 {
 
 
-    public partial class e_MC
+    public partial class E_MC
     {
 
         /// <summary>

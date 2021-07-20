@@ -149,8 +149,8 @@ CREATE TABLE clinical_info (
 		PRIMARY KEY (clinical_id),
 	CONSTRAINT fk_clinical_info_patient
 		FOREIGN KEY (fk_p_ic_no) REFERENCES patient (p_ic_no),
-	CONSTRAINT fk_clinical_info_medical_officer
-		FOREIGN KEY (fk_s_ic_no) REFERENCES pku_medical_officer (fk_ic_no)
+	CONSTRAINT fk_clinical_info_pku_staff
+		FOREIGN KEY (fk_s_ic_no) REFERENCES pku_staff (s_ic_no)
 );
 
 /***************************************************************************************/
@@ -176,8 +176,8 @@ CREATE TABLE emc (
 	CONSTRAINT fk_emc_patient
 		FOREIGN KEY (fk_p_ic_no) REFERENCES patient (p_ic_no),
 
-	CONSTRAINT fk_emc_medical_officer
-		FOREIGN KEY (fk_s_ic_no) REFERENCES pku_medical_officer (fk_ic_no),
+	CONSTRAINT fk_emc_pku_staff
+		FOREIGN KEY (fk_s_ic_no) REFERENCES pku_staff (s_ic_no),
 
 	CONSTRAINT fk_emc_clinical_info
 		FOREIGN KEY (fk_clinical_id) REFERENCES clinical_info (clinical_id)

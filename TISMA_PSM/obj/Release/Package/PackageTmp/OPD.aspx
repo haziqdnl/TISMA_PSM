@@ -76,7 +76,8 @@
             </div>
             <div class="card-body text-center">
                 <div class="row">
-                    <p>Are you sure want to <b>CHECK-IN</b> this patient?</p><br />
+                    <p>Account No: <b><asp:Literal runat="server" ID="getAccNo"></asp:Literal></b>, Queue No: <b><asp:Literal runat="server" ID="getQueueNo"></asp:Literal></b></p>
+                    <p>Are you sure want to <b style="color:#0A9E00">CHECK-IN</b> this patient?</p>
                     <p>This action cannot be undone!</p>
                 </div>
                 <div class="mt-3">

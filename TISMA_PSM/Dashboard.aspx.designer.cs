@@ -15,6 +15,24 @@ namespace TISMA_PSM
     {
 
         /// <summary>
+        /// getTodayDayName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal getTodayDayName;
+
+        /// <summary>
+        /// getTodayDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal getTodayDate;
+
+        /// <summary>
         /// getDoctorAvailable control.
         /// </summary>
         /// <remarks>
@@ -42,30 +60,39 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.Literal getPatientRegistered;
 
         /// <summary>
-        /// Literal1 control.
+        /// getEMCGenerate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal1;
+        protected global::System.Web.UI.WebControls.Literal getEMCGenerate;
 
         /// <summary>
-        /// Literal2 control.
+        /// getPatientCheckedIn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal2;
+        protected global::System.Web.UI.WebControls.Literal getPatientCheckedIn;
 
         /// <summary>
-        /// Literal3 control.
+        /// getPatientCheckedOut control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal3;
+        protected global::System.Web.UI.WebControls.Literal getPatientCheckedOut;
+
+        /// <summary>
+        /// Chart1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.DataVisualization.Charting.Chart Chart1;
     }
 }

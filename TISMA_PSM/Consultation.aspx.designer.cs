@@ -159,15 +159,6 @@ namespace TISMA_PSM
         protected global::AjaxControlToolkit.ComboBox SymptomDdl;
 
         /// <summary>
-        /// BtnAdd1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnAdd1;
-
-        /// <summary>
         /// RequiredFieldValidator1 control.
         /// </summary>
         /// <remarks>
@@ -184,15 +175,6 @@ namespace TISMA_PSM
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ComboBox SignDdl;
-
-        /// <summary>
-        /// BtnAdd2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnAdd2;
 
         /// <summary>
         /// RequiredFieldValidator2 control.
@@ -213,6 +195,15 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.TextBox getSymptomDesc;
 
         /// <summary>
+        /// RegularExpressionValidator8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator8;
+
+        /// <summary>
         /// getSignDesc control.
         /// </summary>
         /// <remarks>
@@ -222,6 +213,15 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.TextBox getSignDesc;
 
         /// <summary>
+        /// RegularExpressionValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
+
+        /// <summary>
         /// DiagnosisDdl control.
         /// </summary>
         /// <remarks>
@@ -229,15 +229,6 @@ namespace TISMA_PSM
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ComboBox DiagnosisDdl;
-
-        /// <summary>
-        /// BtnAdd3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnAdd3;
 
         /// <summary>
         /// RequiredFieldValidator3 control.
@@ -256,6 +247,15 @@ namespace TISMA_PSM
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox getDiagnosisDesc;
+
+        /// <summary>
+        /// RegularExpressionValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
 
         /// <summary>
         /// BtnReset control.
@@ -364,6 +364,15 @@ namespace TISMA_PSM
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox getComment;
+
+        /// <summary>
+        /// RegularExpressionValidator3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator3;
 
         /// <summary>
         /// MCPassword control.

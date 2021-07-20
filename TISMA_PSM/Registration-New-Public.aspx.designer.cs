@@ -78,6 +78,15 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.TextBox getName;
 
         /// <summary>
+        /// RegularExpressionValidator5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator5;
+
+        /// <summary>
         /// RequiredFieldValidator7 control.
         /// </summary>
         /// <remarks>
@@ -312,6 +321,15 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.TextBox getDesignation;
 
         /// <summary>
+        /// RegularExpressionValidator6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator6;
+
+        /// <summary>
         /// RequiredFieldValidator12 control.
         /// </summary>
         /// <remarks>
@@ -330,6 +348,15 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.TextBox getAddress;
 
         /// <summary>
+        /// RegularExpressionValidator7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator7;
+
+        /// <summary>
         /// RequiredFieldValidator13 control.
         /// </summary>
         /// <remarks>
@@ -346,6 +373,15 @@ namespace TISMA_PSM
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox getRemarks;
+
+        /// <summary>
+        /// RegularExpressionValidator8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator8;
 
         /// <summary>
         /// BtnAddtoTISMA control.

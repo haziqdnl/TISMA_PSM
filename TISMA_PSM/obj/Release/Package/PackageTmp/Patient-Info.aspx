@@ -56,7 +56,7 @@
                 <br />
                 <!--GENERATE QUEUE-->
                 <div class="row-cols-1" id="patient-info-gen-q">
-                    <div class="card border-0">
+                    <div class="card-header border-0 text-center">
                         <span>Queue</span>
                     </div>
                     <div class="card-body">
@@ -71,42 +71,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!--MODUL POPUP: GENERATE QUEUE-->
-            <asp:Panel runat="server" ID="PanelGenerateQueue" CssClass="Popup" Width="700px" Style="display: none">
-                <div class="card">
-                    <div class="row">
-                        <div class="col align-self-center">
-                            <span>QMS Module</span>
-                        </div>
-                        <div class="col align-self-end">
-                            <div class="float-end">
-                                <!--CANCEL BTN-->
-                                <asp:Button runat="server" ID="BtnCancelGenerateQueue" Font-Size="Larger" Text="X" Font-Bold="true" BorderStyle="None" CssClass="btn-custom" ForeColor="#808080" BackColor="White" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body text-center">
-                    <div runat="server" id="beforeGenerate">
-                        <p>Last generated QMS number: &nbsp<b><asp:Literal runat="server" ID="getLatestNo"></asp:Literal></b></p>
-                        <p>Last visit for Account No. &nbsp<b><asp:Literal runat="server" ID="getAccNoQMS"></asp:Literal></b>&nbsp on <b><asp:Literal runat="server" ID="getLastVisited"></asp:Literal></b></p>
-                        <asp:Button runat="server" ID="BtnGenerateQueue2" Text="Generate Queue" OnClick="GenerateQueue" CssClass="btn-custom mt-2 mb-2" ForeColor="White" BackColor="#ff0000"></asp:Button>
-                    </div>
-                    <div runat="server" id="afterGenerate">
-                        <div class="row">
-                            <h1 class="mb-0"><asp:Literal runat="server" ID="getQueueNo"></asp:Literal></h1>
-                            <span>Queue generated</span>
-                        </div>
-                        <br />
-                        <div>
-                            <asp:Button runat="server" ID="Button1" Text="Back to Registration Module" PostBackUrl="~/Registration.aspx" CssClass="btn-custom mt-1 mb-2" ForeColor="White" BackColor="#0066ff"></asp:Button>
-                        </div>
-                    </div>
-                </div>
-            </asp:Panel>
-
+            </div>      
             <div class="col p-0 m-0">
                 <div class="card p-0">
                     <ajaxPatientInfo:TabContainer runat="server" ID="TabContainer1" ActiveTabIndex="0" BackColor="#0072c6">
@@ -171,7 +136,7 @@
                                             <td>
                                                 <asp:TextBox runat="server" ID="getPassportNo" CssClass="textbox-custom" Width="250px"></asp:TextBox>
                                                 <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator2" ControlToValidate="getPassportNo" 
-                                                    ValidationExpression="^[A-Za-z0-9]{10,15}$" Display="Dynamic" SetFocusOnError="true"
+                                                    ValidationExpression="^([A-Z]|[0-9]){8,12}$" Display="Dynamic" SetFocusOnError="true"
                                                     ErrorMessage="Format error" ForeColor="Red" Font-Size="10px">
                                                 </asp:RegularExpressionValidator>
                                             </td>
@@ -257,7 +222,7 @@
                                             <td>
                                                 <asp:TextBox runat="server" ID="getPhone" CssClass="textbox-custom" Width="250px"></asp:TextBox>
                                                 <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator4" ControlToValidate="getPhone" 
-                                                    ValidationExpression="[0-9]{10,15}" 
+                                                    ValidationExpression="^[0]{1}[1]{1}[0-9]{8,10}$" 
                                                     Display="Dynamic" SetFocusOnError="true"
                                                     ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
                                                 </asp:RegularExpressionValidator>
@@ -284,6 +249,10 @@
                                             <td class="pe-3" style="text-align: right">Designation <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getDesignation" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="50px"></asp:TextBox>
+                                                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator5" ControlToValidate="getDesignation" 
+                                                    ValidationExpression="^[#./0-9a-zA-Z\s,-]+$" Display="Dynamic" SetFocusOnError="true"
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
+                                                </asp:RegularExpressionValidator>
                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator6" ControlToValidate="getDesignation"
                                                     ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
                                                 </asp:RequiredFieldValidator>
@@ -328,6 +297,10 @@
                                             <td class="pe-3" style="text-align: right">Address <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getAddress" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="100px"></asp:TextBox>
+                                                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator6" ControlToValidate="getAddress" 
+                                                    ValidationExpression="^[()'#./0-9a-zA-Z\s,-]+$" Display="Dynamic" SetFocusOnError="true"
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
+                                                </asp:RegularExpressionValidator>
                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator5" ControlToValidate="getAddress"
                                                     ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
                                                 </asp:RequiredFieldValidator>
@@ -336,6 +309,10 @@
                                             <td class="pe-3" style="text-align: right">Remarks <span style="color:red">*</span></td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getRemarks" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="100px"></asp:TextBox>
+                                                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator7" ControlToValidate="getRemarks" 
+                                                    ValidationExpression="^[()'#./0-9a-zA-Z\s,-]+$" Display="Dynamic" SetFocusOnError="true"
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
+                                                </asp:RegularExpressionValidator>
                                             </td>
                                         </tr>
                                     </table>
@@ -394,7 +371,39 @@
                 </div>
             </div>
         </div>
-
+        <!--MODUL POPUP: GENERATE QUEUE-->
+            <asp:Panel runat="server" ID="PanelGenerateQueue" CssClass="Popup" Width="700px" Style="display: none">
+                <div class="card">
+                    <div class="row">
+                        <div class="col align-self-center">
+                            <span>QMS Module</span>
+                        </div>
+                        <div class="col align-self-end">
+                            <div class="float-end">
+                                <!--CANCEL BTN-->
+                                <asp:Button runat="server" ID="BtnCancelGenerateQueue" Font-Size="Larger" Text="X" Font-Bold="true" BorderStyle="None" CssClass="btn-custom" ForeColor="#808080" BackColor="White" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body text-center">
+                    <div runat="server" id="beforeGenerate">
+                        <p>Last generated QMS number: &nbsp<b><asp:Literal runat="server" ID="getLatestNo"></asp:Literal></b></p>
+                        <p>Last visit for Account No. &nbsp<b><asp:Literal runat="server" ID="getAccNoQMS"></asp:Literal></b>&nbsp on <b><asp:Literal runat="server" ID="getLastVisited"></asp:Literal></b></p>
+                        <asp:Button runat="server" ID="BtnGenerateQueue2" Text="Generate Queue" OnClick="GenerateQueue" CssClass="btn-custom mt-2 mb-2" ForeColor="White" BackColor="#ff0000"></asp:Button>
+                    </div>
+                    <div runat="server" id="afterGenerate" visible="false">
+                        <div class="row">
+                            <h1 class="mb-0"><asp:Literal runat="server" ID="getQueueNo"></asp:Literal></h1>
+                            <span>Queue generated</span>
+                        </div>
+                        <br />
+                        <div>
+                            <asp:Button runat="server" ID="Button1" Text="Back to Registration Module" PostBackUrl="~/Registration.aspx" CssClass="btn-custom mt-1 mb-2" ForeColor="White" BackColor="#0066ff"></asp:Button>
+                        </div>
+                    </div>
+                </div>
+            </asp:Panel>
         <!--MODUL POPUP: UPDATE POPUP MESSAGE-->
         <div style="display:none">
             <asp:Button runat="server" ID="BtnPopupUpdate" Text="Open Popup" CssClass="btn-custom mt-2" Width="100%" ForeColor="White" BackColor="#0066ff" />

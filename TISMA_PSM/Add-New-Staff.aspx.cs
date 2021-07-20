@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
-using System.Diagnostics;
-using System.Text;
-using System.Security.Cryptography;
-using System.IO;
 using System.Net.Mail;
-using System.Web.Helpers;
+using static TISMA_PSM.ControllerStaff;
+using static TISMA_PSM.ControllerUtmHr;
+using static TISMA_PSM.Helper;
 
 namespace TISMA_PSM
 {
@@ -15,214 +12,146 @@ namespace TISMA_PSM
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //- Get pid (ic_no) and stat from URL param
-            string ic_no = DecryptURL(Request.QueryString["pid"]);
+            //- Verify user ACL based on session: 404 error
+            if (!Convert.ToString(Session["UserRole"]).Equals("Admin"))
+                Response.Redirect("PageNotFound.aspx");
 
-            //- Check is patient added to TISMA
-            if (CheckIsStaffAddedToTisma(ic_no).Equals(true))
+            //- Get encrypted IC no. from URL param and decrypt it
+            string icNo = DecryptURL(Request.QueryString["pid"]);
+
+            //- Validate if decrypted IC no. is empty or null: 404 Error
+            if (string.IsNullOrEmpty(icNo))
+                Response.Redirect("PageNotFound.aspx");
+
+            //- Validate if decrypted IC no. not exist: 404 Error
+            if (CheckIcNoUtmHrNotExist(icNo).Equals(true))
+                Response.Redirect("PageNotFound.aspx");
+
+            //- Validate if staff already added to TISMA
+            if (CheckIsStaffAddedToTisma(icNo).Equals(true))
                 ModalPopupMessage.Show();
 
-            //- DB Exception-Error handling
-            try
+            if (!this.IsPostBack)
             {
-                string constr = ConfigurationManager.ConnectionStrings["utmhrConnectionString"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(constr))
-                {
-                    using (SqlCommand cmd = new SqlCommand("SELECT * FROM utm_hr_tbl WHERE ic_no = '" + ic_no + "'"))
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.Connection = con;
-                        con.Open();
-                        using (SqlDataReader sdr = cmd.ExecuteReader())
-                        {
-                            sdr.Read();
-
-                            //- Parse Date value from SQL to DateTime obj
-                            DateTime.TryParse(sdr["dob"].ToString(), out DateTime dob);
-
-                            //- Parse Email value and generate Username pattern from Email name
-                            string email = sdr["email"].ToString();
-                            MailAddress addr = new MailAddress(email);
-                            string username = addr.User;
-
-                            getBranch.SelectedValue = sdr["branch"].ToString();
-                            getCategory.Text = sdr["category"].ToString();
-                            getAccNo.Text = GenerateAccNo();
-                            getUsername.Text = username;
-                            getName.Text = sdr["name"].ToString();
-                            getStaffId.Text = sdr["staff_id"].ToString();
-                            getIcNo.Text = sdr["ic_no"].ToString();
-                            getPassportNo.Text = sdr["passport_no"].ToString();
-                            getDob.Text = dob.ToString("dd/MM/yyyy");
-                            getAge.Text = sdr["age"].ToString();
-                            getGender.SelectedValue = sdr["gender"].ToString();
-                            getMaritalStat.SelectedValue = sdr["marital_stat"].ToString();
-                            getReligion.SelectedValue = sdr["religion"].ToString();
-                            getRace.SelectedValue = sdr["race"].ToString();
-                            getNation.Text = sdr["nationality"].ToString();
-                            getPhone.Text = sdr["tel_no"].ToString();
-                            getEmail.Text = email;
-                            getDesignation.Text = sdr["designation"].ToString();
-                            getFacDep.Text = sdr["department"].ToString();
-                            getAddress.Text = sdr["staff_address"].ToString();
-                            getSession.Text = sdr["session_no"].ToString();
-                        }
-                        con.Close();
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                //- Display handling-error message
-                SqlExceptionMsg(ex);
-            }
-            finally
-            {
-                //- Display success message
-                Debug.WriteLine("DB Execution Success: Retrieve staff data from UTM-HR");
+                DisplayUtmHrInfo(icNo);
             }
         }
 
         protected void AddToTisma(object sender, EventArgs e)
         {
-            //- DB Exception-Error handling
-            try
+            if (!string.IsNullOrEmpty(getTismaRoleDdl.SelectedValue) && !getTismaRoleDdl.SelectedValue.Equals("Select"))
             {
-                //- Identify TISMA Role
-                string role = getTismaRoleDdl.SelectedValue, spFunc;
-                if (role.Equals("Admin"))
-                    spFunc = "AddToTismaPkuAdmin";
-                else if (role.Equals("Medical Officer"))
-                    spFunc = "AddToTismaPkuMO";
-                else
-                    spFunc = "AddToTismaPkuReceptionist";
+                //- Object UTM-HR model
+                ModelUtmHr hr = GetUtmHrInfoByIcNo(getIcNo.Text);
 
                 //- Generate salt and hash password
-                string[] encryptedUrl = Hashing(getIcNo.Text);
+                string[] encryptedUrl = Hashing(hr.sIcNo);
                 string passwordHashed = encryptedUrl[0];
                 string passwordSalt = encryptedUrl[1];
 
-                //- Insert Query
-                string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-                SqlConnection con = new SqlConnection(constr);
-                SqlCommand cmd = new SqlCommand(spFunc, con)
+                //- DB Exception/Error handling
+                try
                 {
-                    CommandType = CommandType.StoredProcedure
-                };
-                //- Insert to table 'pku_staff'
-                cmd.Parameters.AddWithValue("@IcNo", getIcNo.Text);
-                cmd.Parameters.AddWithValue("@Passport", getPassportNo.Text);
-                cmd.Parameters.AddWithValue("@AccNo", getAccNo.Text);
-                cmd.Parameters.AddWithValue("@Username", getUsername.Text);
-                cmd.Parameters.AddWithValue("@Password", passwordHashed);
-                cmd.Parameters.AddWithValue("@PasswordSalt", passwordSalt);
-                cmd.Parameters.AddWithValue("@StaffId", getStaffId.Text);
-                cmd.Parameters.AddWithValue("@TelNo", getPhone.Text);
-                cmd.Parameters.AddWithValue("@Email", getEmail.Text);
-                cmd.Parameters.AddWithValue("@Name", getName.Text);
-                cmd.Parameters.AddWithValue("@Dob", Convert.ToDateTime(getDob.Text));
-                cmd.Parameters.AddWithValue("@Age", int.Parse(getAge.Text));
-                cmd.Parameters.AddWithValue("@Gender", getGender.SelectedValue);
-                cmd.Parameters.AddWithValue("@Marital", getMaritalStat.SelectedValue);
-                cmd.Parameters.AddWithValue("@Religion", getReligion.SelectedValue);
-                cmd.Parameters.AddWithValue("@Race", getRace.SelectedValue);
-                cmd.Parameters.AddWithValue("@Nationality", getNation.Text);
-                cmd.Parameters.AddWithValue("@Address", getAddress.Text);
-                cmd.Parameters.AddWithValue("@Designation", getDesignation.Text);
-                cmd.Parameters.AddWithValue("@Department", getFacDep.Text);
-                cmd.Parameters.AddWithValue("@Session", getSession.Text);
-                cmd.Parameters.AddWithValue("@Category", getCategory.Text);
-                cmd.Parameters.AddWithValue("@Branch", getBranch.SelectedValue);
+                    //- Identify TISMA selected ole
+                    string role = getTismaRoleDdl.SelectedValue, spFunc = "";
+                    if (role.Equals("Admin"))
+                        spFunc = "AddToTismaPkuAdmin";
+                    else if (role.Equals("Medical Officer"))
+                        spFunc = "AddToTismaPkuMO";
+                    else if (role.Equals("Receptionist"))
+                        spFunc = "AddToTismaPkuReceptionist";
+                    else
+                        Response.Redirect("InternalServerError.aspx");
 
-                //- Insert to table 'pku_admin' or 'pku_medical_officer' or 'pku_receptionist'
-                cmd.Parameters.AddWithValue("@Role", 1);
-
-                con.Open();
-                cmd.ExecuteNonQuery();
-                con.Close();
-            }
-            catch (SqlException ex)
-            {
-                //- Display handling-error message
-                SqlExceptionMsg(ex);
-            }
-            finally
-            {
-                //- Display success message
-                Debug.WriteLine("DB Execution Success: Add to TISMA");
-            }
-            Response.Redirect("Staff.aspx");
-        }
-
-        public static bool CheckAccStaffNotExist(string accNo)
-        {
-            //- Search Query
-            string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-            SqlConnection con = new SqlConnection(constr);
-            SqlCommand cmd = new SqlCommand("CheckAccStaffNotExist", con)
-            {
-                CommandType = CommandType.StoredProcedure
-            };
-            cmd.Parameters.AddWithValue("@AccNo", accNo.Trim());
-            con.Open();
-            bool status = Convert.ToBoolean(cmd.ExecuteScalar());
-            con.Close();
-
-            return status;
-        }
-
-        public static bool CheckIsStaffAddedToTisma(string icNo)
-        {
-            //- Search Query
-            string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-            SqlConnection con = new SqlConnection(constr);
-            SqlCommand cmd = new SqlCommand("CheckIsStaffAddedToTisma", con)
-            {
-                CommandType = CommandType.StoredProcedure
-            };
-            cmd.Parameters.AddWithValue("@IcNo", icNo);
-            con.Open();
-            bool status = Convert.ToBoolean(cmd.ExecuteScalar());
-            con.Close();
-
-            return status;
-        }
-
-        public static string DecryptURL(string encryptedURL)
-        {
-            //- Custom key
-            string EncryptionKey = "3NCRYPTTH1SURLP4R4M";
-
-            //- Decrypt logic
-            encryptedURL = encryptedURL.Replace(" ", "+");
-            byte[] cipherBytes = Convert.FromBase64String(encryptedURL);
-            using (Aes encryptor = Aes.Create())
-            {
-                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
-                    0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
-                });
-                encryptor.Key = pdb.GetBytes(32);
-                encryptor.IV = pdb.GetBytes(16);
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+                    using (SqlConnection con = new SqlConnection(GetConnectionStringTismaDB()))
                     {
-                        cs.Write(cipherBytes, 0, cipherBytes.Length);
-                        cs.Close();
+                        con.Open();
+                        //- Insert Query
+                        using (SqlCommand cmd = new SqlCommand(spFunc, con) { CommandType = CommandType.StoredProcedure })
+                        {
+                            //- Insert to table 'pku_staff'
+                            cmd.Parameters.AddWithValue("@IcNo", hr.sIcNo);
+                            cmd.Parameters.AddWithValue("@Passport", hr.sPassportNo);
+                            cmd.Parameters.AddWithValue("@AccNo", getAccNo.Text);
+                            cmd.Parameters.AddWithValue("@Username", getUsername.Text);
+                            cmd.Parameters.AddWithValue("@Password", passwordHashed);
+                            cmd.Parameters.AddWithValue("@PasswordSalt", passwordSalt);
+                            cmd.Parameters.AddWithValue("@StaffId", hr.sStaffId);
+                            cmd.Parameters.AddWithValue("@TelNo", hr.sTelNo);
+                            cmd.Parameters.AddWithValue("@Email", hr.sEmail);
+                            cmd.Parameters.AddWithValue("@Name", hr.sName);
+                            cmd.Parameters.AddWithValue("@Dob", DateTime.ParseExact(getDob.Text, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture));
+                            cmd.Parameters.AddWithValue("@Age", hr.sAge);
+                            cmd.Parameters.AddWithValue("@Gender", hr.sGender);
+                            cmd.Parameters.AddWithValue("@Marital", hr.sMaritalStat);
+                            cmd.Parameters.AddWithValue("@Religion", hr.sReligion);
+                            cmd.Parameters.AddWithValue("@Race", hr.sRace);
+                            cmd.Parameters.AddWithValue("@Nationality", hr.sNationality);
+                            cmd.Parameters.AddWithValue("@Address", hr.sAddress);
+                            cmd.Parameters.AddWithValue("@Designation", hr.sDesignation);
+                            cmd.Parameters.AddWithValue("@Department", hr.sDepartment);
+                            cmd.Parameters.AddWithValue("@Session", hr.sSession);
+                            cmd.Parameters.AddWithValue("@Category", hr.sCategory);
+                            cmd.Parameters.AddWithValue("@Branch", hr.sBranch);
+
+                            //- Insert to table 'pku_admin' or 'pku_medical_officer' or 'pku_receptionist'
+                            cmd.Parameters.AddWithValue("@Role", 1);
+
+                            cmd.ExecuteNonQuery();
+                        }
                     }
-                    encryptedURL = Encoding.Unicode.GetString(ms.ToArray());
                 }
+                catch (SqlException ex)
+                {
+                    //- Display handling-error message
+                    SqlExceptionMsg(ex);
+                }
+                Response.Redirect("Staff.aspx");
             }
-            return encryptedURL;
         }
 
-        public static string GenerateAccNo()
+        private void DisplayUtmHrInfo(string icNo)
+        {
+            //- Object UTM-HR model
+            ModelUtmHr hr = GetUtmHrInfoByIcNo(icNo);
+
+            //- Parse and render data
+            getBranch.SelectedValue = hr.sBranch;
+            getCategory.Text = hr.sCategory;
+            getName.Text = hr.sName;
+            getStaffId.Text = hr.sStaffId;
+            getIcNo.Text = hr.sIcNo;
+            getPassportNo.Text = hr.sPassportNo;
+            getDob.Text = hr.sDob;
+            getAge.Text = hr.sAge.ToString();
+            getGender.SelectedValue = hr.sGender;
+            getMaritalStat.SelectedValue = hr.sMaritalStat;
+            getReligion.SelectedValue = hr.sReligion;
+            getRace.SelectedValue = hr.sRace;
+            getNation.Text = hr.sNationality;
+            getPhone.Text = hr.sTelNo;
+            getEmail.Text = hr.sEmail;
+            getDesignation.Text = hr.sDesignation;
+            getFacDep.Text = hr.sDepartment;
+            getAddress.Text = hr.sAddress;
+            getSession.Text = hr.sSession;
+
+            //- Generate a username based on email name
+            MailAddress addr = new MailAddress(hr.sEmail);
+            string username = addr.User;
+            getUsername.Text = username;
+
+            //- Generate account no.
+            getAccNo.Text = GenerateAccNoStaff();
+        }
+
+        private static string GenerateAccNoStaff()
         {
             //- Step 1: Init Account No pattern
             string accNo = "STAFF";
 
             //- Step 2: Generate Date pattern and append to accNo
-            string today = DateTime.Now.ToString("yyyy/MM/dd");
+            string today = DateTime.Now.ToString("yyyy/MM/dd", System.Globalization.CultureInfo.InvariantCulture);
             today = today.Remove(7, 1); // yyyy/MM_dd
             today = today.Remove(4, 1); // yyyy_MMdd            
             accNo += today; 
@@ -242,38 +171,9 @@ namespace TISMA_PSM
 
             //- Step 4: Identify the generated acc no. if it already existed in db
             if (CheckAccStaffNotExist(accNo).Equals(true))
-            {
-                Debug.WriteLine("The generated Acc No. ["+accNo+"] not existed yet.");
                 return accNo;
-            }
             else
-            {
-                Debug.WriteLine("The generated Acc No. ["+accNo+"] already existed. Re-generating....");
-                return GenerateAccNo();
-            }
-        }
-
-        public static string[] Hashing(string password)
-        {
-            string salt = Crypto.GenerateSalt();
-            string hashed = Crypto.HashPassword(salt + password);
-            string[] encryption = { hashed, salt };
-
-            return encryption;
-        }
-
-        public static void SqlExceptionMsg(SqlException ex)
-        {
-            StringBuilder errorMessages = new StringBuilder();
-            for (int i = 0; i < ex.Errors.Count; i++)
-            {
-                errorMessages.Append("Index #" + i + "\n" +
-                "Message: " + ex.Errors[i].Message + "\n" +
-                "LineNumber: " + ex.Errors[i].LineNumber + "\n" +
-                "Source: " + ex.Errors[i].Source + "\n" +
-                "Procedure: " + ex.Errors[i].Procedure + "\n");
-            }
-            Debug.WriteLine(errorMessages.ToString());
+                return GenerateAccNoStaff();
         }
     }
 }

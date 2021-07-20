@@ -18,14 +18,14 @@ GO
 -- Create date: 11 May 2021
 -- Description:	
 -- =============================================
-CREATE PROCEDURE CheckEMCGenerated
-	@IcNo NVARCHAR(12)
+CREATE PROCEDURE CheckIsItemSymptomAdded
+	@Item NVARCHAR(50)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
-	IF EXISTS(SELECT TOP 1 * FROM emc WHERE fk_p_ic_no = @IcNo AND CONVERT(DATE, date_from) <= CONVERT(DATE, GETDATE()) AND CONVERT(DATE, date_to) >= CONVERT(DATE, GETDATE()) ORDER BY date_created DESC)
+	IF EXISTS(SELECT symptom_name FROM symptomDb WHERE symptom_name = @Item)
 	BEGIN
 		SELECT 'TRUE'
 	END

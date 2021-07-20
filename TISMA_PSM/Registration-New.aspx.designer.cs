@@ -249,6 +249,15 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.TextBox getRemarks;
 
         /// <summary>
+        /// RegularExpressionValidator8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator8;
+
+        /// <summary>
         /// BtnAddtoTISMA control.
         /// </summary>
         /// <remarks>

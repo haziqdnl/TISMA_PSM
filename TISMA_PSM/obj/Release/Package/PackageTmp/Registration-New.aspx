@@ -30,7 +30,7 @@
                     </div>
                     <div class="col align-self-end">
                         <div class="float-end">
-                            <asp:LinkButton runat="server" PostBackUrl="~/Registration.aspx">
+                            <asp:LinkButton runat="server" PostBackUrl="~/Registration.aspx" CausesValidation="false">
                         <i class="fas fa-search me-1"></i>
                         <span>Search Registered Patient</span>
                             </asp:LinkButton>
@@ -234,6 +234,11 @@
                                             <td class="pe-3" style="text-align: right">Remarks</td>
                                             <td>
                                                 <asp:TextBox runat="server" ID="getRemarks" CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="250px" Height="100px"></asp:TextBox>
+                                                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator8" ControlToValidate="getRemarks" 
+                                                    ValidationExpression="^[()'#./0-9a-zA-Z\s,-]+$" 
+                                                    Display="Dynamic" SetFocusOnError="true"
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
+                                                </asp:RegularExpressionValidator>
                                             </td>
                                         </tr>
                                     </table>

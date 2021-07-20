@@ -42,7 +42,7 @@
 
                 <!--SEARCH STAFF TABLE-->
                 <div class="mt-4">
-                    <asp:GridView runat="server" ID="RegisteredStaffTable" CssClass="display compact cell-border" ShowHeaderWhenEmpty="true" AutoGenerateColumns="False" DataKeyNames="s_ic_no" Width="100%">
+                    <asp:GridView runat="server" ID="RegisteredStaffTable" CssClass="display compact cell-border" AutoGenerateColumns="False" ShowHeaderWhenEmpty="true" DataKeyNames="s_ic_no" Width="100%">
                         <Columns>
                             <asp:TemplateField>
                                 <HeaderTemplate>No.</HeaderTemplate>
@@ -52,7 +52,7 @@
                                 <ItemTemplate>
                                     <asp:HyperLink runat="server" Font-Bold="true" ForeColor="#0066ff" 
                                         Text='<%# Eval("s_account_no") %>'
-                                        NavigateUrl='<%# base.ResolveUrl("~/Staff-Info.aspx?accno=" + this.EncryptURL((String)Eval("s_account_no"))) %>'/>
+                                        NavigateUrl='<%# base.ResolveUrl("~/Staff-Info.aspx?accno=" + TISMA_PSM.Helper.EncryptURL((String)Eval("s_account_no"))) %>'/>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="s_username" HeaderText="Username" SortExpression="s_username" />
@@ -85,7 +85,7 @@
                         <p style="font-size:11px">&nbsp <b>*</b> Click the <b>IC No.</b> to view the full details of the patient</p>
                         <!--SEARCHED PATIENT TABLE-->
                         <div class="mt-3">
-                            <asp:GridView runat="server" ID="DisplayUTMHRData" CssClass="display compact cell-border" AutoGenerateColumns="False" Width="100%">
+                            <asp:GridView runat="server" ID="DisplayUTMHRData" CssClass="display compact cell-border" AutoGenerateColumns="False" ShowHeaderWhenEmpty="true" Width="100%">
                                 <Columns>
                                     <asp:TemplateField>
                                         <HeaderTemplate>No.</HeaderTemplate>
@@ -96,7 +96,7 @@
                                         <ItemTemplate>
                                             <asp:HyperLink runat="server" Font-Bold="true" ForeColor="#0066ff" 
                                                 Text='<%# Eval("ic_no") %>'
-                                                NavigateUrl='<%# base.ResolveUrl("~/Add-New-Staff.aspx?pid=" + this.EncryptURL((String)Eval("ic_no"))) %>'/>
+                                                NavigateUrl='<%# base.ResolveUrl("~/Add-New-Staff.aspx?pid=" + TISMA_PSM.Helper.EncryptURL((String)Eval("ic_no"))) %>'/>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:BoundField DataField="staff_id" HeaderText="Staff ID" SortExpression="staff_id" />
@@ -105,6 +105,7 @@
                                     <asp:BoundField DataField="branch" HeaderText="Branch" SortExpression="branch" />
                                     <asp:BoundField DataField="session_no" HeaderText="Session" SortExpression="session_no" />
                                 </Columns>
+                                <EmptyDataTemplate>No Record Available</EmptyDataTemplate>
                             </asp:GridView>
                         </div>
                         <br />
@@ -116,7 +117,7 @@
     <script type="text/javascript">
         $(function () {
             $("[id*=RegisteredStaffTable]").DataTable({
-                lengthMenu: [[10, 20, -1], [10, 20, "All"]],
+                lengthMenu: [[10, 20], [10, 20]],
                 language: {
                     searchPlaceholder: "Search",
                     search: "",

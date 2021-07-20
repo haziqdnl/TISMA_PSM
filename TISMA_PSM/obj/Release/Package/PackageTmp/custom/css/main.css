@@ -1,8 +1,4 @@
-﻿/*
-    NOTE:
-    1. If CSS not refreshed: 'ctrl + F5'
-*/
-/*###################################################################################   GLOBAL CSS  */
+﻿/*###################################################################################   GLOBAL CSS  */
 body {
     background: #cadddd; /*Light Blue*/
 }
@@ -115,6 +111,31 @@ div.dataTables_wrapper div.dataTables_filter input {
     padding: 0 0.6rem 0 0.6rem;
 }
 
+#ErrorCard {
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+}
+
+#ErrorCard, #ErrorCard .card-body {
+    background-color: #fff;
+    padding: 30px 40px 30px 40px;
+    border-radius: 15px;
+}
+
+#ChartDashboard {
+    background-color: lightgrey;
+    width: 100%;
+    height: 350px;
+    padding: 1rem 1rem 1.5rem 1rem;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+}
+
+.chart1 {
+    width:50%;
+}
+
 
 /*###################################################################################   MASTER CSS  */
 /****************************************/
@@ -125,7 +146,10 @@ div.dataTables_wrapper div.dataTables_filter input {
 }
 
 #page-content-wrapper {
-    min-width: 100vw;
+    width:100%;
+    min-width: 1000px;
+    height:auto;
+    overflow-x: auto;
 }
 
 
@@ -174,7 +198,7 @@ div.dataTables_wrapper div.dataTables_filter input {
 /****************************************/
 #topbar-custom {
     background: #5c001f; /*Maroon*/
-    padding-right: 20px;
+    /*padding-right: 20px;*/
     padding-left: 15px;
 }
 
@@ -195,13 +219,12 @@ div.dataTables_wrapper div.dataTables_filter input {
 /****************************************/
 /*                FOOTER                */
 /****************************************/
-#footer-custom {
-    position: fixed;
-    bottom: 0;
+.footer-custom {
     font-size: 11px;
+    width: 100%;
 }
 
-#footer-custom p {
+.footer-custom p {
     padding-left: 0.5rem;
     padding-top: 1rem;
 }
@@ -234,6 +257,8 @@ div.dataTables_wrapper div.dataTables_filter input {
     color: #fff; /*White*/
     border: none;
     font-weight: 100;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
 }
 
 #dashboard .card h5 {
@@ -244,15 +269,108 @@ div.dataTables_wrapper div.dataTables_filter input {
     padding: 1rem 0.5rem 1rem 0.5rem;
 }
 
+#ChartDashboard {
+    background-color: #e9e9e9;
+    width: 100%;
+    height: 350px;
+    padding: 1rem 1rem 1.5rem 1rem;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+}
+
+#Chart1 {
+    font-size: 17px !important;
+}
+
+
+/*###################################################################################   STATISTIC CSS */
 /****************************************/
-/*            GOOGLE CALENDAR           */
+/*           STATISTIC CONTENT          */
 /****************************************/
-#g-calendar {
+#statistic-content {
     border-top: 5px solid;
-    border-top-color: #0068b4; /*Blue*/
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    background: #fff; /*White*/
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+#statistic-content .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+#statistic-content .card-body {
+    background: #c8e7f8; 
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+.ChartBackground {
+    border-radius: 50px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+}
+
+#EmcPie1, #EmcPie2, #EmcPie3, #EmcPie4 {
+    font-family: 'Trebuchet MS', sans-serif;
+    margin-right: 3rem;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    position: relative;
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+}
+
+#EmcPie1 h1, #EmcPie2 h1, #EmcPie3 h1, #EmcPie4 h1 {
+    position: absolute;
+    top: 45%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+}
+
+#EmcPie1 p, #EmcPie2 p, #EmcPie3 p, #EmcPie4 p {
+    font-weight: 700;
+    border-radius: 25px;
+    position: absolute;
+    width: 180px;
+    top: 75%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+}
+
+#ClinicalPie1, #ClinicalPie2, #ClinicalPie3 {
+    font-family: 'Trebuchet MS', sans-serif;
+    margin-right: 3rem;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    position: relative;
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+}
+
+#ClinicalPie1 h1, #ClinicalPie2 h1, #ClinicalPie3 h1 {
+    position: absolute;
+    top: 45%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+}
+
+#ClinicalPie1 p, #ClinicalPie2 p, #ClinicalPie3 p {
+    font-weight: 700;
+    border-radius: 25px;
+    position: absolute;
+    width: 180px;
+    top: 75%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
 }
 
 
@@ -264,6 +382,7 @@ div.dataTables_wrapper div.dataTables_filter input {
     border-top: 5px solid;
     border-top-color: #5c001f; /*Maroon*/
     background: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 #q-list-content .card {
@@ -275,6 +394,7 @@ div.dataTables_wrapper div.dataTables_filter input {
 
 #q-list-content .card-body {
     background: #eaeaea; /*Grey*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 
@@ -298,6 +418,7 @@ div.dataTables_wrapper div.dataTables_filter input {
 #qms-content-1 .card-body {
     color: #0072c6;
     padding: 0.4rem 0 0.4rem 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 #qms-content-2 {
@@ -320,6 +441,7 @@ div.dataTables_wrapper div.dataTables_filter input {
 
 #qms-content-2 .card-body {
     background: #eaeaea; /*Grey*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 #qms-content-2 .card-body input {
@@ -534,6 +656,7 @@ div.dataTables_wrapper div.dataTables_filter input {
     border-top: 5px solid;
     border-top-color: #5c001f; /*Maroon*/
     background: #fff; /*White*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 #registration-content .card {
@@ -570,6 +693,7 @@ div.dataTables_wrapper div.dataTables_filter input {
     border-top: 5px solid;
     border-top-color: #5c001f; /*Maroon*/
     background: #fff; /*White*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 #registration-new-content-1 .card {
@@ -588,6 +712,7 @@ div.dataTables_wrapper div.dataTables_filter input {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     border-radius: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 #registration-new-content-2 .col-2 .card {
@@ -643,6 +768,7 @@ div.dataTables_wrapper div.dataTables_filter input {
     border-top: 5px solid;
     border-top-color: #5c001f; /*Maroon*/
     background: #fff; /*White*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 #patient-info-content-1 .card {
@@ -661,11 +787,13 @@ div.dataTables_wrapper div.dataTables_filter input {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     border-radius: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 #patient-info-content-2 .col-2 .card {
     border-top: 5px solid;
     border-top-color: #0072c6; /*Blue*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 #patient-info-content-2 img {
@@ -685,19 +813,21 @@ div.dataTables_wrapper div.dataTables_filter input {
     background: #fff; /*White*/
 }
 
-#patient-info-gen-q .card {
-    padding: 0.5rem 0.6rem 0.5rem 0.6rem;
-    border-radius: 0;
-    background: #acacac; /*Grey*/
-    color: #000; /*Black*/
+#patient-info-gen-q .card span {
+    font-weight: 500;
 }
 
-#patient-info-gen-q .card span {
+#patient-info-gen-q .card-header {
+    padding: 0.5rem 0.6rem 0.5rem 0.6rem;
+    border-radius: 0;
+    background: #c4c4c4; /*Grey*/
+    color: #000; /*Black*/   
     font-weight: 500;
 }
 
 #patient-info-gen-q .card-body {
     padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 #patient-info .Popup {
@@ -727,6 +857,7 @@ div.dataTables_wrapper div.dataTables_filter input {
     border-top: 5px solid;
     border-top-color: #5c001f; /*Maroon*/
     background: #fff; /*White*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 #opd-content .card {
@@ -779,6 +910,7 @@ div.dataTables_wrapper div.dataTables_filter input {
     border-radius: 0;
     background: #0072c6; /*Blue*/
     color: #fff; /*White*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 #consult-content-1 .card span {
@@ -791,6 +923,11 @@ div.dataTables_wrapper div.dataTables_filter input {
     border-radius: 0;
     border-top: 5px solid;
     border-top-color: #0072c6; /*Blue*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+#consult-content-3 {
+    height: 500px;
 }
 
 #consult-content-2 img {
@@ -830,12 +967,13 @@ div.dataTables_wrapper div.dataTables_filter input {
 
 .clinical-sign {
     height: 32px;
-    width: 125px;
+    width: 110px;
     text-align: center;
+    font-weight: 600;
     border: none;
     padding: 0 1rem 0 1rem;
     border-radius: 4px 5px;
-    background-color: #000;
+    background-color: #0072c6;
     color: #fff;
 }
 
@@ -844,24 +982,33 @@ div.dataTables_wrapper div.dataTables_filter input {
 }
 
 .combobox-custom {
-    color: #000; /**Black*/
-    background-color: white;
-    padding: 0 0.6rem 0 0.6rem;
     vertical-align: bottom;
 }
 
-#PasswordCard {
-    position: absolute;
-    left: 50%;
-    top: 40%;
-    transform: translate(-50%, -50%);
-    padding: 10px;
-    width: 30%;
+.combobox-custom .ajax__combobox_textboxcontainer {
+    width: 92%;
 }
 
-#PasswordCard .card {
-    background-color: #efefef;
-    padding: 30px 40px 30px 40px;
+.combobox-custom .ajax__combobox_textboxcontainer input {
+    width: 100%;
+}
+
+.combobox-custom .ajax__combobox_itemlist {
+    margin: 0px;
+    padding: 0px;
+    cursor: default;
+    list-style-type: none;
+    text-align: left;
+    border: solid 1px ButtonShadow;
+    background-color: Window;
+    color: WindowText;
+    width: 40%
+}
+
+.combobox-custom .ajax__combobox_itemlist li {
+    white-space: nowrap;
+    width: 100%;
+    padding: 0 3px 0 2px;
 }
 
 .EMCViewBtn {
@@ -874,4 +1021,232 @@ div.dataTables_wrapper div.dataTables_filter input {
     padding: 0 1rem 0 1rem;
     border-radius: 4px 5px;
     text-align: center;
+}
+
+#clinical-info-table {
+    width:100%;
+}
+
+#PasswordCard {
+    position: absolute;
+    top: 22%;
+    right: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    width: 480px;
+}
+
+#PasswordCard .card {
+    background-color: #efefef;
+    padding: 30px 40px 30px 40px;
+}
+
+#PasswordCard .card, #tableMC {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.4);
+}
+
+#eMCCard {
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    width: 21cm;
+    height: auto;
+}
+
+
+/*###################################################################################   LOGIN CSS */
+/****************************************/
+/*             LOGIN CONTENT            */
+/****************************************/
+.center-custom {
+    position: absolute;
+    top: 22%;
+    right: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    width: 480px;
+}
+
+#Title p {
+    font-size: 40px; 
+    font-weight: 700; 
+    color: red;
+}
+
+#Title span {
+    color: grey
+}
+
+#Title {
+    border: none;
+    background-color: #cadddd; /*Light Blue*/
+}
+
+#LoginCard {
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+}
+
+#LoginCard .card-body {
+    background-color: #fff;
+    padding: 30px 40px 30px 40px;
+    border-radius: 15px;
+}
+
+#LoginTable {
+    width: 100%;
+    text-align: start;
+}
+
+#LoginTable td {
+    vertical-align: middle;
+}
+
+#LoginTable p {
+    display: inherit;
+}
+
+#login-option a {
+    color: cornflowerblue;
+    text-decoration: underline;
+    font-size: 15px;
+}
+
+
+/*###################################################################################   FORGOT PASSWORD CSS */
+/****************************************/
+/*        FORGOT PASSWORD CONTENT       */
+/****************************************/
+#ForgotPasswordCard {
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+}
+
+#ForgotPasswordCard .card-body {
+    background-color: #fff;
+    padding: 30px 40px 30px 40px;
+    border-radius: 15px;
+}
+
+#ForgotPasswordTable {
+    width: 100%;
+    text-align: start;
+}
+
+#ForgotPasswordTable td {
+    vertical-align: middle;
+}
+
+#ForgotPasswordTable p {
+    display: inherit;
+}
+
+
+
+/*###################################################################################   RESET PASSWORD CSS */
+/****************************************/
+/*         RESET PASSWORD CONTENT       */
+/****************************************/
+#ResetPasswordCard {
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+}
+
+#ResetPasswordCard .card-body {
+    background-color: #fff;
+    padding: 30px 40px 30px 40px;
+    border-radius: 15px;
+}
+
+#ResetPasswordTable {
+    width: 100%;
+    text-align: start;
+}
+
+#ResetPasswordTable td {
+    vertical-align: middle;
+}
+
+#ResetPasswordTable p {
+    display: inherit;
+}
+
+    
+/*###################################################################################   PROFILE CSS */
+/****************************************/
+/*            PROFILE CONTENT           */
+/****************************************/
+#profile-content-1 {
+    border-top: 5px solid;
+    border-top-color: #5c001f; /*Maroon*/
+    background: #fff; /*White*/
+}
+
+#profile-content-1 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    background: #0072c6; /*Blue*/
+    color: #fff; /*White*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+#profile-content-1 .card span {
+    font-weight: 500;
+}
+
+#profile-table {
+    border: 25px solid aliceblue;
+    background-color: aliceblue;
+}
+
+#profile-table tr, #profile-table td {
+    padding: 0.4rem 1rem 0 1rem;
+}
+
+#profile-content-2 .card {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0;
+    border-top: 5px solid;
+    border-top-color: #0072c6; /*Blue*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+#profile-content-2 img {
+    max-height: 170px;
+    max-width: 170px;
+}
+
+#profile-content-2 h6 {
+    font-size: 14px;
+}
+
+#profile-content-2 .card span {
+    font-weight: 500;
+}
+
+#profile .Popup {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#profile .Popup .card {
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    color: #000;
+    background: #fff;
+}
+
+#profile .Popup .card-body {
+    padding: 1rem 1rem 1rem 1rem;
 }

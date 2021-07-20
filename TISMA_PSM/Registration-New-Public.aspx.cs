@@ -4,9 +4,8 @@ using System.Web.UI;
 using System.Globalization;
 using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
-using System.Diagnostics;
-using System.Text;
+using static TISMA_PSM.ControllerPatient;
+using static TISMA_PSM.Helper;
 
 namespace TISMA_PSM
 {
@@ -16,112 +15,134 @@ namespace TISMA_PSM
         {
             if (!Page.IsPostBack)
             {
+                //- Auto generate and render several data
                 getNationDdl.DataSource = CountryList();
                 getNationDdl.DataBind();
                 getNationDdl.Items.Insert(0, "-Select-");
-                getAccNo.Text = GenerateAccNo();
+                getAccNo.Text = GenerateAccNoPatient("Public");
             }
         }
 
         protected void AddToTisma(object sender, EventArgs e)
         {
+            //- Validate if Branch ddl is not selected
+            if (getBranchDdl.SelectedValue.Equals("Select"))
+                goto done;
+
+            //- Validate if Name is empty or name pattern is false
+            if (string.IsNullOrEmpty(getName.Text) || CheckPatternIsName(getName.Text).Equals(false))
+                goto done;
+
+            //- Validate if IC No. is empty or IC pattern is false
+            if (string.IsNullOrEmpty(getIcNo.Text) || CheckPatternIsIcNo(getIcNo.Text).Equals(false))
+                goto done;
+
+            //- Validate if DOB is empty or null
+            if (string.IsNullOrEmpty(getDob.Text))
+                goto done;
+
+            //- Validate if Gender ddl is not selected
+            if (getGenderDdl.SelectedValue.Equals("Select"))
+                goto done;
+
+            //- Validate if Marital ddl is not selected
+            if (getMaritalStatDdl.SelectedValue.Equals("Select"))
+                goto done;
+
+            //- Validate if Religion ddl is not selected
+            if (getReligionDdl.SelectedValue.Equals("Select"))
+                goto done;
+
+            //- Validate if Race ddl is not selected
+            if (getRaceDdl.SelectedValue.Equals("Select"))
+                goto done;
+
+            //- Validate if Nationality ddl is not selected
+            if (getNationDdl.SelectedValue.Equals("-Select-"))
+                goto done;
+
+            //- Validate if Phone is empty or Phone pattern is false
+            if (string.IsNullOrEmpty(getPhone.Text) || CheckPatternIsPhoneNo(getPhone.Text).Equals(false))
+                goto done;
+
+            //- Validate if Email is empty or Email pattern is false
+            if (string.IsNullOrEmpty(getEmail.Text) || CheckPatternIsEmail(getEmail.Text).Equals(false))
+                goto done;
+
+            //- Validate if Designation is empty or text pattern is false
+            if (string.IsNullOrEmpty(getDesignation.Text) || CheckPatternIsMultiLineText(getDesignation.Text).Equals(false))
+                goto done;
+
+            //- Validate if Address is empty or text pattern is false
+            if (string.IsNullOrEmpty(getAddress.Text) || CheckPatternIsMultiLineText(getAddress.Text).Equals(false))
+                goto done;
+
+            //- Validate if Passport not empty but passport pattern is false
+            if (!string.IsNullOrEmpty(getPassportNo.Text))
+                if (CheckPatternIsPassport(getPassportNo.Text).Equals(false))
+                    goto done;
+
+            //- Validate if Remarks not empty but text pattern is false
+            if (!string.IsNullOrEmpty(getRemarks.Text))
+                if (CheckPatternIsMultiLineText(getRemarks.Text).Equals(false))
+                    goto done;
+
             if (CheckIsPatientAddedToTisma(getIcNo.Text).Equals(true))
-            {
                 ModalPopupMessage.Show();
-            }
             else
             {
                 //- Calculate age
-                DateTime dob = Convert.ToDateTime(getDob.Text);
+                DateTime dob = DateTime.ParseExact(getDob.Text, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 int age = DateTime.Now.AddYears(-dob.Year).Year;
 
                 //- Calculate session
-                string session = DateTime.Now.AddYears(-1).ToString("yyyy") + "/" + DateTime.Now.ToString("yyyy");
+                string session = DateTime.Now.AddYears(-1).ToString("yyyy", CultureInfo.InvariantCulture) + "/" + DateTime.Now.ToString("yyyy", CultureInfo.InvariantCulture);
 
-                //- DB Exception-Error handling
+                //- DB Exception/Error handling
                 try
                 {
-                    //- Insert data
-                    string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-                    SqlConnection con = new SqlConnection(constr);
-                    SqlCommand cmd = new SqlCommand("AddToTismaPublic", con)
+                    using (SqlConnection con = new SqlConnection(GetConnectionStringTismaDB()))
                     {
-                        CommandType = CommandType.StoredProcedure
-                    };
-                    //- Insert to table 'patient'
-                    cmd.Parameters.AddWithValue("@pIcNo", getIcNo.Text);
-                    cmd.Parameters.AddWithValue("@pAccNo", GenerateAccNo());
-                    cmd.Parameters.AddWithValue("@pPassport", getPassportNo.Text);
-                    cmd.Parameters.AddWithValue("@pTelNo", getPhone.Text);
-                    cmd.Parameters.AddWithValue("@pEmail", getEmail.Text);
-                    cmd.Parameters.AddWithValue("@pName", getName.Text);
-                    cmd.Parameters.AddWithValue("@Dob", dob);
-                    cmd.Parameters.AddWithValue("@pAge", age);
-                    cmd.Parameters.AddWithValue("@pGender", getGenderDdl.SelectedValue);
-                    cmd.Parameters.AddWithValue("@pMarital", getMaritalStatDdl.SelectedValue);
-                    cmd.Parameters.AddWithValue("@pReligion", getReligionDdl.SelectedValue);
-                    cmd.Parameters.AddWithValue("@pRace", getRaceDdl.SelectedValue);
-                    cmd.Parameters.AddWithValue("@pNationality", getNationDdl.SelectedValue);
-                    cmd.Parameters.AddWithValue("@pAddress", getAddress.Text);
-                    cmd.Parameters.AddWithValue("@pDesignation", getDesignation.Text);
-                    cmd.Parameters.AddWithValue("@pCategory", getCategory.Text);
-                    cmd.Parameters.AddWithValue("@pSession", session);
-                    cmd.Parameters.AddWithValue("@pBranch", getBranchDdl.SelectedValue);
-                    cmd.Parameters.AddWithValue("@pRemarks", getRemarks.Text);
+                        con.Open();
+                        //- Insert data
+                        using (SqlCommand cmd = new SqlCommand("AddToTismaPublic", con) { CommandType = CommandType.StoredProcedure })
+                        {
+                            //- Insert to table 'patient'
+                            cmd.Parameters.AddWithValue("@pIcNo", getIcNo.Text);
+                            cmd.Parameters.AddWithValue("@pAccNo", GenerateAccNoPatient("Public"));
+                            cmd.Parameters.AddWithValue("@pPassport", getPassportNo.Text);
+                            cmd.Parameters.AddWithValue("@pTelNo", getPhone.Text);
+                            cmd.Parameters.AddWithValue("@pEmail", getEmail.Text);
+                            cmd.Parameters.AddWithValue("@pName", getName.Text);
+                            cmd.Parameters.AddWithValue("@Dob", DateTime.ParseExact(getDob.Text, "yyyy-MM-dd", CultureInfo.InvariantCulture));
+                            cmd.Parameters.AddWithValue("@pAge", age);
+                            cmd.Parameters.AddWithValue("@pGender", getGenderDdl.SelectedValue);
+                            cmd.Parameters.AddWithValue("@pMarital", getMaritalStatDdl.SelectedValue);
+                            cmd.Parameters.AddWithValue("@pReligion", getReligionDdl.SelectedValue);
+                            cmd.Parameters.AddWithValue("@pRace", getRaceDdl.SelectedValue);
+                            cmd.Parameters.AddWithValue("@pNationality", getNationDdl.SelectedValue);
+                            cmd.Parameters.AddWithValue("@pAddress", getAddress.Text);
+                            cmd.Parameters.AddWithValue("@pDesignation", getDesignation.Text);
+                            cmd.Parameters.AddWithValue("@pCategory", getCategory.Text);
+                            cmd.Parameters.AddWithValue("@pSession", session);
+                            cmd.Parameters.AddWithValue("@pBranch", getBranchDdl.SelectedValue);
+                            cmd.Parameters.AddWithValue("@pRemarks", getRemarks.Text);
 
-                    //- Insert to table 'patient_public'
-                    cmd.Parameters.AddWithValue("@pPublicStat", 1); // 1 - True
+                            //- Insert to table 'patient_public'
+                            cmd.Parameters.AddWithValue("@pPublicStat", 1); // 1 - True
 
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
                 }
                 catch (SqlException ex)
                 {
                     //- Display handling-error message
                     SqlExceptionMsg(ex);
                 }
-                finally
-                {
-                    //- Display success message
-                    Debug.WriteLine("DB Execution Success: Add patient to TISMA");
-                }
                 Response.Redirect("Registration.aspx");
             }
-        }
-
-        public static bool CheckAccNotExist(string accNo)
-        {
-            //- Search Query
-            string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-            SqlConnection con = new SqlConnection(constr);
-            SqlCommand cmd = new SqlCommand("CheckAccNotExist", con)
-            {
-                CommandType = CommandType.StoredProcedure
-            };
-            cmd.Parameters.AddWithValue("@AccNo", accNo.Trim());
-            con.Open();
-            bool status = Convert.ToBoolean(cmd.ExecuteScalar());
-            con.Close();
-
-            return status;
-        }
-
-        public static bool CheckIsPatientAddedToTisma(string icNo)
-        {
-            //- Search Query
-            string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-            SqlConnection con = new SqlConnection(constr);
-            SqlCommand cmd = new SqlCommand("CheckIsPatientAddedToTisma", con)
-            {
-                CommandType = CommandType.StoredProcedure
-            };
-            cmd.Parameters.AddWithValue("@IcNo", icNo);
-            con.Open();
-            bool status = Convert.ToBoolean(cmd.ExecuteScalar());
-            con.Close();
-
-            return status;
+            done:;
         }
 
         public static List<string> CountryList()
@@ -142,59 +163,7 @@ namespace TISMA_PSM
             }
             //- Sorting array by using sort method to get countries in order
             CultureList.Sort();
-
             return CultureList;
-        }
-
-        public static string GenerateAccNo()
-        {
-            //- Step 1: Generate Date pattern
-            string today = DateTime.Now.ToString("yyyy/MM/dd");
-            today = today.Remove(7, 1); // yyyy/MM_dd
-            today = today.Remove(4, 1); // yyyy_MMdd
-
-            //- Step 2: Append status type to Date pattern as accNo
-            string accNo;
-            accNo = today + 'P'; // P - Public
-
-            //- Step 3: Append unique no.
-            //-- Step 3.1: Generate random no. between 0 to 999
-            Random rand = new Random();
-            int num = rand.Next(0, 999);
-
-            //-- Step 3.2: Identify and parse random no. pattern as string, then append to accNo
-            if (num <= 9)
-                accNo = accNo + "00" + num.ToString();
-            else if (num >= 10 && num <= 99)
-                accNo = accNo + "0" + num.ToString();
-            else
-                accNo += num.ToString();
-
-            //-- Step 3.3: Identify the generated acc no. if it already existed in db
-            if (CheckAccNotExist(accNo).Equals(true))
-            {
-                Debug.WriteLine("The generated Acc No. not existed yet.");
-                return accNo;
-            }
-            else
-            {
-                Debug.WriteLine("The generated Acc No. already existed. Re-generating....");
-                return GenerateAccNo();
-            }
-        }
-
-        public static void SqlExceptionMsg(SqlException ex)
-        {
-            StringBuilder errorMessages = new StringBuilder();
-            for (int i = 0; i < ex.Errors.Count; i++)
-            {
-                errorMessages.Append("Index #" + i + "\n" +
-                "Message: " + ex.Errors[i].Message + "\n" +
-                "LineNumber: " + ex.Errors[i].LineNumber + "\n" +
-                "Source: " + ex.Errors[i].Source + "\n" +
-                "Procedure: " + ex.Errors[i].Procedure + "\n");
-            }
-            Debug.WriteLine(errorMessages.ToString());
         }
     }
 }

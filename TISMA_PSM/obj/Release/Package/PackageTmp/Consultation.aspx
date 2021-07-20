@@ -150,18 +150,16 @@
                                         <tr>
                                             <td class="text-start">
                                                 <input class="clinical-sign" value="Symptom" disabled>
-                                                <ajaxOpd:ComboBox runat="server" ID="SymptomDdl" CssClass="combobox-custom" AppendDataBoundItems="True" Width="330px" Height="30px" AutoCompleteMode="Suggest" MaxLength="50">
+                                                <ajaxOpd:ComboBox runat="server" ID="SymptomDdl" CssClass="combobox-custom" AppendDataBoundItems="True" Height="30px" AutoCompleteMode="Suggest" MaxLength="50">
                                                 </ajaxOpd:ComboBox>
-                                                <asp:Button runat="server" ID="BtnAdd1" Text="Add" OnClick="AddItemSymptom" Width="60px" CssClass="btn-custom mt-2" ForeColor="White" BackColor="#0066ff" />
                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator1" ControlToValidate="SymptomDdl" ValidationGroup="TabGroup1"
                                                     ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
                                                 </asp:RequiredFieldValidator>
                                             </td>
                                             <td class="text-start">
                                                 <input class="clinical-sign" value="Sign" disabled>
-                                                <ajaxOpd:ComboBox runat="server" ID="SignDdl" CssClass="combobox-custom" AppendDataBoundItems="True" Width="330px" Height="30px" AutoCompleteMode="Suggest" MaxLength="50">
+                                                <ajaxOpd:ComboBox runat="server" ID="SignDdl" CssClass="combobox-custom" AppendDataBoundItems="True" Height="30px" AutoCompleteMode="Suggest" MaxLength="50">
                                                 </ajaxOpd:ComboBox>
-                                                <asp:Button runat="server" ID="BtnAdd2" Text="Add" OnClick="AddItemSign" Width="60px" CssClass="btn-custom mt-2" ForeColor="White" BackColor="#0066ff" />
                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" ControlToValidate="SignDdl" ValidationGroup="TabGroup1"
                                                     ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
                                                 </asp:RequiredFieldValidator>
@@ -169,18 +167,27 @@
                                         </tr>
                                         <tr>
                                             <td class="text-start">
-                                                <asp:TextBox runat="server" ID="getSymptomDesc" placeholder="Description..." CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="560px" Height="80px"></asp:TextBox>
+                                                <asp:TextBox runat="server" ID="getSymptomDesc" placeholder="Description..." CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="80%" Height="80px"></asp:TextBox>
+                                                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator8" ControlToValidate="getSymptomDesc" 
+                                                    ValidationExpression="^[()'#./0-9a-zA-Z\s,-]+$" 
+                                                    Display="Dynamic" SetFocusOnError="true"
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
+                                                </asp:RegularExpressionValidator>
                                             </td>
                                             <td class="text-start">
-                                                <asp:TextBox runat="server" ID="getSignDesc" placeholder="Description..." CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="560px" Height="80px"></asp:TextBox>
+                                                <asp:TextBox runat="server" ID="getSignDesc" placeholder="Description..." CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="80%" Height="80px"></asp:TextBox>
+                                                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator1" ControlToValidate="getSignDesc" 
+                                                    ValidationExpression="^[()'#./0-9a-zA-Z\s,-]+$" 
+                                                    Display="Dynamic" SetFocusOnError="true"
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
+                                                </asp:RegularExpressionValidator>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="text-start">
                                                 <input class="clinical-sign" value="Diagnosis" disabled>
-                                                <ajaxOpd:ComboBox runat="server" ID="DiagnosisDdl" CssClass="combobox-custom" AppendDataBoundItems="True" Width="330px" Height="30px" AutoCompleteMode="Suggest" MaxLength="50">
+                                                <ajaxOpd:ComboBox runat="server" ID="DiagnosisDdl" CssClass="combobox-custom" AppendDataBoundItems="True" Height="30px" AutoCompleteMode="Suggest" MaxLength="50">
                                                 </ajaxOpd:ComboBox>
-                                                <asp:Button runat="server" ID="BtnAdd3" Text="Add" OnClick="AddItemDiagnosis" Width="60px" CssClass="btn-custom mt-2" ForeColor="White" BackColor="#0066ff" />
                                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator3" ControlToValidate="DiagnosisDdl" ValidationGroup="TabGroup1"
                                                     ErrorMessage="Required" ForeColor="Red" Display="Dynamic" Font-Size="10px">
                                                 </asp:RequiredFieldValidator>
@@ -188,7 +195,12 @@
                                         </tr>
                                         <tr>
                                             <td class="text-start">
-                                                <asp:TextBox runat="server" ID="getDiagnosisDesc" placeholder="Description..." CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="560px" Height="80px"></asp:TextBox>
+                                                <asp:TextBox runat="server" ID="getDiagnosisDesc" placeholder="Description..." CssClass="textbox-custom pt-1" TextMode="MultiLine" Width="80%" Height="80px"></asp:TextBox>
+                                                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator2" ControlToValidate="getDiagnosisDesc" 
+                                                    ValidationExpression="^[()'#./0-9a-zA-Z\s,-]+$" 
+                                                    Display="Dynamic" SetFocusOnError="true"
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
+                                                </asp:RegularExpressionValidator>
                                             </td>
                                         </tr>
                                         <tr>
@@ -237,6 +249,11 @@
                                             <td class="text-start" colspan="2">
                                                 <asp:TextBox runat="server" ID="getComment" CssClass="textbox-custom pt-1" TextMode="MultiLine" Height="80px" Width="100%"
                                                     Placeholder="mengesahkan beliau tidak sihat untuk bertugas / belajar"></asp:TextBox>
+                                                <asp:RegularExpressionValidator runat="server" ID="RegularExpressionValidator3" ControlToValidate="getComment" 
+                                                    ValidationExpression="^[()'#./0-9a-zA-Z\s,-]+$" 
+                                                    Display="Dynamic" SetFocusOnError="true"
+                                                    ErrorMessage="Invalid" ForeColor="Red" Font-Size="10px">
+                                                </asp:RegularExpressionValidator>
                                             </td>
                                         </tr>
                                         <tr runat="server" id="MCPassword" visible="false">
@@ -252,7 +269,7 @@
                                             <td colspan="4">
                                                 <asp:Button runat="server" ID="BtnGenerateMC" Text="Generate e-MC" OnClick="GenerateEMC" ValidationGroup="TabGroup2" Width="150px" CssClass="btn-custom mt-2" ForeColor="White" BackColor="#00cc00" />
                                                 <asp:Button runat="server" ID="BtnUpdateMC" Text="Update e-MC" OnClick="UpdateEMCInfo" Width="150px" ValidationGroup="TabGroup2" CssClass="btn-custom mt-2" ForeColor="White" BackColor="#00cc00" />
-                                                <asp:Button runat="server" ID="BtnSendMC" Text="Send e-MC" OnClick="SendEMC" Width="150px" CssClass="btn-custom mt-2" ForeColor="White" BackColor="#ff0000" />
+                                                <asp:Button runat="server" ID="BtnSendMC" Text="Resend e-MC" OnClick="ReSendEMC" Width="150px" CssClass="btn-custom mt-2" ForeColor="White" BackColor="#ff0000" />
                                                 <asp:Button runat="server" ID="BtnViewMC" Text="View e-MC" OnClick="ViewEMC" Width="150px" CssClass="btn-custom mt-2" ForeColor="White" BackColor="#999999" />
                                             </td>
                                         </tr>
@@ -270,7 +287,7 @@
                                                 <ItemTemplate><%#Container.DataItemIndex + 1 %></ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="clinical_date" HeaderText="Date" SortExpression="clinical_date" />
-                                            <asp:BoundField DataField="symptom" HeaderText="Diagnose" SortExpression="symptom" />
+                                            <asp:BoundField DataField="symptom" HeaderText="Symptom" SortExpression="symptom" />
                                             <asp:BoundField DataField="ill_sign" HeaderText="Sign" SortExpression="ill_sign" />
                                             <asp:BoundField DataField="diagnosis" HeaderText="Diagnosis" SortExpression="diagnosis" />
                                             <asp:BoundField DataField="s_name" HeaderText="Doctor/PIC" SortExpression="s_name" />

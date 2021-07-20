@@ -2,11 +2,11 @@
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
 using System.Diagnostics;
-using System.Text;
-using System.Security.Cryptography;
-using System.IO;
+using static TISMA_PSM.ControllerEMC;
+using static TISMA_PSM.ControllerPatient;
+using static TISMA_PSM.ControllerQMS;
+using static TISMA_PSM.Helper;
 
 namespace TISMA_PSM
 {
@@ -14,277 +14,79 @@ namespace TISMA_PSM
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //- Show and Hide several div on Generate Queue function
-            afterGenerate.Visible = false;
+            //- Get encrypted account no. from URL param and decrypt it
+            string accNo = DecryptURL(Request.QueryString["accno"]);
 
-            //- Get accno (account_no) and stat from URL param
-            String acc_no = DecryptURL(Request.QueryString["accno"]);
+            //- Validate if decrypted account no. is empty or null: 404 Error
+            if (string.IsNullOrEmpty(accNo))
+                Response.Redirect("PageNotFound.aspx");
 
-            //- Local attribute
-            String ic_no, category;
-            int age;
+            //- Validate if decrypted account no. not exist: 404 Error
+            if (CheckAccPatientNotExist(accNo).Equals(true))
+                Response.Redirect("PageNotFound.aspx");
 
             if (!this.IsPostBack)
             {
-                //- DB Exception-Error handling
-                try
-                {
-                    //- Get Query
-                    string constr1 = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-                    using (SqlConnection con1 = new SqlConnection(constr1))
-                    {
-                        using (SqlCommand cmd1 = new SqlCommand("SELECT * FROM patient WHERE p_account_no = '" + acc_no + "'"))
-                        {
-                            cmd1.CommandType = CommandType.Text;
-                            cmd1.Connection = con1;
-                            con1.Open();
-                            using (SqlDataReader sdr1 = cmd1.ExecuteReader())
-                            {
-                                sdr1.Read();
-
-                                //- Parse Date value from SQL to DateTime obj
-                                DateTime.TryParse(sdr1["p_dob"].ToString(), out DateTime dob);
-
-                                //- Parse for local use
-                                ic_no = sdr1["p_ic_no"].ToString();
-                                category = sdr1["p_category"].ToString();
-
-                                //- Manually calculate age from the retrieved DOB value rather than retrieving the Age value from DB
-                                DateTime dobToAge = Convert.ToDateTime(dob);
-                                age = DateTime.Now.AddYears(-dobToAge.Year).Year;
-
-                                //- Parse data
-                                getIcNo.Text = ic_no;
-                                getAccNo.Text = sdr1["p_account_no"].ToString(); displayAccNo.Text = sdr1["p_account_no"].ToString(); getAccNoQMS.Text = sdr1["p_account_no"].ToString();
-                                getPassportNo.Text = sdr1["p_passport_no"].ToString();
-                                getPhone.Text = sdr1["p_tel_no"].ToString();
-                                getEmail.Text = sdr1["p_email"].ToString();
-                                getName.Text = sdr1["p_name"].ToString();
-                                getDob.Text = dob.ToString("dd/MM/yyyy");
-                                getAge.Text = age.ToString();
-                                getGender.SelectedValue = sdr1["p_gender"].ToString();
-                                getMaritalStat.SelectedValue = sdr1["p_marital_stat"].ToString();
-                                getReligion.SelectedValue = sdr1["p_religion"].ToString();
-                                getRace.SelectedValue = sdr1["p_race"].ToString();
-                                getNation.Text = sdr1["p_nationality"].ToString();
-                                getAddress.Text = sdr1["p_address"].ToString();
-                                getDesignation.Text = sdr1["p_designation"].ToString();
-                                getCategory.Text = category; displayCategory.Text = category;
-                                getSession.Text = sdr1["p_session"].ToString();
-                                getBranch.SelectedValue = sdr1["p_branch"].ToString();
-                                getRemarks.Text = sdr1["p_remarks"].ToString();
-                            }
-                            con1.Close();
-                        }
-                        if (category.Equals("Student"))
-                        {
-                            //- Display note
-                            note.Text = "The basic information were reffered from UTMHR SYSTEM / ACAD SYSTEM";
-
-                            //- DB Exception-Error handling
-                            try
-                            {
-                                //- Get Query
-                                using (SqlCommand cmd1 = new SqlCommand("SELECT * FROM patient_student WHERE fk_ic_no = '" + ic_no + "'"))
-                                {
-                                    cmd1.CommandType = CommandType.Text;
-                                    cmd1.Connection = con1;
-                                    con1.Open();
-                                    using (SqlDataReader sdr1 = cmd1.ExecuteReader())
-                                    {
-                                        sdr1.Read();
-
-                                        //- Status activity
-                                        if (sdr1["utm_acad_stat"].ToString().Equals("True"))
-                                            statusText.Text = "Active";
-                                        else
-                                            statusText.Text = "Not-active";
-
-                                        //- Parse data
-                                        getMatricNo.Text = sdr1["matric_no"].ToString();
-                                        getFacDep.Text = sdr1["faculty"].ToString();
-                                        getCourse.Text = sdr1["course"].ToString();
-                                        getSem.Text = sdr1["semester"].ToString();
-                                        getStat.Text = "UTM-ACAD";
-                                    }
-                                    con1.Close();
-                                }
-                            }
-                            catch (SqlException ex)
-                            {
-                                //- Display handling-error message
-                                SqlExceptionMsg(ex);
-                            }
-                            finally
-                            {
-                                //- Display success message
-                                Debug.WriteLine("DB Execution Success: Identify student patient");
-                            }
-                        }
-                        else if (category.Equals("Staff"))
-                        {
-                            //- Display note
-                            note.Text = "The basic information were reffered from UTMHR SYSTEM / ACAD SYSTEM";
-
-                            //- Hide semester textbox
-                            semTextbox.Visible = false;
-                            semTitle.Visible = false;
-
-                            //- DB Exception-Error handling
-                            try
-                            {
-                                //- Get Query
-                                using (SqlCommand cmd1 = new SqlCommand("SELECT * FROM patient_staff WHERE fk_ic_no = '" + ic_no + "'"))
-                                {
-                                    cmd1.CommandType = CommandType.Text;
-                                    cmd1.Connection = con1;
-                                    con1.Open();
-                                    using (SqlDataReader sdr1 = cmd1.ExecuteReader())
-                                    {
-                                        sdr1.Read();
-
-                                        //- Status activity
-                                        if (sdr1["utm_hr_stat"].ToString().Equals("True"))
-                                            statusText.Text = "Active";
-                                        else
-                                            statusText.Text = "Not-active";
-
-                                        //- Parse data
-                                        getMatricNo.Text = sdr1["staff_id"].ToString();
-                                        getFacDep.Text = sdr1["department"].ToString();
-                                        getStat.Text = "UTM-HR";
-                                    }
-                                    con1.Close();
-                                }
-                            }
-                            catch (SqlException ex)
-                            {
-                                //- Display handling-error message
-                                SqlExceptionMsg(ex);
-                            }
-                            finally
-                            {
-                                //- Display success message
-                                Debug.WriteLine("DB Execution Success: Identify staff patient");
-                            }
-                        }
-                        else if (category.Equals("Public"))
-                        {
-                            //- Display note
-                            note.Text = "The basic information is registered as public";
-
-                            //- Hide semester textbox
-                            semTextbox.Visible = false;
-                            semTitle.Visible = false;
-
-                            //- DB Exception-Error handling
-                            try
-                            {
-                                //- Get Query
-                                using (SqlCommand cmd1 = new SqlCommand("SELECT * FROM patient_public WHERE fk_ic_no = '" + ic_no + "'"))
-                                {
-                                    cmd1.CommandType = CommandType.Text;
-                                    cmd1.Connection = con1;
-                                    con1.Open();
-                                    using (SqlDataReader sdr1 = cmd1.ExecuteReader())
-                                    {
-                                        sdr1.Read();
-
-                                        //- Status activity
-                                        if (sdr1["public_stat"].ToString().Equals("True"))
-                                            statusText.Text = "Not-active";
-
-                                        //- Parse data
-                                        getStat.Text = "";
-                                    }
-                                    con1.Close();
-                                }
-                            }
-                            catch (SqlException ex)
-                            {
-                                //- Display handling-error message
-                                SqlExceptionMsg(ex);
-                            }
-                            finally
-                            {
-                                //- Display success message
-                                Debug.WriteLine("DB Execution Success: Identify public patient");
-                            }
-                        }
-                    }
-                }
-                catch (SqlException ex)
-                {
-                    //- Display handling-error message
-                    SqlExceptionMsg(ex);
-                }
-                finally
-                {
-                    //- Display success message
-                    Debug.WriteLine("DB Execution Success: Retrieve patient data from DB");
-                }
+                DisplayPatientInfo(accNo);
                 GetLatestQueueInfo();
                 BindGrid();
             }
             else
-            {
                 BindGrid();
-            }
         }
 
         private void BindGrid()
         {
-            //- DB Exception-Error handling
+            //- DB Exception/Error handling
             try
             {
-                //- Retrieve Query: TISMADB
-                string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(constr))
+                using (SqlConnection con = new SqlConnection(GetConnectionStringTismaDB()))
                 {
-                    SqlCommand cmd = new SqlCommand("SELECT clinical_info.clinical_date, clinical_info.symptom, clinical_info.ill_sign, clinical_info.diagnosis, pku_staff.s_name " +
-                                                     "FROM clinical_info LEFT OUTER JOIN pku_staff ON pku_staff.s_ic_no = clinical_info.fk_s_ic_no " +
-                                                     "WHERE clinical_info.fk_p_ic_no = '" + getIcNo.Text + "' " +
-                                                     "ORDER BY clinical_info.clinical_date", con);
                     con.Open();
-                    SqlDataReader sdr = cmd.ExecuteReader();
-
-                    if (sdr.HasRows)
+                    //- Get Query
+                    using (SqlCommand cmd = new SqlCommand("SELECT clinical_info.clinical_date, clinical_info.symptom, clinical_info.ill_sign, clinical_info.diagnosis, pku_staff.s_name " +
+                                                           "FROM clinical_info LEFT OUTER JOIN pku_staff ON pku_staff.s_ic_no = clinical_info.fk_s_ic_no " +
+                                                           "WHERE clinical_info.fk_p_ic_no = '" + getIcNo.Text + "' " +
+                                                           "ORDER BY clinical_info.clinical_date", con))
                     {
-                        //- If records available
-                        ClinicalHistoryTable.DataSource = sdr;
-                        ClinicalHistoryTable.DataBind();
+                        using (SqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            if (sdr.HasRows)
+                            {
+                                //- If records available
+                                ClinicalHistoryTable.DataSource = sdr;
+                                ClinicalHistoryTable.DataBind();
+                            }
+                            else
+                            {
+                                //- If no records found
+                                DataTable dt = new DataTable();
+                                ClinicalHistoryTable.DataSource = dt;
+                                ClinicalHistoryTable.DataBind();
+                            }
+                        }
                     }
-                    else
+                    using (SqlCommand cmd = new SqlCommand("SELECT date_created, url_hashed, emc_password " +
+                                                           "FROM emc WHERE fk_p_ic_no = '" + getIcNo.Text + "' " +
+                                                           "ORDER BY date_created", con))
                     {
-                        //- If no records found
-                        DataTable dt = new DataTable();
-                        ClinicalHistoryTable.DataSource = dt;
-                        ClinicalHistoryTable.DataBind();
+                        using (SqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            if (sdr.HasRows)
+                            {
+                                //- If records available
+                                MCHistoryTable.DataSource = sdr;
+                                MCHistoryTable.DataBind();
+                            }
+                            else
+                            {
+                                //- If no records found
+                                DataTable dt = new DataTable();
+                                MCHistoryTable.DataSource = dt;
+                                MCHistoryTable.DataBind();
+                            }
+                        }
                     }
-                    con.Close();
-                }
-                using (SqlConnection con2 = new SqlConnection(constr))
-                {
-                    SqlCommand cmd2 = new SqlCommand("SELECT date_created, url_hashed, emc_password " +
-                                                     "FROM emc WHERE fk_p_ic_no = '" + getIcNo.Text + "' " +
-                                                     "ORDER BY date_created", con2);
-                    con2.Open();
-                    SqlDataReader sdr2 = cmd2.ExecuteReader();
-
-                    if (sdr2.HasRows)
-                    {
-                        //- If records available
-                        MCHistoryTable.DataSource = sdr2;
-                        MCHistoryTable.DataBind();
-                    }
-                    else
-                    {
-                        //- If no records found
-                        DataTable dt2 = new DataTable();
-                        MCHistoryTable.DataSource = dt2;
-                        MCHistoryTable.DataBind();
-                    }
-                    con2.Close();
                 }
             }
             catch (SqlException ex)
@@ -292,11 +94,8 @@ namespace TISMA_PSM
                 //- Display handling-error message
                 SqlExceptionMsg(ex);
             }
-            finally
-            {
-                //- Display success message
-                Debug.WriteLine("DB Execution Success: Clinical History Table");
-            }
+
+            //- Datatable render
             ClinicalHistoryTable.UseAccessibleHeader = true;
             ClinicalHistoryTable.HeaderRow.TableSection = TableRowSection.TableHeader;
             MCHistoryTable.UseAccessibleHeader = true;
@@ -319,52 +118,28 @@ namespace TISMA_PSM
 
         protected void DeleteFromTisma(object sender, EventArgs e)
         {
-            //- DB Exception-Error handling
+            //- DB Exception/Error handling
             try
             {
-                //- Delete Query
-                string constr1 = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(constr1))
+                using (SqlConnection con = new SqlConnection(GetConnectionStringTismaDB()))
                 {
+                    con.Open();
+                    //- Delete Query
                     using (SqlCommand cmd = new SqlCommand("DELETE FROM qms WHERE fk_ic_no = '" + getIcNo.Text + "'", con))
                     {
-                        con.Open();
                         cmd.ExecuteNonQuery();
-                        con.Close();
-                        con.Dispose();
                     }
-                }
-                string constr2 = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(constr2))
-                {
                     using (SqlCommand cmd = new SqlCommand("DELETE FROM clinical_info WHERE fk_p_ic_no = '" + getIcNo.Text + "'", con))
                     {
-                        con.Open();
                         cmd.ExecuteNonQuery();
-                        con.Close();
-                        con.Dispose();
                     }
-                }
-                string constr3 = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(constr3))
-                {
                     using (SqlCommand cmd = new SqlCommand("DELETE FROM emc WHERE fk_p_ic_no = '" + getIcNo.Text + "'", con))
                     {
-                        con.Open();
                         cmd.ExecuteNonQuery();
-                        con.Close();
-                        con.Dispose();
                     }
-                }
-                string constr4 = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(constr4))
-                {
                     using (SqlCommand cmd = new SqlCommand("DELETE FROM patient WHERE p_ic_no = '" + getIcNo.Text + "'", con))
                     {
-                        con.Open();
                         cmd.ExecuteNonQuery();
-                        con.Close();
-                        con.Dispose();
                     }
                 }
             }
@@ -373,11 +148,6 @@ namespace TISMA_PSM
                 //- Display handling-error message
                 SqlExceptionMsg(ex);
             }
-            finally
-            {
-                //- Display success message
-                Debug.WriteLine("DB Execution Success: Delete patient data");
-            }
             Response.Redirect("Registration.aspx");
         }
 
@@ -385,12 +155,10 @@ namespace TISMA_PSM
         {
             //- Step 1: Get today's date
             DateTime dateGenerated = DateTime.Now;
-            Debug.WriteLine(dateGenerated.ToString("dd-MM-yyyy HH:mm:ss"));
 
             //- Step 2: Set expired date at
             DateTime dateExpired = DateTime.Today.AddDays(1);
             dateExpired = new DateTime(dateExpired.Year, dateExpired.Month, dateExpired.Day, 0, 0, 0);
-            Debug.WriteLine(dateExpired.ToString("dd-MM-yyyy HH:mm:ss"));
 
             //- Step 3: Create Queue No.
             int queueNo = 1;
@@ -404,38 +172,33 @@ namespace TISMA_PSM
             }
 
             //- Step 4: Database INSERT query
-            //-- DB Exception-Error handling
+            //-- DB Exception/Error handling
             try
             {
-                //-- Insert Query
-                string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-                SqlConnection con = new SqlConnection(constr);
-                SqlCommand cmd = new SqlCommand("AddToQMS", con)
+                using (SqlConnection con = new SqlConnection(GetConnectionStringTismaDB()))
                 {
-                    CommandType = CommandType.StoredProcedure
-                };
-                //-- Insert to table 'qms'
-                cmd.Parameters.AddWithValue("@QueueNo", ConvertQueueNo(queueNo));
-                cmd.Parameters.AddWithValue("@DateGenerated", dateGenerated);
-                cmd.Parameters.AddWithValue("@DateExpired", dateExpired);
-                cmd.Parameters.AddWithValue("@IsKeyIn", 0);
-                cmd.Parameters.AddWithValue("@IsCheckIn", 0);
-                cmd.Parameters.AddWithValue("@IsExpired", 0);
-                cmd.Parameters.AddWithValue("@IcNo", getIcNo.Text);
+                    con.Open();
+                    //-- Insert Query
+                    using (SqlCommand cmd = new SqlCommand("AddToQMS", con) { CommandType = CommandType.StoredProcedure })
+                    {
+                        //-- Insert to table 'qms'
+                        cmd.Parameters.AddWithValue("@QueueNo", ConvertQueueNo(queueNo));
+                        cmd.Parameters.AddWithValue("@DateGenerated", dateGenerated);
+                        cmd.Parameters.AddWithValue("@DateExpired", dateExpired);
+                        cmd.Parameters.AddWithValue("@IsKeyIn", 0);
+                        cmd.Parameters.AddWithValue("@IsCheckIn", 0);
+                        cmd.Parameters.AddWithValue("@IsCheckOut", 0);
+                        cmd.Parameters.AddWithValue("@IsExpired", 0);
+                        cmd.Parameters.AddWithValue("@IcNo", getIcNo.Text);
 
-                con.Open();
-                cmd.ExecuteNonQuery();
-                con.Close();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
             }
             catch (SqlException ex)
             {
                 //- Display handling-error message
                 SqlExceptionMsg(ex);
-            }
-            finally
-            {
-                //- Display success message
-                Debug.WriteLine("DB Execution Success: Generate Queue");
             }
 
             //- Pass data to front
@@ -454,18 +217,15 @@ namespace TISMA_PSM
             //- Get today's date
             DateTime today = DateTime.Now;
 
-            //- DB Exception-Error handling
+            //- DB Exception/Error handling
             try
             {
-                //- Get Query
-                string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(constr))
+                using (SqlConnection con = new SqlConnection(GetConnectionStringTismaDB()))
                 {
-                    using (SqlCommand cmd = new SqlCommand("SELECT TOP 1 queue_no FROM qms WHERE date_generated = '"+today.ToString("yyyyMMdd")+"' ORDER BY queue_no DESC"))
+                    con.Open();
+                    //- Get Query
+                    using (SqlCommand cmd = new SqlCommand("SELECT TOP 1 queue_no FROM qms WHERE date_generated = '" + today.ToString("yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture) + "' ORDER BY queue_no DESC", con))
                     {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.Connection = con;
-                        con.Open();
                         using (SqlDataReader sdr = cmd.ExecuteReader())
                         {
                             if (sdr.Read())
@@ -473,25 +233,20 @@ namespace TISMA_PSM
                             else
                                 getLatestNo.Text = "[No queue number generated yet]";
                         }
-                        con.Close();
                     }
-
-                    using (SqlCommand cmd = new SqlCommand("SELECT TOP 1 date_generated FROM qms WHERE fk_ic_no = '" + getIcNo.Text + "' ORDER BY fk_ic_no DESC"))
+                    //- Get Query
+                    using (SqlCommand cmd = new SqlCommand("SELECT TOP 1 date_generated FROM qms WHERE fk_ic_no = '" + getIcNo.Text + "' ORDER BY fk_ic_no DESC", con))
                     {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.Connection = con;
-                        con.Open();
                         using (SqlDataReader sdr = cmd.ExecuteReader())
                         {
                             if (sdr.Read())
                             {
                                 DateTime.TryParse(sdr["date_generated"].ToString(), out DateTime dateGenerated);
-                                getLastVisited.Text = dateGenerated.ToString("dd/MM/yyyy");
+                                getLastVisited.Text = dateGenerated.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
                             }
                             else
                                 getLastVisited.Text = "- (First Time Visit)";
                         }
-                        con.Close();
                     }
                 }
             }
@@ -499,78 +254,81 @@ namespace TISMA_PSM
             {
                 //- Display handling-error message
                 SqlExceptionMsg(ex);
-            }
-            finally
-            {
-                //- Display success message
-                Debug.WriteLine("DB Execution Success: Queue Info");
             }
         }
 
         protected void UpdateToTisma(object sender, EventArgs e)
         {
             //- Manually calculate age from the retrieved DOB value rather than retrieving the Age value from DB
-            DateTime.TryParse(getDob.Text, out DateTime dob);
-            DateTime dobToAge = Convert.ToDateTime(dob);
-            int age = DateTime.Now.AddYears(-dobToAge.Year).Year;
+            DateTime dob =  DateTime.ParseExact(getDob.Text, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            int age = DateTime.Now.AddYears(-dob.Year).Year;
 
             //- Calculate the current session when the patient data is updated
-            String session = DateTime.Now.AddYears(-1).ToString("yyyy") + "/" + DateTime.Now.ToString("yyyy");
+            string session = DateTime.Now.AddYears(-1).ToString("yyyy", System.Globalization.CultureInfo.InvariantCulture) + "/" + DateTime.Now.ToString("yyyy", System.Globalization.CultureInfo.InvariantCulture);
 
-            //- DB Exception-Error handling
+            //- Validate if Marital Stat ddl is not selected
+            if (getMaritalStat.SelectedValue.Equals("Select"))
+                goto done;
+
+            //- Validate if Religion ddl is not selected
+            if (getReligion.SelectedValue.Equals("Select"))
+                goto done;
+
+            //- Validate if Phone is empty or Phone pattern is false
+            if (string.IsNullOrEmpty(getPhone.Text) || CheckPatternIsPhoneNo(getPhone.Text).Equals(false))
+                goto done;
+
+            //- Validate if Email is empty or Email pattern is false
+            if (string.IsNullOrEmpty(getEmail.Text) || CheckPatternIsEmail(getEmail.Text).Equals(false))
+                goto done;
+
+            //- Validate if Email is empty or Email pattern is false
+            if (string.IsNullOrEmpty(getDesignation.Text) || CheckPatternIsMultiLineText(getDesignation.Text).Equals(false))
+                goto done;
+
+            //- Validate if Address is empty or text pattern is false
+            if (string.IsNullOrEmpty(getAddress.Text) || CheckPatternIsMultiLineText(getAddress.Text).Equals(false))
+                goto done;
+
+            //- Validate if Passport not empty but passport pattern is false
+            if (!string.IsNullOrEmpty(getPassportNo.Text))
+                if (CheckPatternIsPassport(getPassportNo.Text).Equals(false))
+                    goto done;
+
+            //- Validate if Remarks not empty but text pattern is false
+            if (!string.IsNullOrEmpty(getRemarks.Text))
+                if (CheckPatternIsMultiLineText(getRemarks.Text).Equals(false))
+                    goto done;
+
+            //- DB Exception/Error handling
             try
             {
-                //- Update Query
-                string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-                using (SqlConnection con1 = new SqlConnection(constr))
+                using (SqlConnection con = new SqlConnection(GetConnectionStringTismaDB()))
                 {
-                    //- Table 'patient'
-                    using (SqlCommand cmd1 = new SqlCommand("UPDATE patient " +
-                                                           "SET p_passport_no = '" + getPassportNo.Text + "', " +
-                                                               "p_age = '" + age + "', " +
-                                                               "p_marital_stat = '" + getMaritalStat.SelectedValue + "', " +
-                                                               "p_religion = '" + getReligion.SelectedValue + "', " +
-                                                               "p_tel_no = '" + getPhone.Text + "', " +
-                                                               "p_email = '" + getEmail.Text + "', " +
-                                                               "p_designation = '" + getDesignation.Text + "', " +
-                                                               "p_session = '" + session + "', " +
-                                                               "p_address = '" + getAddress.Text + "', " +
-                                                               "p_remarks = '" + getRemarks.Text + "' " +
-                                                           "WHERE p_ic_no = '" + getIcNo.Text + "'", con1))
+                    con.Open();
+                    //- Update Query
+                    using (SqlCommand cmd = new SqlCommand("UPDATE patient SET p_passport_no = '" + getPassportNo.Text + "', " +
+                                                                              "p_age = '" + age + "', " +
+                                                                              "p_marital_stat = '" + getMaritalStat.SelectedValue + "', " +
+                                                                              "p_religion = '" + getReligion.SelectedValue + "', " +
+                                                                              "p_tel_no = '" + getPhone.Text + "', " +
+                                                                              "p_email = '" + getEmail.Text + "', " +
+                                                                              "p_designation = '" + getDesignation.Text + "', " +
+                                                                              "p_session = '" + session + "', " +
+                                                                              "p_address = '" + getAddress.Text + "', " +
+                                                                              "p_remarks = '" + getRemarks.Text + "' " +
+                                                                              "WHERE p_ic_no = '" + getIcNo.Text + "'", con))
                     {
-                        con1.Open();
-                        cmd1.ExecuteNonQuery();
-                        con1.Close();
-                        con1.Dispose();
+                        cmd.ExecuteNonQuery();
                     }
-                }
-                //- If category is 'Student', update 'semester'
-                if (getCategory.Text.Equals("Student"))
-                {
-                    //- DB Exception-Error handling
-                    try
+                    //- If category is 'Student', update 'semester'
+                    if (getCategory.Text.Equals("Student"))
                     {
-                        using (SqlConnection con2 = new SqlConnection(constr))
+                        //- Table 'patient_student'
+                        using (SqlCommand cmd = new SqlCommand("UPDATE patient_student SET semester = '" + getSem.Text + "' WHERE fk_ic_no = '" + getIcNo.Text + "'", con))
                         {
-                            //- Table 'patient_student'
-                            using (SqlCommand cmd2 = new SqlCommand("UPDATE patient_student SET semester = '" + getSem.Text + "' WHERE fk_ic_no = '" + getIcNo.Text + "'", con2))
-                            {
-                                con2.Open();
-                                cmd2.ExecuteNonQuery();
-                                con2.Close();
-                                con2.Dispose();
-                            }
+                            cmd.ExecuteNonQuery();
                         }
-                    }
-                    catch (SqlException ex)
-                    {
-                        //- Display handling-error message
-                        SqlExceptionMsg(ex);
-                    }
-                    finally
-                    {
-                        //- Display success message
-                        Debug.WriteLine("DB Execution Success: Update patient student data");
                     }
                 }
             }
@@ -579,112 +337,86 @@ namespace TISMA_PSM
                 //- Display handling-error message
                 SqlExceptionMsg(ex);
             }
-            finally
-            {
-                //- Display success message
-                Debug.WriteLine("DB Execution Success: Update patient data");
-            }
             ModalPopupMessageUpdate.Show();
+        done:;
         }
 
-        public static bool CheckIsQueueNotExist(String queueStr, DateTime dateGenerated)
+        private void DisplayPatientInfo(string accNo)
         {
-            //- Search Query
-            string constr = ConfigurationManager.ConnectionStrings["tismaDBConnectionString"].ConnectionString;
-            SqlConnection con = new SqlConnection(constr);
-            SqlCommand cmd = new SqlCommand("CheckIsQueueNotExist", con)
+            //- Object Patient model
+            ModelPatient patient = GetPatientInfoByAccNo(accNo);
+
+            //- Parse and render data
+            getIcNo.Text = patient.pIcNo;
+            getAccNo.Text = patient.pAccountNo; 
+            displayAccNo.Text = patient.pAccountNo; 
+            getAccNoQMS.Text = patient.pAccountNo;
+            getPassportNo.Text = patient.pPassportNo;
+            getPhone.Text = patient.pTelNo;
+            getEmail.Text = patient.pEmail;
+            getName.Text = patient.pName;
+            getDob.Text = patient.pDob;
+            getAge.Text = patient.pAge.ToString();
+            getGender.SelectedValue = patient.pGender;
+            getMaritalStat.SelectedValue = patient.pMaritalStat;
+            getReligion.SelectedValue = patient.pReligion;
+            getRace.SelectedValue = patient.pRace;
+            getNation.Text = patient.pNationality;
+            getAddress.Text = patient.pAddress;
+            getDesignation.Text = patient.pDesignation;
+            getCategory.Text = patient.pCategory; 
+            displayCategory.Text = patient.pCategory;
+            getSession.Text = patient.pSession;
+            getBranch.SelectedValue = patient.pBranch;
+            getRemarks.Text = patient.pRemarks;
+
+            if (patient.pCategory.Equals("Student"))
             {
-                CommandType = CommandType.StoredProcedure
-            };
-            cmd.Parameters.AddWithValue("@QueueNo", queueStr);
-            cmd.Parameters.AddWithValue("@DateGenerated", dateGenerated);
-            con.Open();
-            bool status = Convert.ToBoolean(cmd.ExecuteScalar());
-            con.Close();
+                //- Display note
+                note.Text = "The basic information were reffered from UTMHR SYSTEM / ACAD SYSTEM";
 
-            return status;
-        }
+                getMatricNo.Text = patient.pMatricNo;
+                getFacDep.Text = patient.pFaculty;
+                getCourse.Text = patient.pCourse;
+                getSem.Text = patient.pSemester.ToString();
+                getStat.Text = "UTM-ACAD";
 
-        public static string ConvertQueueNo(int queueNo)
-        {
-            String queueStr;
-            if (queueNo <= 9)
-                queueStr = "00" + queueNo.ToString();
-            else if (queueNo >= 10 && queueNo <= 99)
-                queueStr = "0" + queueNo.ToString();
-            else
-                queueStr = queueNo.ToString();
-            return queueStr;
-        }
-
-        public static string DecryptEMCPassword(string encryption)
-        {
-            //- Custom key
-            string EncryptionKey = "3NCRYPTP@55W0RD3MC";
-
-            //- Decrypt logic
-            encryption = encryption.Replace(" ", "+");
-            byte[] cipherBytes = Convert.FromBase64String(encryption);
-            using (Aes encryptor = Aes.Create())
-            {
-                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
-                    0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
-                });
-                encryptor.Key = pdb.GetBytes(32);
-                encryptor.IV = pdb.GetBytes(16);
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
-                    {
-                        cs.Write(cipherBytes, 0, cipherBytes.Length);
-                        cs.Close();
-                    }
-                    encryption = Encoding.Unicode.GetString(ms.ToArray());
-                }
+                //- Status activity
+                if (patient.utmAcadStat.Equals(true))
+                    statusText.Text = "Active";
+                else
+                    statusText.Text = "Not-active";
             }
-            return encryption;
-        }
-
-        public static string DecryptURL(string encryptedURL)
-        {
-            //- Custom key
-            string EncryptionKey = "3NCRYPTTH1SURLP4R4M";
-
-            //- Decrypt logic
-            encryptedURL = encryptedURL.Replace(" ", "+");
-            byte[] cipherBytes = Convert.FromBase64String(encryptedURL);
-            using (Aes encryptor = Aes.Create())
+            else if (patient.pCategory.Equals("Staff"))
             {
-                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
-                    0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
-                });
-                encryptor.Key = pdb.GetBytes(32);
-                encryptor.IV = pdb.GetBytes(16);
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
-                    {
-                        cs.Write(cipherBytes, 0, cipherBytes.Length);
-                        cs.Close();
-                    }
-                    encryptedURL = Encoding.Unicode.GetString(ms.ToArray());
-                }
-            }
-            return encryptedURL;
-        }
+                //- Display note
+                note.Text = "The basic information were reffered from UTMHR SYSTEM / ACAD SYSTEM";
 
-        public static void SqlExceptionMsg(SqlException ex)
-        {
-            StringBuilder errorMessages = new StringBuilder();
-            for (int i = 0; i < ex.Errors.Count; i++)
-            {
-                errorMessages.Append("Index #" + i + "\n" +
-                "Message: " + ex.Errors[i].Message + "\n" +
-                "LineNumber: " + ex.Errors[i].LineNumber + "\n" +
-                "Source: " + ex.Errors[i].Source + "\n" +
-                "Procedure: " + ex.Errors[i].Procedure + "\n");
+                //- Hide semester textbox
+                semTextbox.Visible = false;
+                semTitle.Visible = false;
+
+                getMatricNo.Text = patient.pStaffId;
+                getFacDep.Text = patient.pDepartment;
+                getStat.Text = "UTM-HR";
+
+                //- Status activity
+                if (patient.utmHrStat.Equals(true))
+                    statusText.Text = "Active";
+                else
+                    statusText.Text = "Not-active";
             }
-            Debug.WriteLine(errorMessages.ToString());
+            else if (patient.pCategory.Equals("Public"))
+            {
+                //- Display note
+                note.Text = "The basic information is registered as public";
+
+                //- Hide semester textbox
+                semTextbox.Visible = false;
+                semTitle.Visible = false;
+
+                statusText.Text = "Not-active";
+            }
         }
     }
 }

@@ -32,6 +32,31 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="tismaDBConnectionString-Deployment" Order="1">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=WILDONE\SQLEXPRESS%3bInitial Catalog=tismaDB%3bIntegrated Security=True" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\tismaDBConnectionString-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+        <ObjectGroup Name="utmacadConnectionString-Deployment" Order="2">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=WILDONE\SQLEXPRESS%3bInitial Catalog=utmacad%3bIntegrated Security=True" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\utmacadConnectionString-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+        <ObjectGroup Name="utmhrConnectionString-Deployment" Order="3">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=WILDONE\SQLEXPRESS%3bInitial Catalog=utmhr%3bIntegrated Security=True" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\utmhrConnectionString-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -74,6 +99,7 @@
     <Reference Include="ReachFramework" />
     <Reference Include="System.Printing" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -141,6 +167,15 @@
     <Content Include="bootstrap\js\popper.min.js" />
     <Content Include="Consultation.aspx" />
     <Content Include="custom\css\main.css" />
+    <Content Include="custom\icon\android-chrome-192x192.png" />
+    <Content Include="custom\icon\android-chrome-384x384.png" />
+    <Content Include="custom\icon\apple-touch-icon.png" />
+    <Content Include="custom\icon\browserconfig.xml" />
+    <Content Include="custom\icon\favicon-16x16.png" />
+    <Content Include="custom\icon\favicon-32x32.png" />
+    <Content Include="custom\icon\favicon.ico" />
+    <Content Include="custom\icon\mstile-150x150.png" />
+    <Content Include="custom\icon\safari-pinned-tab.svg" />
     <Content Include="custom\image\pkulogo.png" />
     <Content Include="Dashboard.aspx" />
     <Content Include="datatables\css\jquery.dataTables.min.css" />
@@ -1795,9 +1830,12 @@
     <Content Include="fontawesome\webfonts\fa-brands-400.svg" />
     <Content Include="fontawesome\webfonts\fa-regular-400.svg" />
     <Content Include="fontawesome\webfonts\fa-solid-900.svg" />
+    <Content Include="Forgot-Password.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="InternalServerError.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="OPD.aspx" />
+    <Content Include="PageNotFound.aspx" />
     <Content Include="Patient-Info.aspx" />
     <Content Include="Profile.aspx" />
     <Content Include="QMS.aspx" />
@@ -1805,8 +1843,11 @@
     <Content Include="Registration-New-Public.aspx" />
     <Content Include="Registration-New.aspx" />
     <Content Include="Registration.aspx" />
+    <Content Include="Reset-Password-Done.aspx" />
+    <Content Include="Reset-Password.aspx" />
     <Content Include="Staff-Info.aspx" />
     <Content Include="Staff.aspx" />
+    <Content Include="Statistic.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -1824,6 +1865,13 @@
     <Compile Include="Consultation.aspx.designer.cs">
       <DependentUpon>Consultation.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ControllerClinicalInfo.cs" />
+    <Compile Include="ControllerEMC.cs" />
+    <Compile Include="ControllerPatient.cs" />
+    <Compile Include="ControllerQMS.cs" />
+    <Compile Include="ControllerStaff.cs" />
+    <Compile Include="ControllerUtmAcad.cs" />
+    <Compile Include="ControllerUtmHr.cs" />
     <Compile Include="Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1838,8 +1886,23 @@
     <Compile Include="e-MC.aspx.designer.cs">
       <DependentUpon>e-MC.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Forgot-Password.aspx.cs">
+      <DependentUpon>Forgot-Password.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forgot-Password.aspx.designer.cs">
+      <DependentUpon>Forgot-Password.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helper.cs" />
+    <Compile Include="InternalServerError.aspx.cs">
+      <DependentUpon>InternalServerError.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InternalServerError.aspx.designer.cs">
+      <DependentUpon>InternalServerError.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -1862,12 +1925,25 @@
     <Compile Include="MasterWeb.Master.designer.cs">
       <DependentUpon>MasterWeb.Master</DependentUpon>
     </Compile>
+    <Compile Include="Models\ModelClinicalInfo.cs" />
+    <Compile Include="Models\ModelEMC.cs" />
+    <Compile Include="Models\ModelPatient.cs" />
+    <Compile Include="Models\ModelStaff.cs" />
+    <Compile Include="Models\ModelUtmHr.cs" />
+    <Compile Include="Models\ModelUtmAcad.cs" />
     <Compile Include="OPD.aspx.cs">
       <DependentUpon>OPD.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="OPD.aspx.designer.cs">
       <DependentUpon>OPD.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PageNotFound.aspx.cs">
+      <DependentUpon>PageNotFound.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PageNotFound.aspx.designer.cs">
+      <DependentUpon>PageNotFound.aspx</DependentUpon>
     </Compile>
     <Compile Include="Patient-Info.aspx.cs">
       <DependentUpon>Patient-Info.aspx</DependentUpon>
@@ -1919,6 +1995,20 @@
     <Compile Include="Registration.aspx.designer.cs">
       <DependentUpon>Registration.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reset-Password-Done.aspx.cs">
+      <DependentUpon>Reset-Password-Done.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reset-Password-Done.aspx.designer.cs">
+      <DependentUpon>Reset-Password-Done.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reset-Password.aspx.cs">
+      <DependentUpon>Reset-Password.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reset-Password.aspx.designer.cs">
+      <DependentUpon>Reset-Password.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Staff-Info.aspx.cs">
       <DependentUpon>Staff-Info.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1932,6 +2022,13 @@
     </Compile>
     <Compile Include="Staff.aspx.designer.cs">
       <DependentUpon>Staff.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Statistic.aspx.cs">
+      <DependentUpon>Statistic.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Statistic.aspx.designer.cs">
+      <DependentUpon>Statistic.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -2014,18 +2111,20 @@
     <Content Include="bootstrap\js\bootstrap.min.js.map" />
     <Content Include="bootstrap\js\jquery-3.4.1.min.map" />
     <Content Include="MasterWeb.Master" />
+    <Content Include="custom\icon\site.webmanifest" />
     <None Include="packages.config" />
-    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
-    <None Include="Properties\PublishProfiles\FTPProfile1.pubxml" />
-    <None Include="Properties\PublishProfiles\tisma-psm.com - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\tisma-psm.com - Web Deploy1.pubxml" />
-    <None Include="Properties\PublishProfiles\tisma-psm.pubxml" />
+    <None Include="Properties\PublishProfiles\main.pubxml" />
+    <None Include="Properties\PublishProfiles\tisma-psm.com - Web Deploy2.pubxml" />
+    <None Include="Properties\PublishProfiles\version1.2.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="custom\image\temp\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

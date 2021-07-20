@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web;
+using static TISMA_PSM.ControllerStaff;
 
 namespace TISMA_PSM
 {
@@ -7,24 +8,24 @@ namespace TISMA_PSM
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //- Check user session and retrieve user info
+            //- Check staff session info
             if (!Convert.ToString(Session["UserGranted"]).Equals("true"))
                 Response.Redirect("Login.aspx");
 
-            //-- Ger user name
-            string fullname = Convert.ToString(Session["UserName"]);
-            var names = fullname.Split(' ');
-            if (names.Length == 1)
-                getUserName.Text = names[0];
-            else if (names.Length == 2)
-                getUserName.Text = names[0] + " " + names[1];
-            else
-                getUserName.Text = names[0] + " " + names[1] + " " + names[2];
+            //- Get staff name
+            getUserName.Text = Convert.ToString(Session["UserName"]);
+            //var names = fullname.Split(' ');
+            //if (names.Length == 1)
+            //    getUserName.Text = names[0];
+            //else if (names.Length == 2)
+            //    getUserName.Text = names[0] + " " + names[1];
+            //else
+            //    getUserName.Text = names[0] + " " + names[1] + " " + names[2];
 
-            //-- Get user role
+            //-- Get and set staff role
             getUserRole.Text = Convert.ToString(Session["UserRole"]);
 
-            //-- User role ACL
+            //-- ACL setting based on user role
             if (Convert.ToString(Session["UserRole"]).Equals("Receptionist"))
             {
                 StaffLink.Visible = false;
@@ -32,6 +33,10 @@ namespace TISMA_PSM
             }
             if (Convert.ToString(Session["UserRole"]).Equals("Medical Officer"))
                 StaffLink.Visible = false;
+
+            //- Validate if this user account exist
+            if (CheckAccStaffNotExist(Convert.ToString(Session["UserAccNo"])).Equals(true))
+                Logout(null, EventArgs.Empty);
         }
 
         protected void Logout(object sender, EventArgs e)
@@ -56,3 +61,18 @@ namespace TISMA_PSM
         }
     }
 }
+
+/*
+
+//- DB Exception/Error handling
+try
+{
+
+}
+catch (SqlException ex)
+{
+    //- Display handling-error message
+    SqlExceptionMsg(ex);
+}
+
+*/

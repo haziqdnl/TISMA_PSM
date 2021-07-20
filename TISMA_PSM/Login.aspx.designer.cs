@@ -24,6 +24,15 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.TextBox getUsername;
 
         /// <summary>
+        /// UsernameIncorrectMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl UsernameIncorrectMsg;
+
+        /// <summary>
         /// RequiredFieldValidator1 control.
         /// </summary>
         /// <remarks>
@@ -42,15 +51,6 @@ namespace TISMA_PSM
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
 
         /// <summary>
-        /// UsernameIncorrectMsg control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl UsernameIncorrectMsg;
-
-        /// <summary>
         /// getPassword control.
         /// </summary>
         /// <remarks>
@@ -58,6 +58,15 @@ namespace TISMA_PSM
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox getPassword;
+
+        /// <summary>
+        /// PasswordIncorrectMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl PasswordIncorrectMsg;
 
         /// <summary>
         /// RequiredFieldValidator2 control.
@@ -76,15 +85,6 @@ namespace TISMA_PSM
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
-
-        /// <summary>
-        /// PasswordIncorrectMsg control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl PasswordIncorrectMsg;
 
         /// <summary>
         /// btnPassword control.
