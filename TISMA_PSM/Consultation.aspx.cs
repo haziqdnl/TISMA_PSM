@@ -840,7 +840,7 @@ namespace TISMA_PSM
             //- Get patient info
             ModelPatient patient = GetPatientInfoByAccNo(accNo);
             //- Get e-MC info
-            ModelEMC emc = GetEMCInfoByIcNo(patient.pIcNo);
+            ModelEMC emc = GetEMCInfoForTodayByIcNo(patient.pIcNo);
 
             //- Email content
             string subject = "Electronic Medical Certificate PKU: " + emc.serialNo;

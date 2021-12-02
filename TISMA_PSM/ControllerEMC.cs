@@ -236,7 +236,6 @@ namespace TISMA_PSM
                         bitMap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                         byteImage = new byte[ms.ToArray().Length];
                         byteImage = ms.ToArray();
-                        //imgQRCode.ImageUrl = "data:image/png;base64," + Convert.ToBase64String(byteImage); This will be use for displaying the QR Code in e-MC
                     }
                 }
             }

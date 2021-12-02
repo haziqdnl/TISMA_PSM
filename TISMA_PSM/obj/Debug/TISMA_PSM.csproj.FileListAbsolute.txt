@@ -76,4 +76,3 @@ C:\Users\user\Documents\#PSM2 Project\TISMA_PSM\TISMA_PSM\obj\Debug\TISMA_PSM.cs
 C:\Users\user\Documents\#PSM2 Project\TISMA_PSM\TISMA_PSM\obj\Debug\TISMA_PSM.csproj.CopyComplete
 C:\Users\user\Documents\#PSM2 Project\TISMA_PSM\TISMA_PSM\obj\Debug\TISMA_PSM.dll
 C:\Users\user\Documents\#PSM2 Project\TISMA_PSM\TISMA_PSM\obj\Debug\TISMA_PSM.pdb
-C:\Users\user\Documents\#PSM2 Project\TISMA_PSM\TISMA_PSM\obj\Debug\TISMA_PSM.csproj.AssemblyReference.cache
